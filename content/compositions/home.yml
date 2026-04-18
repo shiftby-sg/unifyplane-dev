@@ -5,7 +5,7 @@
       "id": "hero",
       "kind": "hero",
       "headline": "The problem is not just complexity.",
-      "subhead": "Continuity between intended change, implemented reality, and runtime behavior often weakens over time. UnifyPlane is an evidence-oriented continuity approach already grounded in implementation, with current readiness kept explicit where controls, safety, security, and runtime trust matter.",
+      "subhead": "Continuity between intended change, implemented reality, and runtime behavior often weakens over time. UnifyPlane is an evidence-oriented continuity approach grounded in implementation, with readiness explicit where control and runtime trust matter.",
       "primaryCta": { "label": "What is UnifyPlane", "href": "/what-is-unifyplane" },
       "secondaryCta": { "label": "Why it matters", "href": "/why-it-matters" }
     },
@@ -20,7 +20,7 @@
       "id": "why",
       "kind": "summary",
       "title": "Why it matters",
-      "description": "Why continuity weakens across design, delivery, runtime, operations, and assurance — and why that makes change harder to manage and explain.",
+      "description": "In mixed estates (custom, COTS, SaaS, managed services, vendor delivery), continuity fragments across docs, tickets, repos, dashboards, and artifacts—decisions get made from partial summaries.",
       "href": "/why-it-matters"
     },
     {

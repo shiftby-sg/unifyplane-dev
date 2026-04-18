@@ -107,11 +107,13 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
               <p className={styles.cardDesc}>{evidence.description}</p>
             </Link>
             <TrustBox label="Evidence scope">
-              <p className={styles.trustLine}>Artifacts and runs support current claims.</p>
-              <p className={styles.trustLine}>Evidence does not equal full maturity.</p>
               <p className={styles.trustLine}>
-                Evidence is about artifacts, runs, and what they support. It should clarify current
-                claims, not inflate maturity.
+                Artifacts and runs (proof + drift surfaces) support current claims within explicit
+                boundaries.
+              </p>
+              <p className={styles.trustLine}>
+                Use evidence to assess whether control and security assumptions still hold; it does
+                not equal full maturity.
               </p>
             </TrustBox>
           </section>
