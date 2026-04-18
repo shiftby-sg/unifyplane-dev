@@ -30,17 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <SiteHeader />
-        <main id="main">
-          <div
-            style={{
-              maxWidth: "var(--layout-content)",
-              margin: "0 auto",
-              padding: "var(--space-8) var(--space-4)",
-            }}
-          >
-            {children}
-          </div>
-        </main>
+        <main id="main">{children}</main>
         <SiteFooter />
         <script
           type="application/ld+json"

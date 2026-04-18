@@ -44,10 +44,9 @@
   text-decoration: none;
 }
 
-.grid {
+.sections {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-3);
+  gap: var(--space-8);
   margin: var(--space-8) 0;
 }
 
@@ -58,6 +57,21 @@
   background: rgba(255, 255, 255, 0.02);
 }
 
+.cardEmphasis {
+  background: rgba(138, 180, 255, 0.08);
+}
+
+.section {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
 .cardTitle {
   margin: 0 0 var(--space-2);
   font-size: 1.1rem;
@@ -66,6 +80,15 @@
 .cardDesc {
   margin: 0;
   color: var(--color-muted);
+}
+
+.boundary {
+  max-width: 72ch;
+}
+
+.pair {
+  display: grid;
+  gap: var(--space-6);
 }
 
 .links {
@@ -86,8 +109,7 @@
   .headline {
     font-size: 2.6rem;
   }
-  .grid {
+  .pair {
     grid-template-columns: 1fr 1fr;
   }
 }
-

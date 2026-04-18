@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   const composition = await loadHomeComposition();
   return (
-    <PageShell pathname="/">
+    <PageShell pathname="/" width="wide">
       <HomeCompositionView composition={composition} />
       <JsonLd
         data={pageJsonLd({
