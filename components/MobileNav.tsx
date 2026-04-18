@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import styles from "./MobileNav.module.css";
 import headerStyles from "./SiteHeader.module.css";
 import { primaryNav } from "../lib/site/nav";
@@ -18,7 +18,8 @@ export function MobileNav() {
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
-  const ids = useMemo(() => ({ panel: `mobile-nav-${crypto.randomUUID()}` }), []);
+  const reactId = useId();
+  const panelId = useMemo(() => `mobile-nav-${reactId.replaceAll(":", "")}`, [reactId]);
 
   useEffect(() => {
     if (!open) return;
@@ -71,7 +72,7 @@ export function MobileNav() {
         className={headerStyles.mobileToggle}
         aria-haspopup="dialog"
         aria-expanded={open}
-        aria-controls={ids.panel}
+        aria-controls={panelId}
         onClick={() => setOpen(true)}
       >
         Menu
@@ -84,7 +85,7 @@ export function MobileNav() {
             onClick={() => setOpen(false)}
           />
           <div
-            id={ids.panel}
+            id={panelId}
             ref={panelRef}
             className={styles.panel}
             role="dialog"
@@ -118,4 +119,3 @@ export function MobileNav() {
     </>
   );
 }
-
