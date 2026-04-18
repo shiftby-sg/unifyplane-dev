@@ -139,7 +139,7 @@ The aim is to create a disciplined way to work inside it.
 This is also why the current UnifyPlane work looks the way it does.
 
 Today, the strongest current reality is not a generic enterprise product.
-It is an evidence-backed implementation center in `unifyplane-core`, with real authority paths such as `content-agents` and `inspect-repo`.
+It is an evidence-backed implementation center in `unifyplane-core`, with real authority paths such as `agent-runtime` and `inspect-repo`.
 
 That matters because it shows how the discipline can be implemented in practice.
 

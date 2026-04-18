@@ -227,7 +227,7 @@ It reduces the amount of silent divergence that later changes would otherwise bu
 
 The current authority paths also show another important direction.
 
-In `content-agents`, the current behavior is still early-stage and sample-level.
+In `agent-runtime`, the current behavior is still early-stage and sample-level.
 But the structure already shows a bounded authority path with gate/task logic and authority-side evidence.
 
 That matters because future agentic systems will need stronger ways to reduce:

@@ -130,7 +130,7 @@ It is especially visible through:
 
 * bounded runtime roles in `unifyplane-core`
 * authority invocation plans
-* distinct authority paths such as `content-agents` and `inspect-repo`
+* distinct authority paths such as `agent-runtime` and `inspect-repo`
 * runtime checks around authority binding and execution shape
 * authority-side evidence surfaces
 
@@ -220,7 +220,7 @@ That is why authority is so important for bounded agent participation.
 In UnifyPlane, agents should not become mysterious runtime centers.
 They should remain bounded execution participants whose role is visible and inspectable.
 
-The current `content-agents` direction already points toward that pattern, even though it is still early in maturity.
+The current `agent-runtime` direction already points toward that pattern, even though it is still early in maturity.
 
 ---
 

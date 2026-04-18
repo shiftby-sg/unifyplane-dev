@@ -64,12 +64,12 @@ Core already demonstrates more than one downstream authority shape.
 
 The current evidence shows two real authority paths:
 
-* `unifyplane-core` → `content-agents`
+* `unifyplane-core` → `agent-runtime`
 * `unifyplane-core` → `inspect-repo`
 
 These are materially different:
 
-* `content-agents` shows a bounded agentic authority path with authority-side runtime evidence
+* `agent-runtime` shows a bounded agentic authority path with authority-side runtime evidence
 * `inspect-repo` shows a bounded multi-tool inspection authority path with authority-side inspection artifacts and summaries
 
 This matters because it proves Core is not tied to one local execution shape. It can already coordinate different authority types under one bounded runtime discipline.
@@ -172,7 +172,7 @@ These are still weaker than the current proof and drift layers.
 
 Core can invoke other authorities under a bounded model, but those authorities are not yet equally mature.
 
-* `content-agents` is real, but current demonstrated behavior is still early and sample-level
+* `agent-runtime` is real, but current demonstrated behavior is still early and sample-level
 * `inspect-repo` is real, but some current inspection outputs are still stub-backed in development
 
 So Core is stronger than the downstream ecosystem around it.

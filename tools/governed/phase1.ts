@@ -77,6 +77,11 @@ export async function runPhase1({ runDir }: { runDir: string }): Promise<void> {
     await ensureDir(path.join(process.cwd(), d));
   }
 
+  // Clean content/core before copying to avoid stale orphaned files surviving canonical renames.
+  const contentCoreAbs = path.join(process.cwd(), "content", "core");
+  await fs.rm(contentCoreAbs, { recursive: true, force: true });
+  await ensureDir(contentCoreAbs);
+
   const copyRecords: Array<{
     source: string;
     target: string;

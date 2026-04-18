@@ -125,7 +125,7 @@ already help show whether runtime stayed inside the expected shape.
 
 The current authority paths also show bounded execution at the authority level:
 
-* `content-agents` follows a bounded authority-side runtime path
+* `agent-runtime` follows a bounded authority-side runtime path
 * `inspect-repo` follows a bounded multi-tool inspection path
 
 That matters because bounded execution is already visible across more than one runtime shape.
@@ -191,7 +191,7 @@ then behavior drift becomes much harder to control.
 
 That is why bounded execution is one of the important structural ideas for future agent participation.
 
-The current `content-agents` path is still early, but it already shows the pattern:
+The current `agent-runtime` path is still early, but it already shows the pattern:
 agent execution should be bounded enough that later runtime and evidence can still be explained.
 
 ---

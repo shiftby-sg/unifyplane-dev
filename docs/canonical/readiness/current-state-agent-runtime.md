@@ -1,8 +1,8 @@
-# content-agents-authority-current-readiness.md
+# agent-runtime-authority-current-readiness.md
 
 ## Content Agents Authority — Current Readiness
 
-This page separates what can be said confidently about the current `content-agents` authority from what is still emerging and what remains future-facing.
+This page separates what can be said confidently about the current `agent-runtime` authority from what is still emerging and what remains future-facing.
 
 The purpose is simple: keep the readiness story honest.
 
@@ -12,7 +12,7 @@ Content Agents is already a real authority in the current UnifyPlane landscape. 
 
 ## Proven Now
 
-These are capabilities that are already real in the current state of `content-agents`.
+These are capabilities that are already real in the current state of `agent-runtime`.
 
 ### Declared design structure exists
 
