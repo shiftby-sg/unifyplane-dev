@@ -1,0 +1,9 @@
+[build]
+  command = "pnpm run ci"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "20"
+
