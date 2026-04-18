@@ -43,7 +43,7 @@ async function parseRegistry(registryRelPath: string): Promise<ReadonlyArray<Reg
 }
 
 function expectedCanonical(siteUrl: string, route: string): string {
-  return `${siteUrl}${route === "/" ? "" : ""}${route}`;
+  return route === "/" ? siteUrl : `${siteUrl}${route}`;
 }
 
 function isValidCanonical(siteUrl: string, canonical: string, route: string): boolean {

@@ -5,12 +5,12 @@ import { JsonLd } from "../components/JsonLd";
 import { pageJsonLd } from "../lib/seo/jsonld-page";
 import { loadHomeComposition } from "../lib/content/compositions";
 import { HomeCompositionView } from "../components/HomeComposition";
+import { HOME_DESCRIPTION, HOME_JSONLD_HEADLINE, HOME_TITLE } from "../lib/seo/home";
 
 export async function generateMetadata(): Promise<Metadata> {
   return pageMetadata({
-    title: "UnifyPlane",
-    description:
-      "UnifyPlane is an evidence-oriented continuity approach for helping organizations keep change manageable and runtime behavior explainable over time.",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
     canonicalPath: "/",
     ogType: "website",
   });
@@ -25,9 +25,8 @@ export default async function HomePage() {
         data={pageJsonLd({
           pathname: "/",
           type: "WebPage",
-          headline: "UnifyPlane",
-          description:
-            "UnifyPlane is an evidence-oriented continuity approach for helping organizations keep change manageable and runtime behavior explainable over time.",
+          headline: HOME_JSONLD_HEADLINE,
+          description: HOME_DESCRIPTION,
         })}
       />
     </PageShell>

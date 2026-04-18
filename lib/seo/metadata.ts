@@ -7,7 +7,7 @@ export function pageMetadata(args: {
   ogType: "website" | "article";
 }): Metadata {
   const siteUrl = "https://unifyplane.dev";
-  const canonical = `${siteUrl}${args.canonicalPath}`;
+  const canonical = args.canonicalPath === "/" ? siteUrl : `${siteUrl}${args.canonicalPath}`;
   return {
     title: args.title,
     description: args.description,
@@ -26,4 +26,3 @@ export function pageMetadata(args: {
     },
   };
 }
-

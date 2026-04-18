@@ -1,5 +1,13 @@
+.heroBand {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+  padding: var(--space-8) var(--space-4);
+  margin: var(--space-6) 0 var(--space-8);
+}
+
 .hero {
-  padding: var(--space-8) 0 var(--space-6);
+  max-width: 76ch;
 }
 
 .headline {
@@ -12,7 +20,6 @@
 .subhead {
   margin: 0 0 var(--space-4);
   color: var(--color-muted);
-  max-width: 60ch;
 }
 
 .ctaRow {
@@ -44,10 +51,43 @@
   text-decoration: none;
 }
 
-.sections {
+.contextBand {
+  margin: 0 0 var(--space-8);
+}
+
+.contextGrid {
   display: grid;
-  gap: var(--space-8);
-  margin: var(--space-8) 0;
+  gap: var(--space-6);
+}
+
+.contextBand .card {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.trustBand {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+  padding: var(--space-6) var(--space-4);
+  margin: 0 0 var(--space-8);
+}
+
+.trustGrid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.trustPanel {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.routeBand {
+  margin: 0 0 var(--space-6);
+}
+
+.routeBand .card {
+  background: rgba(255, 255, 255, 0.015);
 }
 
 .card {
@@ -92,6 +132,8 @@
 .trustLabel {
   font-weight: 700;
   letter-spacing: -0.01em;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .trustBody {
@@ -99,6 +141,14 @@
   display: grid;
   gap: var(--space-3);
   max-width: 84ch;
+}
+
+.trustBoxReadiness {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.trustBoxEvidence {
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .rail {
@@ -139,11 +189,17 @@
   margin: 0;
   font-weight: 600;
   color: var(--color-fg);
+  padding-left: 10px;
+  border-left: 2px solid rgba(138, 180, 255, 0.35);
 }
 
 .pair {
   display: grid;
   gap: var(--space-6);
+}
+
+.exploreBand {
+  margin-top: var(--space-6);
 }
 
 .links {
@@ -163,6 +219,17 @@
 @media (min-width: 900px) {
   .headline {
     font-size: 2.6rem;
+  }
+  .heroBand {
+    padding: var(--space-10) var(--space-6);
+  }
+  .contextGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+  .trustGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
   }
   .pair {
     grid-template-columns: 1fr 1fr;

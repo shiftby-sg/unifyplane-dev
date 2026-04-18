@@ -24,6 +24,8 @@ If that is the problem, then evidence matters because it helps answer basic ques
 
 UnifyPlane is strongest where it can answer those questions from real runtime and inspection artifacts rather than from assumption alone.
 
+Evidence also matters because it is one of the only practical ways to assess whether control, safety, and security assumptions still hold after change and drift. This page is careful to keep that trust question explicit without turning evidence into a maturity claim.
+
 ---
 
 ## What Counts as Evidence Here
@@ -47,6 +49,8 @@ These show what actually happened during execution, including runtime summaries,
 These show whether declared intent, derived execution, and runtime behavior remained aligned. This includes traceability, lineage, reconciliation, integrity, and evidence-boundary checks.
 
 Not every artifact has the same role. Some show what was declared. Some show what was derived. Some show what happened at runtime. Some help verify whether those remained aligned.
+
+When this page refers to **proof + drift surfaces**, it means the parts of the system that make continuity explainable after the fact: what can be shown, what can be reconciled, and what makes silent drift visible. Those surfaces are what allow evidence to support control and runtime trust questions without overstating capability.
 
 ---
 
@@ -181,6 +185,7 @@ This page is also here to keep boundaries clear.
 The current evidence base does **not yet fully prove**:
 
 * broad lifecycle change assessment across every SDLC phase
+* broad control, safety, and security assurance across diverse estates
 * strong cross-repo dependency graph intelligence
 * broad end-to-end impact visibility
 * mature consequence reasoning

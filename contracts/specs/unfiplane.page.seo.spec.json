@@ -132,8 +132,8 @@
       "route": "/",
       "readerQuestion": "What problem is this site about, what is UnifyPlane, is it already real, and where should I go next?",
       "meta": {
-        "title": "UnifyPlane",
-        "description": "UnifyPlane is an evidence-oriented continuity approach for helping organizations keep change manageable and runtime behavior explainable over time.",
+        "title": "UnifyPlane — Evidence-Oriented Continuity",
+        "description": "Evidence-oriented continuity for design-to-runtime change: explicit readiness, proof and drift surfaces, and clear routes to what exists today and what remains future.",
         "openGraphType": "website"
       },
       "jsonLd": [
@@ -213,6 +213,34 @@
     }
   },
   "routeSpecs": [
+    {
+      "route": "/",
+      "pageType": "home",
+      "readerQuestion": "What problem is this site about, what is UnifyPlane, is it already real, and where should I go next?",
+      "title": "UnifyPlane — Evidence-Oriented Continuity",
+      "description": "Evidence-oriented continuity for design-to-runtime change: explicit readiness, proof and drift surfaces, and clear routes to what exists today and what remains future.",
+      "canonical": "https://unifyplane.dev",
+      "truthSource": [
+        "core/website-information-architecture",
+        "core/what-is-unifyplane"
+      ],
+      "derivedFrom": [
+        "core/website-information-architecture",
+        "core/what-is-unifyplane"
+      ],
+      "mustLinkTo": [
+        "/what-is-unifyplane",
+        "/why-it-matters",
+        "/current-readiness",
+        "/evidence",
+        "/components",
+        "/foundations"
+      ],
+      "jsonLd": [
+        "WebPage"
+      ],
+      "indexable": true
+    },
     {
       "route": "/what-is-unifyplane",
       "pageType": "canonicalPublicPage",
