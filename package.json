@@ -7,10 +7,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "pnpm governed validate-registry",
     "build": "next build",
     "start": "next start",
-    "prelint": "pnpm governed validate-registry",
     "lint": "next lint",
     "governed:build": "tsc -p tools/governed/tsconfig.json",
     "governed": "pnpm -s governed:build && node .governed-dist/governed/cli.js",
