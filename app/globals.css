@@ -1,0 +1,88 @@
+:root {
+  --color-bg: #0b0f14;
+  --color-fg: #e7eef7;
+  --color-muted: #a9b4c3;
+  --color-border: rgba(231, 238, 247, 0.12);
+  --color-accent: #8ab4ff;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  --layout-content: 52rem;
+  --layout-wide: 76rem;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.6;
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+.skipLink {
+  position: absolute;
+  left: -9999px;
+  top: var(--space-2);
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+.skipLink:focus {
+  left: var(--space-2);
+  z-index: 1000;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+main {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

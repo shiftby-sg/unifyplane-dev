@@ -1,0 +1,17 @@
+{
+  "version": "1",
+  "routes": [
+    { "route": "/", "pageType": "home" },
+    { "route": "/what-is-unifyplane", "pageType": "canonicalPublicPage" },
+    { "route": "/why-it-matters", "pageType": "canonicalPublicPage" },
+    { "route": "/current-readiness", "pageType": "canonicalPublicPage" },
+    { "route": "/evidence", "pageType": "canonicalPublicPage" },
+    { "route": "/components", "pageType": "landingPage" },
+    { "route": "/components/[slug]", "pageType": "deepDocPage" },
+    { "route": "/foundations", "pageType": "landingPage" },
+    { "route": "/foundations/[slug]", "pageType": "deepDocPage" },
+    { "route": "/writing", "pageType": "landingPage" },
+    { "route": "/writing/[slug]", "pageType": "writingPage" }
+  ]
+}
+

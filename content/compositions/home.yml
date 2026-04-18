@@ -1,0 +1,68 @@
+{
+  "version": "1",
+  "sections": [
+    {
+      "id": "hero",
+      "kind": "hero",
+      "headline": "The problem is not just complexity.",
+      "subhead": "Continuity between intended change, implemented reality, and runtime behavior often weakens over time. UnifyPlane is an evidence-oriented continuity approach for keeping change manageable and runtime behavior explainable.",
+      "primaryCta": { "label": "What is UnifyPlane", "href": "/what-is-unifyplane" },
+      "secondaryCta": { "label": "Why it matters", "href": "/why-it-matters" }
+    },
+    {
+      "id": "what",
+      "kind": "summary",
+      "title": "What UnifyPlane is",
+      "description": "A bounded execution, evidence, and drift-reduction approach — not a packaged software product.",
+      "href": "/what-is-unifyplane"
+    },
+    {
+      "id": "why",
+      "kind": "summary",
+      "title": "Why it matters",
+      "description": "Why continuity weakens across design, delivery, runtime, operations, and assurance — and why that makes change harder to manage and explain.",
+      "href": "/why-it-matters"
+    },
+    {
+      "id": "readiness",
+      "kind": "summary",
+      "title": "Current Readiness",
+      "description": "What is proven now, what is implemented but immature, and what is future but grounded.",
+      "href": "/current-readiness"
+    },
+    {
+      "id": "evidence",
+      "kind": "summary",
+      "title": "Evidence",
+      "description": "What evidence exists today, what it proves, and what it does not yet prove.",
+      "href": "/evidence"
+    },
+    {
+      "id": "components",
+      "kind": "summary",
+      "title": "Components",
+      "description": "The real operational parts of UnifyPlane: unifyplane-core, agent-runtime, inspect-repo — with honest maturity boundaries.",
+      "href": "/components"
+    },
+    {
+      "id": "foundations",
+      "kind": "summary",
+      "title": "Foundations",
+      "description": "Deeper explanations: continuity, proof, drift, evidence, change, impact — secondary to the core narrative path.",
+      "href": "/foundations"
+    },
+    {
+      "id": "explore",
+      "kind": "links",
+      "title": "Explore next",
+      "links": [
+        { "label": "What is UnifyPlane", "href": "/what-is-unifyplane" },
+        { "label": "Current Readiness", "href": "/current-readiness" },
+        { "label": "Evidence", "href": "/evidence" },
+        { "label": "Components", "href": "/components" },
+        { "label": "Foundations", "href": "/foundations" }
+      ]
+    }
+  ]
+}
+

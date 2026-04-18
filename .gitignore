@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+dist/
+.turbo/
+.cache/
+*.log
+docs/
+/evidence/
+.governed-dist/

@@ -1,70 +1,149 @@
-Yes. Here is the best implementation blueprint for building `unifyplane.dev` in **Next.js** with your IA and canonical markdown files as the source of truth.
+Yes — here is a revised **implementation model v2** that incorporates the structural fixes.
 
-## 1. Core implementation model
+## Revised implementation model v2
 
-Build it as a **content-first, statically rendered documentation site**.
+### 1. Core implementation model
+
+Build `unifyplane.dev` as a **content-governed, statically rendered documentation site**.
 
 Use:
 
 * **Next.js App Router**
 * **Server Components by default**
-* **static generation for all canonical pages**
-* **markdown as the source of truth**
+* **static generation for all canonical public routes**
+* **markdown-backed content with explicit content classes**
 * **very limited client-side interactivity**
+* **composition-driven homepage assembly**
+* **registry-driven routing for Components and Foundations**
 
-This is the right fit because your site is:
+This remains the right technical shape because the site is content-led, SEO-sensitive, trust-sensitive, mostly static, and performance-sensitive. The underlying IA also requires disciplined separation between current truth, evidence, operational parts, and deeper foundations.  
 
-* content-led
-* SEO-critical
-* trust-sensitive
-* mostly static
-* performance-sensitive
+---
 
-The App Router is the current Next.js routing model and is built around layouts, Server Components, and optimized navigation. `generateStaticParams` supports static generation of dynamic routes at build time, and metadata is designed to be resolved on the server for inclusion in initial HTML. `next/font` and `next/image` are built for optimized fonts and images. ([Next.js][1])
+### 2. Governing chain
 
-## 2. The governing chain
+The implementation must be controlled by this chain:
 
-Your site should be implemented around this chain:
+**practical problem recognition → plain-language definition → current readiness → evidence → operational parts → deeper foundations**
 
-**practical problem recognition → plain-language definition → current readiness → evidence → operational parts → deeper foundations** 
+And the reader-facing flow remains:
 
-And the page-flow version should remain:
+**problem → definition → current truth → evidence → operational reality → deeper understanding**
 
-**problem → definition → current truth → evidence → operational reality → deeper understanding** 
+This chain should control:
 
-That chain should control:
-
-* routing
+* route order
 * homepage section order
-* internal links
-* sidebar order
+* top-level navigation order
 * breadcrumbs
+* related-page links
 * CTA placement
+* sidebar order
 * SEO hierarchy
 
-## 3. Canonical markdown architecture
+This is not just messaging structure. It is the site’s primary information-control system.  
 
-Treat all `.md` files as canonical content sources.
+---
 
-Suggested content structure:
+### 3. Content-governance model
+
+Define three explicit content classes.
+
+#### A. Canonical
+
+These are source-of-truth project documents.
+
+Purpose:
+
+* define the authoritative meaning
+* anchor public pages
+* prevent interpretive drift
+
+Examples:
+
+* Problem Statement
+* What is UnifyPlane
+* Website Information Architecture
+
+Rule:
+
+* canonical documents are not casually rewritten to suit page needs
+* public pages derive from them
+
+#### B. Publishable
+
+These are public-facing pages rendered on the site.
+
+Purpose:
+
+* present a bounded, audience-aware version of canonical truth
+* serve one clear page role
+* remain aligned to canonical sources
+
+Examples:
+
+* `/what-is-unifyplane`
+* `/why-it-matters`
+* `/current-readiness`
+* `/evidence`
+* component pages
+* foundation pages
+
+Rule:
+
+* publishable pages may summarize, organize, or clarify
+* they must not redefine canonical truth
+
+#### C. Composed
+
+These are assembly/configuration artifacts, not truth sources.
+
+Purpose:
+
+* control homepage section order
+* control navigation
+* control routing maps
+* define excerpts, promos, and crosslinks
+
+Examples:
+
+* home composition config
+* navigation config
+* page map
+* related-link config
+
+Rule:
+
+* composed artifacts may arrange content
+* they should own minimal prose
+
+This model is needed because the IA explicitly requires canonical truth to stay easy to preserve and pages not to redefine one another. 
+
+---
+
+### 4. Revised content architecture
+
+Use this structure instead of making homepage sections their own truth sources.
 
 ```txt
 /content
-  /site
-    home.md
-    hero.md
+  /core
+    problem-statement.md
+    what-is-unifyplane.md
+    website-information-architecture.md
+
+  /pages
     what-is-unifyplane.md
     why-it-matters.md
     current-readiness.md
     evidence.md
-    navigation.md
-    page-map.md
-    page-inventory.md
+
   /components
     index.md
     unifyplane-core.md
     agent-runtime.md
     inspect-repo.md
+
   /foundations
     index.md
     continuity.md
@@ -73,19 +152,31 @@ Suggested content structure:
     evidence.md
     change.md
     impact.md
-  /core
-    problem-statement.md
-    website-information-architecture.md
+
+  /compositions
+    home.yml
+    navigation.yml
+    page-map.yml
+    related-links.yml
 ```
 
-Rule:
+#### Key rule
 
-* `/core` = source-of-truth docs
-* `/site`, `/components`, `/foundations` = publishable pages derived from that truth
+Do **not** use `hero.md` as a standalone truth source.
 
-This matches your IA principle that canonical truth should be easy to preserve and pages should not redefine one another. 
+The homepage should be composed from:
 
-## 4. Recommended route map
+* curated excerpts derived from canonical or publishable pages
+* route cards generated from registries
+* minimal homepage-only framing text where truly necessary
+
+That keeps the home page from becoming a duplicate narrative source. 
+
+---
+
+### 5. Route map
+
+Keep the public route map aligned to the IA.
 
 ```txt
 /
@@ -107,17 +198,64 @@ This matches your IA principle that canonical truth should be easy to preserve a
  /foundations/change
  /foundations/impact
 
- /writing   (later)
- /writing/[slug]   (later)
+ /writing
+ /writing/[slug]
 ```
 
-This directly follows the IA and current page map.
+#### Routing rule
 
-## 5. Page-template system
+Do not let route generation depend only on “whatever file exists in a folder.”
 
-Build only a few templates.
+Use explicit registries for:
 
-### A. Landing page template
+* Components
+* Foundations
+* Writing later
+
+This keeps public IA intentional and prevents accidental exposure of incomplete content.  
+
+---
+
+### 6. Registry-driven public surfaces
+
+Add explicit registries.
+
+#### `components.config.ts`
+
+Each entry should define:
+
+* slug
+* nav label
+* title
+* order
+* public visibility
+* maturity label
+* truth-source mapping
+* related pages
+
+#### `foundations.config.ts`
+
+Each entry should define:
+
+* slug
+* nav label
+* title
+* order
+* public visibility
+* current-demonstrated-use
+* intended broader use
+* future-scope note
+* related pages
+
+This is especially important because the IA says Components are operational parts only, and Foundations must distinguish current demonstrated use from broader intended use and future scope. 
+
+---
+
+### 7. Page-template system
+
+Keep the template system small, but make page roles stricter.
+
+#### A. Landing page template
 
 Use for:
 
@@ -127,11 +265,12 @@ Use for:
 
 Pattern:
 
-* short intro
-* section cards
-* route deeper
+* short framing intro
+* route cards
+* bounded summaries
+* “where to go next”
 
-### B. Canonical content page template
+#### B. Canonical public page template
 
 Use for:
 
@@ -145,10 +284,11 @@ Pattern:
 * H1
 * lead paragraph
 * structured sections
-* boundary note if needed
-* related-page CTA
+* boundary note where needed
+* evidence/maturity cues where needed
+* related-page footer
 
-### C. Deep doc page template
+#### C. Deep doc template
 
 Use for:
 
@@ -160,19 +300,43 @@ Pattern:
 * H1
 * lead definition
 * section TOC
-* right rail or in-page nav on desktop
-* “read next” footer
+* boundary markers
+* desktop in-page nav
+* read-next footer
 
-This keeps “one page, one job” intact. 
+#### D. Writing template
 
-## 6. Homepage implementation blueprint
+Use later for:
 
-The homepage must optimize for:
+* essays
+* walkthroughs
+* audience-specific explanation
 
-* **hero signal under 3 seconds**
-* **home section signal under 10 seconds**
+Pattern:
 
-Use the IA section order exactly:
+* H1
+* dek
+* article body
+* source grounding
+* canonical crosslinks
+
+This preserves the IA’s “one page, one job” principle. 
+
+---
+
+### 8. Homepage implementation model
+
+The homepage is a **routing surface**, not a full canonical page.
+
+Its job is to make these immediately legible:
+
+* the problem
+* what UnifyPlane is
+* whether it is already real
+* where evidence sits
+* where to go next
+
+Use this exact order:
 
 1. Hero
 2. Why this matters in practice
@@ -180,164 +344,105 @@ Use the IA section order exactly:
 4. Current Readiness
 5. Evidence first
 6. Components
-7. Explore deeper 
+7. Explore deeper
 
-### Hero implementation rules
+#### Homepage source-control rule
 
-Above the fold should contain only:
+Each homepage section must be one of only three types:
 
-* one H1
-* one clarifying subhead
-* one support sentence
-* 2–3 CTA links
+* **canonical excerpt**
+* **curated summary derived from a source page**
+* **registry-generated route block**
 
-No:
+Do not allow long freeform homepage prose to accumulate.
 
-* carousel
-* animation-heavy intro
-* auto-rotating content
-* giant image
-* video
-* long paragraph stack
+That prevents duplication drift between Home, What is UnifyPlane, and Why it matters.  
 
-Your hero should be mostly text, instantly visible, and server-rendered.
+---
 
-## 7. Performance blueprint
+### 9. Boundary system
 
-Your stated goals:
+Boundary signaling must be built into the UI system, not handled ad hoc.
 
-* blazing speed
-* low LCP
-* low INP
-* mobile optimized
+Create reusable primitives:
 
-The biggest wins come from architecture, not tricks.
+* `ReadinessBadge`
+* `BoundaryNote`
+* `EvidenceScope`
+* `CurrentVsFutureBlock`
+* `MaturityCallout`
 
-### Use these defaults
+Use them to consistently show:
 
-* Server Components for all content pages
-* static generation for all known routes
-* `next/font` for self-hosted fonts
-* `next/image` only where images truly matter
-* no client-side markdown rendering
-* no heavy runtime styling system on first paint
-* no unnecessary third-party scripts
-* no full-page animation libraries
+* proven now
+* implemented but immature
+* future but grounded
+* evidence-supported
+* not yet established
 
-`generateMetadata` is server-side, `generateStaticParams` supports static route generation, `next/font` optimizes font loading, and `next/image` provides automatic image optimization. Core Web Vitals guidance remains centered on optimizing metrics like LCP and INP. ([Next.js][2])
+This matters because the IA treats Current Readiness as the trust page, requires visible scope signaling, and insists that maturity and evidence boundaries remain explicit across the site. 
 
-### Performance target mindset
+---
 
-* Hero readable immediately
-* first contentful structure visible without hydration
-* interaction limited to nav/search/toc
-* most pages should work as static HTML + minimal JS
+### 10. Revised frontmatter schema
 
-## 8. UX blueprint for your primary audience
+Expand the content schema beyond title and slug.
 
-Your IA says the site is optimized first for:
+```yaml
+title: Why it matters
+description: Why continuity weakens across software-driven systems
+section: pages
+slug: why-it-matters
+pageType: canonical-public
+status: canonical
+order: 3
 
-* enterprise architecture / architecture governance
-* assurance / audit / control-oriented technical readers
-* security assurance / security architecture readers
-* senior engineering / platform / technical-governance readers 
+truthSource:
+  - core/problem-statement
 
-So UX should optimize for their thinking model.
+derivedFrom:
+  - core/problem-statement
+  - core/website-information-architecture
 
-They want to know quickly:
+audience: primary
+readiness: not-applicable
+ownsTopic: true
 
-* what problem is this solving?
-* is this real?
-* what is already proven?
-* where is the evidence?
-* what is early vs mature?
-* where do safety/security/governance fit?
+showInNav: true
+showInToc: true
 
-That means the UI should feel:
+seoTitle: Why it matters | UnifyPlane
+seoDescription: Why continuity weakens across design, delivery, runtime, and assurance
 
-* serious
-* bounded
-* technically legible
-* evidence-led
-* low-noise
+related:
+  - /what-is-unifyplane
+  - /current-readiness
+  - /evidence
+```
 
-Do **not** optimize first for:
+#### Required schema concepts
 
-* casual browsing
-* flashy storytelling
-* abstract thought-leadership UX
-* heavy personalization
+* `pageType`
+* `truthSource`
+* `derivedFrom`
+* `audience`
+* `readiness`
+* `ownsTopic`
+* `related`
 
-The best “persona-based UX” here is **strong information scent**, not dynamic personalization.
+These fields help enforce:
 
-## 9. SEO and indexing blueprint
+* truth-source discipline
+* page-role clarity
+* boundary visibility
+* audience control
+* internal-link coherence
 
-### A. One primary intent per page
+---
 
-Each page should own a distinct intent:
+### 11. Technical project structure
 
-* What is UnifyPlane = definition
-* Why it matters = problem recognition
-* Current Readiness = maturity boundary
-* Evidence = support/proof boundary
-* Agent Runtime = AI-agent runtime component
-* Inspect Repo = inspection/conformance component
-* Continuity / Proof / Drift / Evidence / Change / Impact = conceptual foundations
-
-### B. Metadata discipline
-
-Each page should output:
-
-* unique title
-* unique description
-* canonical URL
-* OG title/description
-* structured internal links
-
-Use the Metadata API for every page. ([Next.js][3])
-
-### C. Internal-link clusters
-
-Build clear topical clusters:
-
-* narrative cluster
-* operational cluster
-* foundation cluster
-
-This is excellent for Google indexing because the IA is already semantically coherent.
-
-### D. No duplication drift
-
-Do not let Home, Why it matters, and What is UnifyPlane repeat the same body copy in different wording. The IA already warns against this by keeping source-of-truth pages distinct. 
-
-## 10. Mobile blueprint
-
-Mobile optimization should focus on:
-
-* fast first signal
-* readable typography
-* clean stacked sections
-* tap-friendly nav
-* no dense comparison blocks
-* in-page TOC for long docs
-* sticky but unobtrusive top nav
-
-Recommended behavior:
-
-* top nav collapses to a sheet/menu
-* section cards stack vertically
-* deep-page TOC collapses into a jump menu
-* related-page links become simple vertical cards
-
-Desktop should remain best for deep reading, but mobile must still deliver:
-
-* immediate recognition
-* fast routing
-* clean reading start
-
-## 11. Technical project structure
-
-Suggested Next.js structure:
+Use a structure that reflects page roles and boundary primitives.
 
 ```txt
 /app
@@ -356,64 +461,188 @@ Suggested Next.js structure:
     writing/[slug]/page.tsx
 
 /components
-  site-header.tsx
-  site-footer.tsx
-  mobile-nav.tsx
-  doc-layout.tsx
-  doc-toc.tsx
-  section-card.tsx
-  cta-links.tsx
-  status-boundary-note.tsx
-  markdown-renderer.tsx
+  /chrome
+    site-header.tsx
+    site-footer.tsx
+    mobile-nav.tsx
+  /docs
+    doc-layout.tsx
+    doc-toc.tsx
+    prose-renderer.tsx
+    read-next.tsx
+  /boundaries
+    readiness-badge.tsx
+    boundary-note.tsx
+    evidence-scope.tsx
+    current-vs-future-block.tsx
+    maturity-callout.tsx
+  /navigation
+    section-card.tsx
+    cta-links.tsx
 
 /lib
-  content.ts
-  metadata.ts
-  navigation.ts
-  toc.ts
-  seo.ts
-
-/content
-  ...
+  /content
+    loaders.ts
+    registry.ts
+    frontmatter.ts
+    toc.ts
+    relationships.ts
+  /site
+    navigation.ts
+    metadata.ts
+    seo.ts
+    breadcrumbs.ts
 ```
 
-## 12. Content ingestion plan
+Note the shift from `markdown-renderer.tsx` to `prose-renderer.tsx`. Rendering markdown is only an implementation detail; the real model is typed, role-aware documentation content. 
 
-Use a build-time content loader:
+---
 
-* parse markdown frontmatter
+### 12. Content ingestion model
+
+Use a build-time loader that does all of the following:
+
+* parse frontmatter
+* validate schema
 * parse headings for TOC
-* map files to routes
-* derive metadata
-* derive previous/next links within sections
+* resolve truth-source mappings
+* resolve related pages
+* derive previous/next navigation
+* expose only registry-approved public routes
 
-Suggested frontmatter:
+This system should fail fast on:
 
-```yaml
-title: Why it matters
-description: Why the continuity problem matters across software-driven systems
-section: site
-slug: why-it-matters
-status: canonical
-order: 3
-seoTitle: Why it matters | UnifyPlane
-seoDescription: Why continuity weakens across design, delivery, runtime, and assurance
-```
+* duplicate slugs
+* missing truth-source mapping
+* invalid readiness values
+* unregistered public deep-doc pages
 
-## 13. Build order
+That gives you content governance, not just content loading.
 
-Follow this exact implementation order:
+---
 
-### Phase 1 — Foundation architecture
+### 13. UX implementation rules
+
+Optimize for the primary readers defined in the IA:
+
+* enterprise architecture / architecture-governance
+* assurance / audit / control-oriented technical readers
+* security assurance / security architecture
+* senior engineering / platform / technical-governance readers 
+
+So the interface should optimize for:
+
+* strong information scent
+* fast recognition
+* structural trust
+* evidence visibility
+* maturity clarity
+* low visual noise
+
+Do not optimize first for:
+
+* flashy storytelling
+* high-motion interaction
+* casual browsing patterns
+* generic AI-thought-leadership aesthetics
+
+---
+
+### 14. Performance model
+
+Performance should come from architecture, not decoration.
+
+Defaults:
+
+* Server Components for all content routes
+* static generation for known routes
+* server-rendered hero
+* very limited hydrated UI
+* `next/font`
+* `next/image` only where necessary
+* no client-side markdown parsing
+* no heavy animation layer on first paint
+* no unnecessary third-party scripts
+
+Performance target mindset:
+
+* hero readable immediately
+* structure visible before hydration
+* most pages function as static HTML plus minimal JS
+* navigation and TOC are the main interactive surfaces
+
+This remains aligned with the original implementation model and with your speed goals. 
+
+---
+
+### 15. SEO model
+
+Keep the original SEO discipline, but define it more operationally.
+
+#### Rule: one page = one reader question
+
+Each page must clearly answer one distinct question.
+
+Examples:
+
+* What is UnifyPlane? → what is this thing?
+* Why it matters → why is this problem real and important?
+* Current Readiness → what is actually true now?
+* Evidence → what supports the claims?
+* Agent Runtime → what is this operational part?
+* Continuity → what does this foundation mean here?
+
+For each page, keep these aligned:
+
+* H1
+* meta title
+* meta description
+* lead paragraph
+* related links
+
+That will do more to maintain semantic clarity than keyword expansion alone. 
+
+---
+
+### 16. Mobile model
+
+Mobile must preserve recognition and reading clarity.
+
+Rules:
+
+* simple collapsible primary nav
+* stacked cards
+* readable line length
+* deep-page TOC as jump menu
+* unobtrusive sticky header
+* no dense comparison layouts
+* no heavy hero media
+
+Desktop can remain better for deep reading, but mobile must still provide:
+
+* immediate problem recognition
+* fast routing
+* clear reading start
+
+---
+
+### 17. Build order
+
+Use this build order.
+
+#### Phase 1 — Foundation architecture
 
 * Next.js app setup
-* content ingestion
+* content schema
+* registries
+* ingestion pipeline
 * metadata system
 * route generation
 * global layout
 * typography and spacing system
+* boundary component primitives
 
-### Phase 2 — Core public path
+#### Phase 2 — Core public path
 
 * Home
 * What is UnifyPlane
@@ -421,14 +650,14 @@ Follow this exact implementation order:
 * Current Readiness
 * Evidence
 
-### Phase 3 — Operational layer
+#### Phase 3 — Operational layer
 
 * Components landing
 * UnifyPlane Core
 * Agent Runtime
 * Inspect Repo
 
-### Phase 4 — Conceptual layer
+#### Phase 4 — Conceptual layer
 
 * Foundations landing
 * Continuity
@@ -438,55 +667,33 @@ Follow this exact implementation order:
 * Change
 * Impact
 
-### Phase 5 — Expansion
+#### Phase 5 — Expansion
 
 * Writing
 * search
 * analytics
-* structured SEO improvements
+* structured SEO enhancements
 * article pages
 
-This exactly matches your IA build order. 
+This still matches the IA build order while making governance stricter.  
 
-## 14. Design-system rules
+---
 
-To preserve your IA intent:
+### 18. Final recommendation
 
-* typography-first design
-* restrained color palette
-* no visual clutter
-* large readable headings
-* generous whitespace
-* strong link hierarchy
-* visible “current vs early vs future” distinctions
-* cards only where they improve scan speed
+The best implementation model is now:
 
-Avoid:
+**a content-governed, registry-driven, statically rendered Next.js documentation site that uses canonical markdown documents as the truth boundary, composed homepage assembly for routing surfaces, and explicit boundary/maturity signaling across public pages.**
 
-* glossy startup visuals
-* overly dark/decorative enterprise aesthetic
-* excessive iconography
-* dashboard-like homepage
-* gimmicky interactions
+That is the strongest version of the model because it gives you:
 
-## 15. Best final recommendation
-
-The best approach is:
-
-**Build a static, markdown-driven, App Router documentation site with Server Components by default, using your canonical `.md` files as the source of truth and the IA chain as the routing and template logic.**
-
-That gives you the best chance of hitting:
-
-* hero signal under 3 seconds
-* home-page understanding under 10 seconds
-* foundation-page clarity under 2 minutes
-* low LCP / low INP
-* strong indexing
 * low content drift
-* high trust for your primary audience
+* high trust integrity
+* fast performance
+* clear IA enforcement
+* explicit maturity boundaries
+* disciplined public routing
+* strong SEO coherence
+* better long-term maintainability
 
-The next most useful artifact is a **concrete folder structure + route map + content schema + page template map** in implementation-ready form.
-
-[1]: https://nextjs.org/docs/app?utm_source=chatgpt.com "Next.js Docs: App Router | Next.js"
-[2]: https://nextjs.org/docs/app/api-reference/functions/generate-static-params?utm_source=chatgpt.com "Functions: generateStaticParams | Next.js"
-[3]: https://nextjs.org/docs/app/api-reference/functions/generate-metadata?utm_source=chatgpt.com "Functions: generateMetadata | Next.js"
+If you want, I can convert this revised version into a clean `implementation-model-v2.md` artifact.

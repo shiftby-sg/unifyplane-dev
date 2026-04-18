@@ -1,0 +1,12 @@
+{
+  "version": "1",
+  "related": {
+    "/what-is-unifyplane": ["/why-it-matters", "/current-readiness", "/evidence"],
+    "/why-it-matters": ["/what-is-unifyplane", "/current-readiness", "/evidence"],
+    "/current-readiness": ["/evidence", "/components", "/what-is-unifyplane"],
+    "/evidence": ["/current-readiness", "/components", "/foundations"],
+    "/components": ["/current-readiness", "/evidence"],
+    "/foundations": ["/what-is-unifyplane", "/evidence"]
+  }
+}
+

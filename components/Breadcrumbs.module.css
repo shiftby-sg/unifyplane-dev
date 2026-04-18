@@ -1,0 +1,24 @@
+.wrap {
+  margin-bottom: var(--space-6);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.item a {
+  color: var(--color-muted);
+}
+
+.sep {
+  opacity: 0.6;
+}
+

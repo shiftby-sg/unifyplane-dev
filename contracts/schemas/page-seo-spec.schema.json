@@ -1,0 +1,18 @@
+{
+  "$id": "https://unifyplane.dev/schemas/page-seo-spec.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Page SEO Spec",
+  "type": "object",
+  "description": "Local copy of the page SEO spec schema to avoid untrusted remote schema errors.",
+  "additionalProperties": true,
+  "properties": {
+    "$schema": { "type": "string" },
+    "specVersion": { "type": "string" },
+    "site": { "type": "object" },
+    "governingRules": { "type": "object" },
+    "globalRequirements": { "type": "object" },
+    "pageTypes": { "type": "object" },
+    "routeSpecs": { "type": "array" },
+    "routeSpecsMap": { "type": "object" }
+  }
+}

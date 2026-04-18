@@ -1,11 +1,42 @@
 {
   "plan_name": "unifyplane_dev_website_implementation_plan",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "project": "unifyplane.dev",
   "implementation_type": "Next.js static-first canonical-docs-driven website",
-  "canonical_docs_root": "/home/manandakrishna/myprojects/unifyplane/unifyplane-dev/docs/canonical",
-  "primary_canonical_doc": "/home/manandakrishna/myprojects/unifyplane/unifyplane-dev/docs/canonical/website-information-architecture.v2.md",
-  "all_canonical_docs_rule": "All canonical documents under /home/manandakrishna/myprojects/unifyplane/unifyplane-dev/docs/canonical are source-of-truth inputs. UI, routes, metadata, and page templates must derive from them and must not redefine canonical meaning.",
+  "canonical_docs_root_reference": "/home/manandakrishna/myprojects/unifyplane/unifyplane-dev/docs/canonical",
+  "primary_canonical_doc_reference": "/home/manandakrishna/myprojects/unifyplane/unifyplane-dev/docs/canonical/website-information-architecture.v2.md",
+  "canonical_docs_rule": "All canonical markdown documents under docs/canonical are reference-only source-of-truth inputs. They must be copied or derived into the repo content folders during implementation. UI, routes, metadata, page templates, and design behavior must derive from them and must not redefine canonical meaning.",
+  "repo_content_root": "/home/manandakrishna/myprojects/unifyplane/unifyplane-dev/content",
+  "governing_specs": {
+    "required_contract_specs": [
+      {
+        "path": "contracts/specs/unfiplane.page.seo.spec.json",
+        "role": "authoritative page-wise SEO, metadata, canonical URL, JSON-LD, breadcrumb, and indexing contract"
+      },
+      {
+        "path": "contracts/specs/unifyplane.design.spec.json",
+        "role": "authoritative design system, tokens, layout, typography, boundary semantics, accessibility, responsive behavior, and component-state contract"
+      }
+    ],
+    "enforcement_rule": "Implementation must validate against these contract specs in every relevant phase. Missing or contradictory implementation fails closed."
+  },
+  "content_governance_model": {
+    "content_classes": {
+      "canonical": "Reference truth documents copied from docs/canonical into /content/core and never casually rewritten to suit page needs.",
+      "publishable": "Public-facing pages in /content/pages, /content/components, and /content/foundations derived from canonical sources.",
+      "composed": "Assembly/config artifacts in /content/compositions used for homepage, navigation, page-map, and related-linking. Composed files may arrange content but should own minimal prose."
+    },
+    "repo_content_structure": [
+      "/content/core",
+      "/content/pages",
+      "/content/components",
+      "/content/foundations",
+      "/content/compositions"
+    ],
+    "copy_rule": "Phase 1 must copy or normalize canonical docs from docs/canonical into /content/core before any page implementation proceeds.",
+    "publishable_rule": "Publishable pages must declare truthSource and derivedFrom mappings to copied /content/core documents.",
+    "homepage_rule": "Homepage content is composition-driven. It must not become an independent truth source and must be assembled from canonical excerpts, curated summaries, and registry-driven route blocks."
+  },
   "governing_chain": {
     "ia_chain": [
       "practical problem recognition",
@@ -41,14 +72,33 @@
       "required_outputs": [
         "output_artifact",
         "validation_result",
-        "test_case_result"
+        "test_case_result",
+        "missing_md_report"
       ]
     },
     "G0_6_human_approval_gate": {
       "rule": "After each phase, evidence must be reviewed and approved manually before the next phase begins."
     },
     "G0_7_mobile_first_and_seo_first": {
-      "rule": "All routes, layouts, templates, and metadata must be mobile optimized, indexable, and semantically structured from the first implementation pass."
+      "rule": "All routes, layouts, templates, metadata, and page rendering must be mobile optimized, indexable, and semantically structured from the first implementation pass."
+    },
+    "G0_8_registry_driven_public_routing": {
+      "rule": "Dynamic public routes must be generated only from approved registries. Markdown file presence alone must not create a public route."
+    },
+    "G0_9_truth_source_enforcement": {
+      "rule": "Every indexable publishable page must declare truthSource and derivedFrom mappings. Missing truthSource fails validation."
+    },
+    "G0_10_missing_markdown_visibility": {
+      "rule": "Every phase must explicitly report missing required .md files for that phase. Missing docs block phase completion unless the phase explicitly allows scaffold-only creation."
+    },
+    "G0_11_contract_spec_enforcement": {
+      "rule": "All implementation affecting SEO, metadata, JSON-LD, layout, typography, accessibility, component behavior, navigation, or responsive behavior must conform to the required contract specs under contracts/specs."
+    },
+    "G0_12_design_spec_is_single_design_authority": {
+      "rule": "contracts/specs/unifyplane.design.spec.json is the only implementation design authority. Older design-style documents must not be used as competing implementation guidance."
+    },
+    "G0_13_seo_spec_is_single_seo_authority": {
+      "rule": "contracts/specs/unfiplane.page.seo.spec.json is the only implementation SEO authority for metadata, canonicals, breadcrumbs, JSON-LD, and indexing behavior."
     }
   },
   "performance_targets": {
@@ -97,7 +147,9 @@
       "unique description",
       "canonical URL",
       "Open Graph metadata",
-      "structured heading hierarchy"
+      "structured heading hierarchy",
+      "page-wise JSON-LD appropriate to page type",
+      "BreadcrumbList on non-home indexable routes"
     ],
     "internal_linking_model": [
       "link pages according to governing chain",
@@ -113,7 +165,8 @@
       "/evidence",
       "/components",
       "/foundations"
-    ]
+    ],
+    "seo_delivery_rule": "Metadata and JSON-LD are implemented during page phases, then audited in the final release phase."
   },
   "project_structure": {
     "framework": "Next.js",
@@ -131,31 +184,53 @@
         "/app/(site)/components/[slug]/page.tsx",
         "/app/(site)/foundations/page.tsx",
         "/app/(site)/foundations/[slug]/page.tsx",
-        "/app/(site)/writing/page.tsx"
+        "/app/(site)/writing/page.tsx",
+        "/app/(site)/writing/[slug]/page.tsx"
       ],
       "components": [
-        "/components/site-header.tsx",
-        "/components/site-footer.tsx",
-        "/components/mobile-nav.tsx",
-        "/components/doc-layout.tsx",
-        "/components/doc-toc.tsx",
-        "/components/section-card.tsx",
-        "/components/cta-links.tsx",
-        "/components/status-boundary-note.tsx",
-        "/components/markdown-renderer.tsx"
+        "/components/chrome/site-header.tsx",
+        "/components/chrome/site-footer.tsx",
+        "/components/chrome/mobile-nav.tsx",
+        "/components/docs/doc-layout.tsx",
+        "/components/docs/doc-toc.tsx",
+        "/components/docs/prose-renderer.tsx",
+        "/components/docs/read-next.tsx",
+        "/components/navigation/section-card.tsx",
+        "/components/navigation/cta-links.tsx",
+        "/components/boundaries/readiness-badge.tsx",
+        "/components/boundaries/boundary-note.tsx",
+        "/components/boundaries/evidence-scope.tsx",
+        "/components/boundaries/current-vs-future-block.tsx",
+        "/components/boundaries/maturity-callout.tsx"
       ],
       "lib": [
-        "/lib/content.ts",
-        "/lib/metadata.ts",
-        "/lib/navigation.ts",
-        "/lib/toc.ts",
-        "/lib/seo.ts"
+        "/lib/content/loaders.ts",
+        "/lib/content/registry.ts",
+        "/lib/content/frontmatter.ts",
+        "/lib/content/toc.ts",
+        "/lib/content/relationships.ts",
+        "/lib/site/navigation.ts",
+        "/lib/site/metadata.ts",
+        "/lib/site/seo.ts",
+        "/lib/site/breadcrumbs.ts",
+        "/lib/site/jsonld.ts",
+        "/lib/site/design-tokens.ts"
       ],
       "content": [
-        "/content/site",
+        "/content/core",
+        "/content/pages",
         "/content/components",
         "/content/foundations",
-        "/content/core"
+        "/content/compositions"
+      ],
+      "registries": [
+        "/content/registries/components.config.ts",
+        "/content/registries/foundations.config.ts",
+        "/content/registries/writing.config.ts"
+      ],
+      "contracts": [
+        "/contracts/specs/unfiplane.page.seo.spec.json",
+        "/contracts/specs/unifyplane.design.spec.json"
       ]
     }
   },
@@ -178,6 +253,226 @@
     "/foundations/impact",
     "/writing"
   ],
+  "canonical_copy_and_derivation_map": {
+    "required_core_copies": [
+      {
+        "reference_source": "docs/canonical/00_problem-statementv4.md",
+        "repo_target": "content/core/problem-statement.md",
+        "required_in_phase": 1,
+        "purpose": "canonical problem truth"
+      },
+      {
+        "reference_source": "docs/canonical/what-is-unifyplane.md",
+        "repo_target": "content/core/what-is-unifyplane.md",
+        "required_in_phase": 1,
+        "purpose": "canonical definition truth"
+      },
+      {
+        "reference_source": "docs/canonical/website-information-architecture.v2.md",
+        "repo_target": "content/core/website-information-architecture.md",
+        "required_in_phase": 1,
+        "purpose": "canonical IA truth"
+      },
+      {
+        "reference_source": "docs/canonical/why-unifyplane-existsv2.md",
+        "repo_target": "content/core/why-unifyplane-exists.md",
+        "required_in_phase": 1,
+        "purpose": "canonical narrative support for why-it-matters if present under docs/canonical"
+      }
+    ],
+    "required_publishable_targets": [
+      {
+        "target": "content/pages/what-is-unifyplane.md",
+        "truthSource": [
+          "content/core/what-is-unifyplane.md",
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "must exist before phase 6 completion"
+      },
+      {
+        "target": "content/pages/why-it-matters.md",
+        "truthSource": [
+          "content/core/problem-statement.md",
+          "content/core/website-information-architecture.md",
+          "content/core/why-unifyplane-exists.md"
+        ],
+        "required_in_phase": 1,
+        "status": "must exist before phase 6 completion"
+      },
+      {
+        "target": "content/pages/current-readiness.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/pages/evidence.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/components/index.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/components/unifyplane-core.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/components/agent-runtime.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/components/inspect-repo.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/foundations/index.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/foundations/continuity.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/foundations/proof.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/foundations/drift.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/foundations/evidence.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/foundations/change.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/foundations/impact.md",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "expected missing until authored"
+      },
+      {
+        "target": "content/compositions/home.yml",
+        "truthSource": [
+          "content/core/problem-statement.md",
+          "content/core/what-is-unifyplane.md",
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "must exist before phase 5 completion"
+      },
+      {
+        "target": "content/compositions/navigation.yml",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "must exist before phase 4 completion"
+      },
+      {
+        "target": "content/compositions/page-map.yml",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "must exist before phase 2 completion"
+      },
+      {
+        "target": "content/compositions/related-links.yml",
+        "truthSource": [
+          "content/core/website-information-architecture.md"
+        ],
+        "required_in_phase": 1,
+        "status": "must exist before phase 6 completion"
+      }
+    ]
+  },
+  "frontmatter_schema_requirements": {
+    "required_fields": [
+      "title",
+      "description",
+      "slug",
+      "section",
+      "pageType",
+      "truthSource",
+      "derivedFrom",
+      "audience",
+      "readiness",
+      "ownsTopic",
+      "related",
+      "seoTitle",
+      "seoDescription",
+      "showInNav",
+      "showInToc"
+    ],
+    "page_types": [
+      "canonical-public",
+      "landing",
+      "deep-doc",
+      "writing",
+      "composition"
+    ],
+    "readiness_values": [
+      "proven",
+      "implemented-immature",
+      "future-grounded",
+      "not-applicable"
+    ],
+    "validation_rule": "Missing required fields fail closed for any publishable page."
+  },
   "evidence_storage": {
     "root": "/home/manandakrishna/myprojects/unifyplane/unifyplane-dev/evidence/reports/implementationplan",
     "phase_structure": [
@@ -192,137 +487,332 @@
       "phase9/",
       "phase10/"
     ],
-    "failure_rule": "On failure, create phaseXa subfolder with failure_report.json, root_cause.md, recommendation.md, then stop."
+    "failure_rule": "On failure, create phaseXa subfolder with failure_report.json, root_cause.md, recommendation.md, missing_md_report.json, then stop."
   },
   "implementation_phases": [
     {
       "phase": 1,
-      "name": "Canonical content inventory and schema",
-      "objective": "Establish the canonical markdown inventory, frontmatter schema, content taxonomy, and route mapping derived from the IA and all canonical documents.",
+      "name": "Canonical copy, inventory, schema, route ownership, and contract registration",
+      "objective": "Copy canonical markdown from docs/canonical into /content/core, establish the canonical inventory, frontmatter schema, content taxonomy, publishable page targets, composition targets, registry baselines, route ownership, and contract-spec alignment derived from the IA and all canonical documents.",
       "output": [
         "content_manifest.json",
         "route_map.json",
         "frontmatter_schema.json",
-        "canonical_doc_registry.json"
+        "canonical_doc_registry.json",
+        "canonical_copy_report.json",
+        "contract_spec_registry.json",
+        "seo_field_mapping.json",
+        "design_field_mapping.json",
+        "missing_md_report.json",
+        "components.config.ts",
+        "foundations.config.ts",
+        "writing.config.ts",
+        "home.yml",
+        "navigation.yml",
+        "page-map.yml",
+        "related-links.yml"
+      ],
+      "contract_spec_checks": [
+        {
+          "spec": "contracts/specs/unfiplane.page.seo.spec.json",
+          "checks": [
+            "frontmatter supports required SEO fields",
+            "page types align with SEO route/page intent model",
+            "canonical and metadata fields are schema-supported"
+          ]
+        },
+        {
+          "spec": "contracts/specs/unifyplane.design.spec.json",
+          "checks": [
+            "page roles align with design page-template types",
+            "content model supports boundary semantics",
+            "content taxonomy supports design-system component roles"
+          ]
+        }
       ],
       "test_cases": [
         "all canonical files are discoverable under docs/canonical",
+        "required canonical files are copied into /content/core",
         "required route pages map cleanly to canonical documents",
+        "missing required publishable markdown is reported explicitly",
         "missing required metadata fails validation"
       ],
       "validation": [
         "all canonical documents indexed",
+        "required canonical copies exist in /content/core",
         "top-level IA routes mapped",
         "content schema accepted",
+        "registry-driven public routing baseline established",
+        "frontmatter schema aligned to SEO contract",
+        "content/page taxonomy aligned to design contract",
         "fail-closed on schema mismatch"
+      ],
+      "missing_md_expected": [
+        "content/pages/current-readiness.md",
+        "content/pages/evidence.md",
+        "content/components/index.md",
+        "content/components/unifyplane-core.md",
+        "content/components/agent-runtime.md",
+        "content/components/inspect-repo.md",
+        "content/foundations/index.md",
+        "content/foundations/continuity.md",
+        "content/foundations/proof.md",
+        "content/foundations/drift.md",
+        "content/foundations/evidence.md",
+        "content/foundations/change.md",
+        "content/foundations/impact.md"
       ],
       "evidence": [
         "phase1/content_manifest.json",
+        "phase1/canonical_copy_report.json",
+        "phase1/contract_spec_registry.json",
+        "phase1/seo_field_mapping.json",
+        "phase1/design_field_mapping.json",
+        "phase1/missing_md_report.json",
         "phase1/validation.json",
         "phase1/test_results.json"
       ],
       "approval_required": [
         "canonical inventory verified",
-        "schema and route ownership approved"
+        "canonical copies verified",
+        "schema and route ownership approved",
+        "contract spec registration approved",
+        "missing markdown list acknowledged"
       ]
     },
     {
       "phase": 2,
-      "name": "Next.js application skeleton",
-      "objective": "Create the Next.js App Router project skeleton with root layout, section layouts, TypeScript, linting, and static route shells.",
+      "name": "Next.js application skeleton, metadata baseline, and design token baseline",
+      "objective": "Create the Next.js App Router project skeleton with root layout, section layouts, TypeScript, linting, semantic page shells, metadata baseline, JSON-LD baseline, and design token baseline.",
       "output": [
         "nextjs_app_initialized",
         "root_layout",
         "site_layout",
         "route_shells",
-        "lint_and_build_configuration"
+        "lint_and_build_configuration",
+        "metadata_framework",
+        "jsonld_framework",
+        "design_token_baseline",
+        "semantic_landmark_baseline"
+      ],
+      "contract_spec_checks": [
+        {
+          "spec": "contracts/specs/unfiplane.page.seo.spec.json",
+          "checks": [
+            "metadata framework shape",
+            "site-level metadata support",
+            "site-level JSON-LD support"
+          ]
+        },
+        {
+          "spec": "contracts/specs/unifyplane.design.spec.json",
+          "checks": [
+            "design token baseline",
+            "layout width baseline",
+            "semantic structure baseline"
+          ]
+        }
       ],
       "test_cases": [
         "app boots locally",
         "root and section layouts render",
-        "static route shells compile without runtime errors"
+        "static route shells compile without runtime errors",
+        "metadata framework resolves titles and canonicals",
+        "semantic shell includes one H1 slot and landmark structure"
       ],
       "validation": [
         "build passes",
         "lint passes",
-        "route shells match canonical route map"
+        "route shells match canonical route map",
+        "metadata baseline established early",
+        "root layout prepared for site-level JSON-LD",
+        "design token baseline aligned to design spec"
+      ],
+      "missing_md_expected": [
+        "content/pages/current-readiness.md",
+        "content/pages/evidence.md",
+        "content/components/index.md",
+        "content/components/unifyplane-core.md",
+        "content/components/agent-runtime.md",
+        "content/components/inspect-repo.md",
+        "content/foundations/index.md",
+        "content/foundations/continuity.md",
+        "content/foundations/proof.md",
+        "content/foundations/drift.md",
+        "content/foundations/evidence.md",
+        "content/foundations/change.md",
+        "content/foundations/impact.md"
       ],
       "evidence": [
         "phase2/build_report.json",
+        "phase2/missing_md_report.json",
         "phase2/validation.json",
         "phase2/test_results.json"
       ],
       "approval_required": [
         "project skeleton verified",
-        "routing baseline approved"
+        "routing baseline approved",
+        "design and metadata baselines approved"
       ]
     },
     {
       "phase": 3,
-      "name": "Markdown ingestion and rendering pipeline",
-      "objective": "Implement markdown loading, parsing, heading extraction, TOC generation, and server-side content rendering.",
+      "name": "Content ingestion, truth-source mapping, registry-driven rendering, and SEO/design resolvers",
+      "objective": "Implement markdown loading, frontmatter validation, heading extraction, TOC generation, truth-source mapping, related-link generation, breadcrumb resolution, JSON-LD generation, design-variant resolution, and server-side content rendering from approved registries.",
       "output": [
         "markdown_loader",
         "frontmatter_parser",
         "toc_generator",
-        "server_side_markdown_renderer"
+        "server_side_prose_renderer",
+        "truth_source_validator",
+        "registry_route_generator",
+        "related_links_resolver",
+        "breadcrumb_resolver",
+        "jsonld_generator",
+        "design_variant_resolver",
+        "missing_md_report.json"
+      ],
+      "contract_spec_checks": [
+        {
+          "spec": "contracts/specs/unfiplane.page.seo.spec.json",
+          "checks": [
+            "pageType-to-JSON-LD mapping",
+            "breadcrumb derivation",
+            "canonical metadata field resolution"
+          ]
+        },
+        {
+          "spec": "contracts/specs/unifyplane.design.spec.json",
+          "checks": [
+            "design variant resolution",
+            "boundary data availability",
+            "TOC and long-form rendering support"
+          ]
+        }
       ],
       "test_cases": [
-        "canonical site pages render from markdown",
-        "component pages render from markdown",
-        "foundation pages render from markdown",
-        "invalid markdown metadata fails closed"
+        "canonical site pages render from markdown where files exist",
+        "component pages render from markdown where files exist",
+        "foundation pages render from markdown where files exist",
+        "invalid markdown metadata fails closed",
+        "missing truthSource fails closed",
+        "dynamic public routes are generated only from registries"
       ],
       "validation": [
         "content rendered server-side",
         "TOC generated for long pages",
-        "no client-side markdown rendering dependency"
+        "no client-side markdown rendering dependency",
+        "truth-source mapping validated",
+        "registry-driven public routing enforced",
+        "content system exposes data required by SEO and design contracts"
+      ],
+      "missing_md_expected": [
+        "content/pages/current-readiness.md",
+        "content/pages/evidence.md",
+        "content/components/index.md",
+        "content/components/unifyplane-core.md",
+        "content/components/agent-runtime.md",
+        "content/components/inspect-repo.md",
+        "content/foundations/index.md",
+        "content/foundations/continuity.md",
+        "content/foundations/proof.md",
+        "content/foundations/drift.md",
+        "content/foundations/evidence.md",
+        "content/foundations/change.md",
+        "content/foundations/impact.md"
       ],
       "evidence": [
         "phase3/render_manifest.json",
+        "phase3/missing_md_report.json",
         "phase3/validation.json",
         "phase3/test_results.json"
       ],
       "approval_required": [
         "content pipeline verified",
+        "truth-source enforcement approved",
+        "SEO/design resolvers approved",
         "markdown rendering approved"
       ]
     },
     {
       "phase": 4,
-      "name": "Global IA shell and navigation",
-      "objective": "Implement header, footer, primary navigation, mobile navigation, section navigation, and IA-consistent page hierarchy.",
+      "name": "Global IA shell, navigation, breadcrumbs, boundaries, and accessible navigation behavior",
+      "objective": "Implement header, footer, primary navigation, mobile navigation, breadcrumbs, section navigation, boundary primitives, and IA-consistent page hierarchy with accessible behavior.",
       "output": [
         "primary_navigation",
         "mobile_navigation",
         "footer_navigation",
+        "breadcrumbs",
+        "boundary_primitives",
         "section_layout_shells"
+      ],
+      "contract_spec_checks": [
+        {
+          "spec": "contracts/specs/unfiplane.page.seo.spec.json",
+          "checks": [
+            "breadcrumb implementation",
+            "internal navigation alignment with page flow"
+          ]
+        },
+        {
+          "spec": "contracts/specs/unifyplane.design.spec.json",
+          "checks": [
+            "navigation behavior",
+            "boundary semantics",
+            "focus behavior",
+            "responsive nav behavior",
+            "accessibility rules"
+          ]
+        }
       ],
       "test_cases": [
         "primary nav order matches IA",
-        "mobile nav is usable and accessible",
+        "mobile nav is usable and keyboard accessible",
         "active state and hierarchy are visible",
-        "Writing remains secondary"
+        "Writing remains secondary",
+        "focus-visible states are present",
+        "drawer focus returns correctly",
+        "breadcrumbs reflect IA placement"
       ],
       "validation": [
         "navigation labels align to canonical IA",
         "problem-to-foundations flow preserved",
-        "mobile navigation works without heavy client cost"
+        "mobile navigation works without heavy client cost",
+        "boundary system available for later pages",
+        "baseline accessibility validated for nav and shell",
+        "breadcrumb system aligns to SEO contract"
+      ],
+      "missing_md_expected": [
+        "content/pages/current-readiness.md",
+        "content/pages/evidence.md",
+        "content/components/index.md",
+        "content/components/unifyplane-core.md",
+        "content/components/agent-runtime.md",
+        "content/components/inspect-repo.md",
+        "content/foundations/index.md",
+        "content/foundations/continuity.md",
+        "content/foundations/proof.md",
+        "content/foundations/drift.md",
+        "content/foundations/evidence.md",
+        "content/foundations/change.md",
+        "content/foundations/impact.md"
       ],
       "evidence": [
         "phase4/navigation_audit.json",
+        "phase4/missing_md_report.json",
         "phase4/validation.json",
         "phase4/test_results.json"
       ],
       "approval_required": [
         "navigation verified",
-        "IA shell approved"
+        "IA shell approved",
+        "boundary primitives approved"
       ]
     },
     {
       "phase": 5,
-      "name": "Homepage implementation",
-      "objective": "Implement the homepage for <3 second hero signal and <10 second first-pass section comprehension.",
+      "name": "Homepage implementation from composition sources",
+      "objective": "Implement the homepage for <3 second hero signal and <10 second first-pass section comprehension using composition-driven content rather than independent truth files.",
       "output": [
         "hero_section",
         "why_this_matters_section",
@@ -330,21 +820,62 @@
         "current_readiness_summary",
         "evidence_summary",
         "components_summary",
-        "explore_deeper_section"
+        "explore_deeper_section",
+        "homepage_metadata",
+        "homepage_jsonld",
+        "missing_md_report.json"
+      ],
+      "contract_spec_checks": [
+        {
+          "spec": "contracts/specs/unfiplane.page.seo.spec.json",
+          "checks": [
+            "home route metadata",
+            "home route canonical",
+            "home route JSON-LD"
+          ]
+        },
+        {
+          "spec": "contracts/specs/unifyplane.design.spec.json",
+          "checks": [
+            "hero rules",
+            "homepage section density",
+            "CTA limits",
+            "homepage structure"
+          ]
+        }
       ],
       "test_cases": [
         "hero renders immediately on mobile",
         "homepage section order matches IA",
         "CTA links route correctly",
-        "no layout shift in the first viewport"
+        "no layout shift in the first viewport",
+        "homepage content resolves from compositions and source excerpts"
       ],
       "validation": [
         "hero is text-first and fast",
         "home summarizes and routes rather than over-owning content",
-        "AI, safety, and security are visible but not dominant"
+        "AI, safety, and security are visible but not dominant",
+        "homepage is composition-driven",
+        "homepage conforms to SEO and design contracts"
+      ],
+      "missing_md_expected": [
+        "content/pages/current-readiness.md",
+        "content/pages/evidence.md",
+        "content/components/index.md",
+        "content/components/unifyplane-core.md",
+        "content/components/agent-runtime.md",
+        "content/components/inspect-repo.md",
+        "content/foundations/index.md",
+        "content/foundations/continuity.md",
+        "content/foundations/proof.md",
+        "content/foundations/drift.md",
+        "content/foundations/evidence.md",
+        "content/foundations/change.md",
+        "content/foundations/impact.md"
       ],
       "evidence": [
         "phase5/homepage_audit.json",
+        "phase5/missing_md_report.json",
         "phase5/validation.json",
         "phase5/test_results.json"
       ],
@@ -356,26 +887,61 @@
     {
       "phase": 6,
       "name": "Core narrative and trust pages",
-      "objective": "Implement What is UnifyPlane, Why it matters, Current Readiness, and Evidence as distinct canonical pages with no duplication drift.",
+      "objective": "Implement What is UnifyPlane, Why it matters, Current Readiness, and Evidence as distinct canonical pages with no duplication drift, page-wise metadata, truthful JSON-LD, and canonical narrative template compliance.",
       "output": [
         "what_is_unifyplane_page",
         "why_it_matters_page",
         "current_readiness_page",
-        "evidence_page"
+        "evidence_page",
+        "page_metadata_records",
+        "page_jsonld_records",
+        "missing_md_report.json"
+      ],
+      "contract_spec_checks": [
+        {
+          "spec": "contracts/specs/unfiplane.page.seo.spec.json",
+          "checks": [
+            "route-level titles",
+            "descriptions",
+            "canonicals",
+            "Open Graph",
+            "JSON-LD",
+            "breadcrumbs",
+            "related links"
+          ]
+        },
+        {
+          "spec": "contracts/specs/unifyplane.design.spec.json",
+          "checks": [
+            "canonical narrative template",
+            "layout width",
+            "typography",
+            "boundary callouts",
+            "related-page footer"
+          ]
+        }
       ],
       "test_cases": [
-        "each route renders from canonical markdown",
+        "each route renders from canonical-derived markdown",
         "page roles remain distinct",
         "metadata is unique per page",
+        "JSON-LD matches page type truthfully",
         "internal linking respects source-of-truth ownership"
       ],
       "validation": [
         "definition, problem, readiness, and evidence roles remain separate",
         "no substantial duplication drift",
-        "current truth and future direction are separated clearly"
+        "current truth and future direction are separated clearly",
+        "all four core pages have page-wise metadata and JSON-LD",
+        "all four core pages conform to design-system template rules"
+      ],
+      "missing_md_blockers": [
+        "content/pages/current-readiness.md",
+        "content/pages/evidence.md"
       ],
       "evidence": [
         "phase6/page_role_audit.json",
+        "phase6/missing_md_report.json",
         "phase6/validation.json",
         "phase6/test_results.json"
       ],
@@ -387,26 +953,59 @@
     {
       "phase": 7,
       "name": "Components layer",
-      "objective": "Implement components landing page plus UnifyPlane Core, Agent Runtime, and Inspect Repo pages.",
+      "objective": "Implement components landing page plus UnifyPlane Core, Agent Runtime, and Inspect Repo pages from approved registries and component markdown files.",
       "output": [
         "components_index_page",
         "unifyplane_core_page",
         "agent_runtime_page",
-        "inspect_repo_page"
+        "inspect_repo_page",
+        "component_metadata_records",
+        "component_jsonld_records",
+        "missing_md_report.json"
+      ],
+      "contract_spec_checks": [
+        {
+          "spec": "contracts/specs/unfiplane.page.seo.spec.json",
+          "checks": [
+            "components landing SEO",
+            "component detail SEO",
+            "component breadcrumbs",
+            "component JSON-LD"
+          ]
+        },
+        {
+          "spec": "contracts/specs/unifyplane.design.spec.json",
+          "checks": [
+            "components landing template",
+            "component detail template",
+            "boundary variants",
+            "maturity presentation"
+          ]
+        }
       ],
       "test_cases": [
         "component routes render correctly",
         "component roles are distinguishable",
         "component maturity boundaries are visible",
-        "agent-runtime reads clearly as bounded AI-agent runtime"
+        "agent-runtime reads clearly as bounded AI-agent runtime",
+        "registry entries match existing markdown files"
       ],
       "validation": [
         "components are operational parts only",
         "unifyplane-core is visibly strongest current component",
-        "agent-runtime and inspect-repo are presented as real but earlier"
+        "agent-runtime and inspect-repo are presented as real but earlier",
+        "component pages use boundary primitives consistently",
+        "component pages conform to SEO and design contracts"
+      ],
+      "missing_md_blockers": [
+        "content/components/index.md",
+        "content/components/unifyplane-core.md",
+        "content/components/agent-runtime.md",
+        "content/components/inspect-repo.md"
       ],
       "evidence": [
         "phase7/components_audit.json",
+        "phase7/missing_md_report.json",
         "phase7/validation.json",
         "phase7/test_results.json"
       ],
@@ -418,7 +1017,7 @@
     {
       "phase": 8,
       "name": "Foundations layer",
-      "objective": "Implement Foundations landing plus Continuity, Proof, Drift, Evidence, Change, and Impact pages.",
+      "objective": "Implement Foundations landing plus Continuity, Proof, Drift, Evidence, Change, and Impact pages from approved registries and foundation markdown files.",
       "output": [
         "foundations_index_page",
         "continuity_page",
@@ -426,21 +1025,58 @@
         "drift_page",
         "evidence_foundation_page",
         "change_page",
-        "impact_page"
+        "impact_page",
+        "foundation_metadata_records",
+        "foundation_jsonld_records",
+        "missing_md_report.json"
+      ],
+      "contract_spec_checks": [
+        {
+          "spec": "contracts/specs/unfiplane.page.seo.spec.json",
+          "checks": [
+            "foundations landing SEO",
+            "foundation detail SEO",
+            "foundation breadcrumbs",
+            "foundation JSON-LD"
+          ]
+        },
+        {
+          "spec": "contracts/specs/unifyplane.design.spec.json",
+          "checks": [
+            "foundations landing template",
+            "foundation detail template",
+            "TOC behavior",
+            "deep-doc layout",
+            "boundary behavior"
+          ]
+        }
       ],
       "test_cases": [
-        "foundation pages render from canonical markdown",
+        "foundation pages render from markdown",
         "long-form pages include working TOC",
         "readability remains strong on mobile and desktop",
-        "Continuity appears clearly as conceptual center"
+        "Continuity appears clearly as conceptual center",
+        "registry entries match existing markdown files"
       ],
       "validation": [
         "foundations stay secondary to top-layer problem/definition/truth pages",
         "foundation pages remain grounded in current canon",
-        "future direction does not overrun current maturity"
+        "future direction does not overrun current maturity",
+        "foundation pages use honest boundary patterns",
+        "foundation pages conform to SEO and design contracts"
+      ],
+      "missing_md_blockers": [
+        "content/foundations/index.md",
+        "content/foundations/continuity.md",
+        "content/foundations/proof.md",
+        "content/foundations/drift.md",
+        "content/foundations/evidence.md",
+        "content/foundations/change.md",
+        "content/foundations/impact.md"
       ],
       "evidence": [
         "phase8/foundations_audit.json",
+        "phase8/missing_md_report.json",
         "phase8/validation.json",
         "phase8/test_results.json"
       ],
@@ -452,13 +1088,37 @@
     {
       "phase": 9,
       "name": "Performance, accessibility, and mobile hardening",
-      "objective": "Optimize for Core Web Vitals, accessibility, low-JS delivery, and clean mobile reading.",
+      "objective": "Optimize for Core Web Vitals, accessibility, low-JS delivery, reduced-motion handling, and clean mobile reading.",
       "output": [
         "font_optimization",
         "image_optimization",
         "reduced_client_islands",
         "a11y_remediation",
-        "mobile_readability_tuning"
+        "mobile_readability_tuning",
+        "design_spec_compliance_report.json",
+        "seo_spec_runtime_compliance_report.json",
+        "missing_md_report.json"
+      ],
+      "contract_spec_checks": [
+        {
+          "spec": "contracts/specs/unifyplane.design.spec.json",
+          "checks": [
+            "accessibility rules",
+            "breakpoint rules",
+            "token usage",
+            "component states",
+            "reduced motion",
+            "mobile drawer behavior"
+          ]
+        },
+        {
+          "spec": "contracts/specs/unfiplane.page.seo.spec.json",
+          "checks": [
+            "semantic structure preserved",
+            "no metadata regressions from hardening",
+            "breadcrumb structure preserved"
+          ]
+        }
       ],
       "test_cases": [
         "mobile lighthouse run",
@@ -471,11 +1131,16 @@
         "low-JS content pages preserved",
         "LCP and INP targets improved",
         "mobile navigation and TOC remain usable",
-        "no accessibility blockers"
+        "no accessibility blockers",
+        "design and SEO contract compliance confirmed after hardening"
       ],
+      "missing_md_expected": [],
       "evidence": [
         "phase9/performance_report.json",
         "phase9/accessibility_report.json",
+        "phase9/design_spec_compliance_report.json",
+        "phase9/seo_spec_runtime_compliance_report.json",
+        "phase9/missing_md_report.json",
         "phase9/test_results.json"
       ],
       "approval_required": [
@@ -486,29 +1151,61 @@
     {
       "phase": 10,
       "name": "SEO, indexing, and release hardening",
-      "objective": "Finalize indexing-safe metadata, sitemaps, robots policy, structured internal linking, analytics hooks, and production readiness.",
+      "objective": "Finalize sitemap, robots policy, canonical validation, structured internal linking audit, analytics hooks, and production readiness.",
       "output": [
         "sitemap",
         "robots_policy",
         "final_metadata_audit",
+        "jsonld_audit",
         "internal_linking_audit",
-        "release_checklist"
+        "seo_spec_compliance_report.json",
+        "jsonld_validation_report.json",
+        "canonical_url_validation_report.json",
+        "release_checklist",
+        "missing_md_report.json"
+      ],
+      "contract_spec_checks": [
+        {
+          "spec": "contracts/specs/unfiplane.page.seo.spec.json",
+          "checks": [
+            "all release-route metadata",
+            "canonical URLs",
+            "breadcrumbs",
+            "JSON-LD",
+            "page intent",
+            "sitemap",
+            "robots"
+          ]
+        },
+        {
+          "spec": "contracts/specs/unifyplane.design.spec.json",
+          "checks": [
+            "no design-spec regressions in release routes affecting semantic structure or discoverability"
+          ]
+        }
       ],
       "test_cases": [
         "all indexable routes appear in sitemap",
         "metadata complete for all release routes",
         "canonical URLs resolve correctly",
-        "internal links and breadcrumbs are valid"
+        "internal links and breadcrumbs are valid",
+        "JSON-LD validates for release routes"
       ],
       "validation": [
         "indexing model aligns to page intent",
         "release routes are coherent and complete",
         "no broken canonical links",
+        "all release routes comply with SEO contract",
         "production build ready"
       ],
+      "missing_md_expected": [],
       "evidence": [
         "phase10/release_audit.json",
         "phase10/seo_report.json",
+        "phase10/seo_spec_compliance_report.json",
+        "phase10/jsonld_validation_report.json",
+        "phase10/canonical_url_validation_report.json",
+        "phase10/missing_md_report.json",
         "phase10/test_results.json"
       ],
       "approval_required": [
@@ -522,6 +1219,7 @@
       "generate failure_report.json",
       "generate root_cause.md",
       "generate recommendation.md",
+      "generate missing_md_report.json",
       "stop execution",
       "wait for human approval before retry"
     ],

@@ -1,0 +1,46 @@
+.box {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin: var(--space-6) 0;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--color-muted);
+}
+
+.proven {
+}
+
+.immature {
+}
+
+.future {
+}
+
+.proven .dot {
+  background: #3dd68c;
+}
+
+.immature .dot {
+  background: #ffd166;
+}
+
+.future .dot {
+  background: #8ab4ff;
+}
+
+.note {
+  color: var(--color-muted);
+  margin: var(--space-2) 0 0;
+}

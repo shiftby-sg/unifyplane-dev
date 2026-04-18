@@ -1,0 +1,509 @@
+{
+  "$schema": "https://unifyplane.dev/schemas/page-seo-spec.schema.json",
+  "specVersion": "1.0.0",
+  "site": {
+    "name": "UnifyPlane",
+    "siteUrl": "https://unifyplane.dev",
+    "defaultLocale": "en",
+    "defaultOgImage": "/og/default.png",
+    "titleTemplate": "%s | UnifyPlane",
+    "siteName": "UnifyPlane",
+    "indexing": {
+      "defaultRobots": {
+        "index": true,
+        "follow": true,
+        "nocache": false,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "maxSnippet": -1,
+          "maxImagePreview": "large",
+          "maxVideoPreview": -1
+        }
+      }
+    },
+    "jsonLd": {
+      "siteLevel": [
+        "Organization",
+        "WebSite"
+      ],
+      "pageLevelDefaults": {
+        "includeBreadcrumbList": true,
+        "landingPageType": "WebPage",
+        "docPageType": "TechArticle",
+        "writingPageType": "Article"
+      }
+    }
+  },
+  "governingRules": {
+    "iaChain": [
+      "practical-problem-recognition",
+      "plain-language-definition",
+      "current-readiness",
+      "evidence",
+      "operational-parts",
+      "deeper-foundations"
+    ],
+    "readerFlow": [
+      "problem",
+      "definition",
+      "current-truth",
+      "evidence",
+      "operational-reality",
+      "deeper-understanding"
+    ],
+    "seoPrinciples": [
+      "one-page-one-reader-question",
+      "page-wise-metadata-required",
+      "canonical-url-required-for-indexable-pages",
+      "json-ld-must-match-page-truth",
+      "avoid-duplication-drift-between-home-definition-and-problem-pages",
+      "do-not-overstate-product-maturity",
+      "documentation-first-not-product-marketing"
+    ]
+  },
+  "globalRequirements": {
+    "requiredMetaFields": [
+      "title",
+      "description",
+      "canonical",
+      "openGraph.title",
+      "openGraph.description",
+      "openGraph.url",
+      "openGraph.type",
+      "twitter.card",
+      "twitter.title",
+      "twitter.description"
+    ],
+    "requiredContentSignals": [
+      "single-h1",
+      "distinct-lead-paragraph",
+      "aligned-reader-question",
+      "related-links",
+      "clear-placement-in-ia-chain"
+    ],
+    "titleRules": {
+      "minLength": 20,
+      "maxLength": 65,
+      "appendSiteName": true,
+      "template": "%s | UnifyPlane"
+    },
+    "descriptionRules": {
+      "minLength": 110,
+      "maxLength": 170,
+      "mustBeUniquePerPage": true,
+      "mustReflectCurrentTruth": true,
+      "mustAvoidMarketingClaims": true
+    },
+    "canonicalRules": {
+      "mustUseAbsoluteUrl": true,
+      "mustMatchResolvedRoute": true,
+      "stripTrackingParams": true,
+      "lowercasePath": true,
+      "trailingSlash": false
+    },
+    "headingRules": {
+      "exactlyOneH1": true,
+      "h1MustAlignWithTitle": true,
+      "leadParagraphMustAlignWithMetaDescription": true
+    },
+    "internalLinkRules": {
+      "mustLinkToAdjacentIaPages": true,
+      "mustLinkToEvidenceOrReadinessWhereRelevant": true,
+      "mustAvoidCircularNoiseLinks": true
+    },
+    "jsonLdRules": {
+      "siteLevelRequired": true,
+      "nonHomeBreadcrumbRequired": true,
+      "mustUseOnlyTruthfulSchemaTypes": true,
+      "disallowedTypes": [
+        "Product",
+        "SoftwareApplication",
+        "FAQPage",
+        "HowTo",
+        "Review",
+        "AggregateRating",
+        "Event"
+      ]
+    }
+  },
+  "pageTypes": {
+    "home": {
+      "route": "/",
+      "readerQuestion": "What problem is this site about, what is UnifyPlane, is it already real, and where should I go next?",
+      "meta": {
+        "title": "UnifyPlane",
+        "description": "UnifyPlane is an evidence-oriented continuity approach for helping organizations keep change manageable and runtime behavior explainable over time.",
+        "openGraphType": "website"
+      },
+      "jsonLd": [
+        "WebPage"
+      ],
+      "mustLinkTo": [
+        "/what-is-unifyplane",
+        "/why-it-matters",
+        "/current-readiness",
+        "/evidence",
+        "/components",
+        "/foundations"
+      ],
+      "indexable": true
+    },
+    "canonicalPublicPage": {
+      "routes": [
+        "/what-is-unifyplane",
+        "/why-it-matters",
+        "/current-readiness",
+        "/evidence"
+      ],
+      "readerQuestionRule": "Each page must answer one distinct canonical question.",
+      "meta": {
+        "openGraphType": "article"
+      },
+      "jsonLd": [
+        "TechArticle",
+        "BreadcrumbList"
+      ],
+      "indexable": true
+    },
+    "landingPage": {
+      "routes": [
+        "/components",
+        "/foundations",
+        "/writing"
+      ],
+      "readerQuestionRule": "What exists in this section and where should I go next?",
+      "meta": {
+        "openGraphType": "website"
+      },
+      "jsonLd": [
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "indexable": true
+    },
+    "deepDocPage": {
+      "routes": [
+        "/components/[slug]",
+        "/foundations/[slug]"
+      ],
+      "readerQuestionRule": "What is this operational part or foundation, what is currently demonstrated, and how does it relate to the wider system?",
+      "meta": {
+        "openGraphType": "article"
+      },
+      "jsonLd": [
+        "TechArticle",
+        "BreadcrumbList"
+      ],
+      "indexable": true
+    },
+    "writingPage": {
+      "routes": [
+        "/writing/[slug]"
+      ],
+      "readerQuestionRule": "What focused explanation or interpretation is this article providing?",
+      "meta": {
+        "openGraphType": "article"
+      },
+      "jsonLd": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "indexable": true
+    }
+  },
+  "routeSpecs": [
+    {
+      "route": "/what-is-unifyplane",
+      "pageType": "canonicalPublicPage",
+      "readerQuestion": "What is UnifyPlane?",
+      "title": "What is UnifyPlane",
+      "description": "Plain-language definition of UnifyPlane, the problem it addresses, what it does today, what it is not, and how it should be understood at its current stage.",
+      "canonical": "https://unifyplane.dev/what-is-unifyplane",
+      "truthSource": [
+        "core/what-is-unifyplane"
+      ],
+      "derivedFrom": [
+        "core/what-is-unifyplane",
+        "core/website-information-architecture"
+      ],
+      "primaryKeywords": [
+        "what is UnifyPlane",
+        "UnifyPlane definition",
+        "evidence-oriented continuity approach",
+        "drift-reduction approach"
+      ],
+      "mustLinkTo": [
+        "/why-it-matters",
+        "/current-readiness",
+        "/evidence"
+      ],
+      "jsonLd": [
+        "TechArticle",
+        "BreadcrumbList"
+      ]
+    },
+    {
+      "route": "/why-it-matters",
+      "pageType": "canonicalPublicPage",
+      "readerQuestion": "Why does this continuity problem matter?",
+      "title": "Why it matters",
+      "description": "Why continuity weakens across design, delivery, runtime, operations, and assurance, and why that makes change harder to manage and runtime behavior harder to explain.",
+      "canonical": "https://unifyplane.dev/why-it-matters",
+      "truthSource": [
+        "core/problem-statement",
+        "core/website-information-architecture"
+      ],
+      "derivedFrom": [
+        "core/problem-statement"
+      ],
+      "primaryKeywords": [
+        "continuity problem",
+        "software-driven systems",
+        "runtime explainability",
+        "change management evidence"
+      ],
+      "mustLinkTo": [
+        "/what-is-unifyplane",
+        "/current-readiness",
+        "/evidence"
+      ],
+      "jsonLd": [
+        "TechArticle",
+        "BreadcrumbList"
+      ]
+    },
+    {
+      "route": "/current-readiness",
+      "pageType": "canonicalPublicPage",
+      "readerQuestion": "What is actually true now, and what should not yet be overstated?",
+      "title": "Current Readiness",
+      "description": "Current readiness boundary for UnifyPlane, separating proven capability, implemented but immature areas, future but grounded direction, and claims that should not yet be overstated.",
+      "canonical": "https://unifyplane.dev/current-readiness",
+      "truthSource": [
+        "core/website-information-architecture"
+      ],
+      "derivedFrom": [
+        "core/website-information-architecture"
+      ],
+      "primaryKeywords": [
+        "UnifyPlane readiness",
+        "proven now",
+        "implemented but immature",
+        "future but grounded"
+      ],
+      "mustLinkTo": [
+        "/evidence",
+        "/components",
+        "/what-is-unifyplane"
+      ],
+      "jsonLd": [
+        "TechArticle",
+        "BreadcrumbList"
+      ]
+    },
+    {
+      "route": "/evidence",
+      "pageType": "canonicalPublicPage",
+      "readerQuestion": "What evidence exists, and what does it actually prove?",
+      "title": "Evidence",
+      "description": "What counts as evidence for UnifyPlane, what evidence is currently available, what current evidence proves, and what it does not yet prove.",
+      "canonical": "https://unifyplane.dev/evidence",
+      "truthSource": [
+        "core/website-information-architecture"
+      ],
+      "derivedFrom": [
+        "core/website-information-architecture"
+      ],
+      "primaryKeywords": [
+        "UnifyPlane evidence",
+        "runtime evidence",
+        "proof surfaces",
+        "drift surfaces"
+      ],
+      "mustLinkTo": [
+        "/current-readiness",
+        "/components",
+        "/foundations"
+      ],
+      "jsonLd": [
+        "TechArticle",
+        "BreadcrumbList"
+      ]
+    },
+    {
+      "route": "/components",
+      "pageType": "landingPage",
+      "readerQuestion": "What are the real operational parts of UnifyPlane?",
+      "title": "Components",
+      "description": "Overview of the real operational parts of UnifyPlane, including unifyplane-core, inspect-repo, and agent-runtime, with maturity kept proportional to current implementation reality.",
+      "canonical": "https://unifyplane.dev/components",
+      "truthSource": [
+        "core/website-information-architecture"
+      ],
+      "derivedFrom": [
+        "core/website-information-architecture"
+      ],
+      "primaryKeywords": [
+        "UnifyPlane components",
+        "unifyplane-core",
+        "inspect-repo",
+        "agent-runtime"
+      ],
+      "mustLinkTo": [
+        "/components/unifyplane-core",
+        "/components/inspect-repo",
+        "/components/agent-runtime"
+      ],
+      "jsonLd": [
+        "WebPage",
+        "BreadcrumbList"
+      ]
+    },
+    {
+      "route": "/foundations",
+      "pageType": "landingPage",
+      "readerQuestion": "What deeper foundations help explain UnifyPlane?",
+      "title": "Foundations",
+      "description": "Deeper conceptual pages for continuity, proof, drift, evidence, change, and impact, with clear distinction between current demonstrated use, broader intended use, and future scope.",
+      "canonical": "https://unifyplane.dev/foundations",
+      "truthSource": [
+        "core/website-information-architecture"
+      ],
+      "derivedFrom": [
+        "core/website-information-architecture"
+      ],
+      "primaryKeywords": [
+        "UnifyPlane foundations",
+        "continuity",
+        "proof",
+        "drift",
+        "evidence"
+      ],
+      "mustLinkTo": [
+        "/foundations/continuity",
+        "/foundations/proof",
+        "/foundations/drift",
+        "/foundations/evidence",
+        "/foundations/change",
+        "/foundations/impact"
+      ],
+      "jsonLd": [
+        "WebPage",
+        "BreadcrumbList"
+      ]
+    }
+  ],
+  "dynamicRouteSpecs": {
+    "/components/[slug]": {
+      "pageType": "deepDocPage",
+      "sourceRegistry": "components.config.ts",
+      "requiredFields": [
+        "slug",
+        "title",
+        "description",
+        "maturityLabel",
+        "truthSource",
+        "derivedFrom",
+        "related"
+      ],
+      "jsonLd": [
+        "TechArticle",
+        "BreadcrumbList"
+      ]
+    },
+    "/foundations/[slug]": {
+      "pageType": "deepDocPage",
+      "sourceRegistry": "foundations.config.ts",
+      "requiredFields": [
+        "slug",
+        "title",
+        "description",
+        "currentDemonstratedUse",
+        "intendedBroaderUse",
+        "futureScope",
+        "truthSource",
+        "derivedFrom",
+        "related"
+      ],
+      "jsonLd": [
+        "TechArticle",
+        "BreadcrumbList"
+      ]
+    },
+    "/writing/[slug]": {
+      "pageType": "writingPage",
+      "sourceRegistry": "writing.config.ts",
+      "requiredFields": [
+        "slug",
+        "title",
+        "description",
+        "publishedAt",
+        "author",
+        "related"
+      ],
+      "jsonLd": [
+        "Article",
+        "BreadcrumbList"
+      ]
+    }
+  },
+  "jsonLdTemplates": {
+    "Organization": {
+      "@type": "Organization",
+      "name": "UnifyPlane",
+      "url": "https://unifyplane.dev"
+    },
+    "WebSite": {
+      "@type": "WebSite",
+      "name": "UnifyPlane",
+      "url": "https://unifyplane.dev"
+    },
+    "WebPage": {
+      "@type": "WebPage",
+      "name": "$title",
+      "url": "$canonical",
+      "description": "$description"
+    },
+    "TechArticle": {
+      "@type": "TechArticle",
+      "headline": "$title",
+      "description": "$description",
+      "url": "$canonical",
+      "isPartOf": "https://unifyplane.dev"
+    },
+    "Article": {
+      "@type": "Article",
+      "headline": "$title",
+      "description": "$description",
+      "url": "$canonical",
+      "datePublished": "$publishedAt"
+    },
+    "BreadcrumbList": {
+      "@type": "BreadcrumbList",
+      "itemListElement": "$breadcrumbs"
+    }
+  },
+  "validation": {
+    "failBuildIf": [
+      "title_missing",
+      "description_missing",
+      "canonical_missing",
+      "duplicate_title_and_description_pair",
+      "duplicate_canonical",
+      "multiple_h1",
+      "json_ld_type_not_allowed",
+      "truth_source_missing_for_indexable_doc_page",
+      "route_not_registered_for_dynamic_public_page"
+    ],
+    "warnIf": [
+      "description_too_short",
+      "description_too_long",
+      "title_too_short",
+      "title_too_long",
+      "related_links_missing",
+      "lead_paragraph_not_aligned_with_description",
+      "same_keywords_reused_across_adjacent_pages"
+    ]
+  }
+}
