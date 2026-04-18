@@ -82,8 +82,63 @@
   color: var(--color-muted);
 }
 
-.boundary {
-  max-width: 72ch;
+.trustBox {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.trustLabel {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.trustBody {
+  margin-top: var(--space-3);
+  display: grid;
+  gap: var(--space-3);
+  max-width: 84ch;
+}
+
+.rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.railItem {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.railProven {
+  border-color: rgba(61, 214, 140, 0.35);
+}
+
+.railImmature {
+  border-color: rgba(255, 209, 102, 0.35);
+}
+
+.railFuture {
+  border-color: rgba(138, 180, 255, 0.35);
+}
+
+.trustLine {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.routeLine {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-fg);
 }
 
 .pair {

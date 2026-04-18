@@ -1,7 +1,21 @@
 import Link from "next/link";
 import styles from "./HomeComposition.module.css";
 import type { HomeComposition } from "../lib/content/compositions";
-import { BoundaryStatus } from "./BoundaryStatus";
+
+function TrustBox({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className={styles.trustBox} aria-label={label}>
+      <div className={styles.trustLabel}>{label}</div>
+      <div className={styles.trustBody}>{children}</div>
+    </section>
+  );
+}
 
 export function HomeCompositionView({ composition }: { composition: HomeComposition }) {
   const hero = composition.sections.find((s) => s.kind === "hero");
@@ -66,12 +80,22 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
               <h3 className={styles.cardTitle}>{readiness.title}</h3>
               <p className={styles.cardDesc}>{readiness.description}</p>
             </Link>
-            <div className={styles.boundary}>
-              <BoundaryStatus
-                variant="proven"
-                note="Readiness is expressed as boundaries: proven now, implemented but immature, and future but grounded."
-              />
-            </div>
+            <TrustBox label="Readiness boundary">
+              <div className={styles.rail} aria-label="Readiness buckets">
+                <div className={`${styles.railItem} ${styles.railProven}`}>Proven now</div>
+                <div className={`${styles.railItem} ${styles.railImmature}`}>
+                  Implemented but immature
+                </div>
+                <div className={`${styles.railItem} ${styles.railFuture}`}>Future but grounded</div>
+              </div>
+              <p className={styles.trustLine}>
+                Readiness is separated into what is proven now, what is implemented but immature,
+                and what remains future but grounded.
+              </p>
+              <p className={styles.routeLine}>
+                Use this page as the truth boundary for interpreting claims elsewhere.
+              </p>
+            </TrustBox>
           </section>
         ) : null}
 
@@ -82,12 +106,14 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
               <h3 className={styles.cardTitle}>{evidence.title}</h3>
               <p className={styles.cardDesc}>{evidence.description}</p>
             </Link>
-            <div className={styles.boundary}>
-              <BoundaryStatus
-                variant="implemented-immature"
-                note="Evidence is about artifacts and what they prove (and do not prove). Evidence is not a maturity claim."
-              />
-            </div>
+            <TrustBox label="Evidence scope">
+              <p className={styles.trustLine}>Artifacts and runs support current claims.</p>
+              <p className={styles.trustLine}>Evidence does not equal full maturity.</p>
+              <p className={styles.trustLine}>
+                Evidence is about artifacts, runs, and what they support. It should clarify current
+                claims, not inflate maturity.
+              </p>
+            </TrustBox>
           </section>
         ) : null}
 
