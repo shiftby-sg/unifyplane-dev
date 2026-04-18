@@ -1,0 +1,530 @@
+{
+  "plan_name": "unifyplane_dev_website_implementation_plan",
+  "version": "1.0.0",
+  "project": "unifyplane.dev",
+  "implementation_type": "Next.js static-first canonical-docs-driven website",
+  "canonical_docs_root": "/home/manandakrishna/myprojects/unifyplane/unifyplane-dev/docs/canonical",
+  "primary_canonical_doc": "/home/manandakrishna/myprojects/unifyplane/unifyplane-dev/docs/canonical/website-information-architecture.v2.md",
+  "all_canonical_docs_rule": "All canonical documents under /home/manandakrishna/myprojects/unifyplane/unifyplane-dev/docs/canonical are source-of-truth inputs. UI, routes, metadata, and page templates must derive from them and must not redefine canonical meaning.",
+  "governing_chain": {
+    "ia_chain": [
+      "practical problem recognition",
+      "plain-language definition",
+      "current readiness",
+      "evidence",
+      "operational parts",
+      "deeper foundations"
+    ],
+    "reader_flow": [
+      "problem",
+      "definition",
+      "current truth",
+      "evidence",
+      "operational reality",
+      "deeper understanding"
+    ]
+  },
+  "global_execution_rules": {
+    "G0_1_fail_closed_phase_progression": {
+      "rule": "Any failed phase validation halts the plan. No continuation to next phase until fix is applied and approval is recorded."
+    },
+    "G0_2_canonical_content_priority": {
+      "rule": "Canonical markdown documents are the only source of content truth. Implementation must never outrun or contradict canonical documents."
+    },
+    "G0_3_static_first_delivery": {
+      "rule": "Default to static generation and Server Components. Client Components allowed only for necessary interaction islands."
+    },
+    "G0_4_performance_budget_required": {
+      "rule": "Every phase must preserve text-first rendering, low JavaScript cost, and mobile-first performance."
+    },
+    "G0_5_phase_validation_mandatory": {
+      "required_outputs": [
+        "output_artifact",
+        "validation_result",
+        "test_case_result"
+      ]
+    },
+    "G0_6_human_approval_gate": {
+      "rule": "After each phase, evidence must be reviewed and approved manually before the next phase begins."
+    },
+    "G0_7_mobile_first_and_seo_first": {
+      "rule": "All routes, layouts, templates, and metadata must be mobile optimized, indexable, and semantically structured from the first implementation pass."
+    }
+  },
+  "performance_targets": {
+    "hero_signal_time": "<3 seconds perceived recognition",
+    "home_page_section_signal_time": "<10 seconds perceived comprehension",
+    "foundation_page_read_time": "<2 minutes first-pass comprehension",
+    "core_web_vitals_targets": {
+      "LCP": "low LCP target with immediate text-first rendering",
+      "INP": "low INP target with minimal client-side interaction cost",
+      "CLS": "near-zero layout shift target"
+    },
+    "delivery_constraints": [
+      "minimal client JavaScript",
+      "Server Components by default",
+      "static generation for all canonical pages",
+      "self-hosted optimized fonts",
+      "optimized images only where necessary",
+      "no heavy animation or carousel above the fold",
+      "no client-side markdown rendering"
+    ]
+  },
+  "audience_model": {
+    "primary_audience": [
+      "enterprise architecture and architecture-governance readers",
+      "assurance, audit, and control-oriented technical readers",
+      "security assurance and security architecture readers",
+      "senior engineering, platform, and technical-governance readers"
+    ],
+    "secondary_audience_handling": [
+      "serve through supporting content where relevant",
+      "use Writing for broader audience reach",
+      "do not allow secondary audiences to dominate navigation or first-contact language"
+    ],
+    "ux_principles": [
+      "problem signal first",
+      "trust boundary visible",
+      "evidence before expansion",
+      "one page one job",
+      "serious documentation feel rather than product marketing"
+    ]
+  },
+  "seo_and_indexing_model": {
+    "page_intent_rule": "Each route must own one primary search and reading intent.",
+    "metadata_requirements": [
+      "unique title",
+      "unique description",
+      "canonical URL",
+      "Open Graph metadata",
+      "structured heading hierarchy"
+    ],
+    "internal_linking_model": [
+      "link pages according to governing chain",
+      "avoid duplication drift",
+      "preserve canonical source ownership",
+      "cluster narrative, operational, and foundation pages semantically"
+    ],
+    "indexing_priority_routes": [
+      "/",
+      "/what-is-unifyplane",
+      "/why-it-matters",
+      "/current-readiness",
+      "/evidence",
+      "/components",
+      "/foundations"
+    ]
+  },
+  "project_structure": {
+    "framework": "Next.js",
+    "router": "App Router",
+    "rendering_model": "Server Components by default, static generation for all canonical routes",
+    "suggested_directories": {
+      "app": [
+        "/app/(site)/layout.tsx",
+        "/app/(site)/page.tsx",
+        "/app/(site)/what-is-unifyplane/page.tsx",
+        "/app/(site)/why-it-matters/page.tsx",
+        "/app/(site)/current-readiness/page.tsx",
+        "/app/(site)/evidence/page.tsx",
+        "/app/(site)/components/page.tsx",
+        "/app/(site)/components/[slug]/page.tsx",
+        "/app/(site)/foundations/page.tsx",
+        "/app/(site)/foundations/[slug]/page.tsx",
+        "/app/(site)/writing/page.tsx"
+      ],
+      "components": [
+        "/components/site-header.tsx",
+        "/components/site-footer.tsx",
+        "/components/mobile-nav.tsx",
+        "/components/doc-layout.tsx",
+        "/components/doc-toc.tsx",
+        "/components/section-card.tsx",
+        "/components/cta-links.tsx",
+        "/components/status-boundary-note.tsx",
+        "/components/markdown-renderer.tsx"
+      ],
+      "lib": [
+        "/lib/content.ts",
+        "/lib/metadata.ts",
+        "/lib/navigation.ts",
+        "/lib/toc.ts",
+        "/lib/seo.ts"
+      ],
+      "content": [
+        "/content/site",
+        "/content/components",
+        "/content/foundations",
+        "/content/core"
+      ]
+    }
+  },
+  "route_map": [
+    "/",
+    "/what-is-unifyplane",
+    "/why-it-matters",
+    "/current-readiness",
+    "/evidence",
+    "/components",
+    "/components/unifyplane-core",
+    "/components/agent-runtime",
+    "/components/inspect-repo",
+    "/foundations",
+    "/foundations/continuity",
+    "/foundations/proof",
+    "/foundations/drift",
+    "/foundations/evidence",
+    "/foundations/change",
+    "/foundations/impact",
+    "/writing"
+  ],
+  "evidence_storage": {
+    "root": "/home/manandakrishna/myprojects/unifyplane/unifyplane-dev/evidence/reports/implementationplan",
+    "phase_structure": [
+      "phase1/",
+      "phase2/",
+      "phase3/",
+      "phase4/",
+      "phase5/",
+      "phase6/",
+      "phase7/",
+      "phase8/",
+      "phase9/",
+      "phase10/"
+    ],
+    "failure_rule": "On failure, create phaseXa subfolder with failure_report.json, root_cause.md, recommendation.md, then stop."
+  },
+  "implementation_phases": [
+    {
+      "phase": 1,
+      "name": "Canonical content inventory and schema",
+      "objective": "Establish the canonical markdown inventory, frontmatter schema, content taxonomy, and route mapping derived from the IA and all canonical documents.",
+      "output": [
+        "content_manifest.json",
+        "route_map.json",
+        "frontmatter_schema.json",
+        "canonical_doc_registry.json"
+      ],
+      "test_cases": [
+        "all canonical files are discoverable under docs/canonical",
+        "required route pages map cleanly to canonical documents",
+        "missing required metadata fails validation"
+      ],
+      "validation": [
+        "all canonical documents indexed",
+        "top-level IA routes mapped",
+        "content schema accepted",
+        "fail-closed on schema mismatch"
+      ],
+      "evidence": [
+        "phase1/content_manifest.json",
+        "phase1/validation.json",
+        "phase1/test_results.json"
+      ],
+      "approval_required": [
+        "canonical inventory verified",
+        "schema and route ownership approved"
+      ]
+    },
+    {
+      "phase": 2,
+      "name": "Next.js application skeleton",
+      "objective": "Create the Next.js App Router project skeleton with root layout, section layouts, TypeScript, linting, and static route shells.",
+      "output": [
+        "nextjs_app_initialized",
+        "root_layout",
+        "site_layout",
+        "route_shells",
+        "lint_and_build_configuration"
+      ],
+      "test_cases": [
+        "app boots locally",
+        "root and section layouts render",
+        "static route shells compile without runtime errors"
+      ],
+      "validation": [
+        "build passes",
+        "lint passes",
+        "route shells match canonical route map"
+      ],
+      "evidence": [
+        "phase2/build_report.json",
+        "phase2/validation.json",
+        "phase2/test_results.json"
+      ],
+      "approval_required": [
+        "project skeleton verified",
+        "routing baseline approved"
+      ]
+    },
+    {
+      "phase": 3,
+      "name": "Markdown ingestion and rendering pipeline",
+      "objective": "Implement markdown loading, parsing, heading extraction, TOC generation, and server-side content rendering.",
+      "output": [
+        "markdown_loader",
+        "frontmatter_parser",
+        "toc_generator",
+        "server_side_markdown_renderer"
+      ],
+      "test_cases": [
+        "canonical site pages render from markdown",
+        "component pages render from markdown",
+        "foundation pages render from markdown",
+        "invalid markdown metadata fails closed"
+      ],
+      "validation": [
+        "content rendered server-side",
+        "TOC generated for long pages",
+        "no client-side markdown rendering dependency"
+      ],
+      "evidence": [
+        "phase3/render_manifest.json",
+        "phase3/validation.json",
+        "phase3/test_results.json"
+      ],
+      "approval_required": [
+        "content pipeline verified",
+        "markdown rendering approved"
+      ]
+    },
+    {
+      "phase": 4,
+      "name": "Global IA shell and navigation",
+      "objective": "Implement header, footer, primary navigation, mobile navigation, section navigation, and IA-consistent page hierarchy.",
+      "output": [
+        "primary_navigation",
+        "mobile_navigation",
+        "footer_navigation",
+        "section_layout_shells"
+      ],
+      "test_cases": [
+        "primary nav order matches IA",
+        "mobile nav is usable and accessible",
+        "active state and hierarchy are visible",
+        "Writing remains secondary"
+      ],
+      "validation": [
+        "navigation labels align to canonical IA",
+        "problem-to-foundations flow preserved",
+        "mobile navigation works without heavy client cost"
+      ],
+      "evidence": [
+        "phase4/navigation_audit.json",
+        "phase4/validation.json",
+        "phase4/test_results.json"
+      ],
+      "approval_required": [
+        "navigation verified",
+        "IA shell approved"
+      ]
+    },
+    {
+      "phase": 5,
+      "name": "Homepage implementation",
+      "objective": "Implement the homepage for <3 second hero signal and <10 second first-pass section comprehension.",
+      "output": [
+        "hero_section",
+        "why_this_matters_section",
+        "what_is_unifyplane_section",
+        "current_readiness_summary",
+        "evidence_summary",
+        "components_summary",
+        "explore_deeper_section"
+      ],
+      "test_cases": [
+        "hero renders immediately on mobile",
+        "homepage section order matches IA",
+        "CTA links route correctly",
+        "no layout shift in the first viewport"
+      ],
+      "validation": [
+        "hero is text-first and fast",
+        "home summarizes and routes rather than over-owning content",
+        "AI, safety, and security are visible but not dominant"
+      ],
+      "evidence": [
+        "phase5/homepage_audit.json",
+        "phase5/validation.json",
+        "phase5/test_results.json"
+      ],
+      "approval_required": [
+        "homepage signal verified",
+        "homepage routing logic approved"
+      ]
+    },
+    {
+      "phase": 6,
+      "name": "Core narrative and trust pages",
+      "objective": "Implement What is UnifyPlane, Why it matters, Current Readiness, and Evidence as distinct canonical pages with no duplication drift.",
+      "output": [
+        "what_is_unifyplane_page",
+        "why_it_matters_page",
+        "current_readiness_page",
+        "evidence_page"
+      ],
+      "test_cases": [
+        "each route renders from canonical markdown",
+        "page roles remain distinct",
+        "metadata is unique per page",
+        "internal linking respects source-of-truth ownership"
+      ],
+      "validation": [
+        "definition, problem, readiness, and evidence roles remain separate",
+        "no substantial duplication drift",
+        "current truth and future direction are separated clearly"
+      ],
+      "evidence": [
+        "phase6/page_role_audit.json",
+        "phase6/validation.json",
+        "phase6/test_results.json"
+      ],
+      "approval_required": [
+        "core public path verified",
+        "trust boundary approved"
+      ]
+    },
+    {
+      "phase": 7,
+      "name": "Components layer",
+      "objective": "Implement components landing page plus UnifyPlane Core, Agent Runtime, and Inspect Repo pages.",
+      "output": [
+        "components_index_page",
+        "unifyplane_core_page",
+        "agent_runtime_page",
+        "inspect_repo_page"
+      ],
+      "test_cases": [
+        "component routes render correctly",
+        "component roles are distinguishable",
+        "component maturity boundaries are visible",
+        "agent-runtime reads clearly as bounded AI-agent runtime"
+      ],
+      "validation": [
+        "components are operational parts only",
+        "unifyplane-core is visibly strongest current component",
+        "agent-runtime and inspect-repo are presented as real but earlier"
+      ],
+      "evidence": [
+        "phase7/components_audit.json",
+        "phase7/validation.json",
+        "phase7/test_results.json"
+      ],
+      "approval_required": [
+        "components layer verified",
+        "component maturity presentation approved"
+      ]
+    },
+    {
+      "phase": 8,
+      "name": "Foundations layer",
+      "objective": "Implement Foundations landing plus Continuity, Proof, Drift, Evidence, Change, and Impact pages.",
+      "output": [
+        "foundations_index_page",
+        "continuity_page",
+        "proof_page",
+        "drift_page",
+        "evidence_foundation_page",
+        "change_page",
+        "impact_page"
+      ],
+      "test_cases": [
+        "foundation pages render from canonical markdown",
+        "long-form pages include working TOC",
+        "readability remains strong on mobile and desktop",
+        "Continuity appears clearly as conceptual center"
+      ],
+      "validation": [
+        "foundations stay secondary to top-layer problem/definition/truth pages",
+        "foundation pages remain grounded in current canon",
+        "future direction does not overrun current maturity"
+      ],
+      "evidence": [
+        "phase8/foundations_audit.json",
+        "phase8/validation.json",
+        "phase8/test_results.json"
+      ],
+      "approval_required": [
+        "foundation layer verified",
+        "progressive-depth model approved"
+      ]
+    },
+    {
+      "phase": 9,
+      "name": "Performance, accessibility, and mobile hardening",
+      "objective": "Optimize for Core Web Vitals, accessibility, low-JS delivery, and clean mobile reading.",
+      "output": [
+        "font_optimization",
+        "image_optimization",
+        "reduced_client_islands",
+        "a11y_remediation",
+        "mobile_readability_tuning"
+      ],
+      "test_cases": [
+        "mobile lighthouse run",
+        "desktop lighthouse run",
+        "keyboard navigation",
+        "contrast checks",
+        "reduced-motion compatibility"
+      ],
+      "validation": [
+        "low-JS content pages preserved",
+        "LCP and INP targets improved",
+        "mobile navigation and TOC remain usable",
+        "no accessibility blockers"
+      ],
+      "evidence": [
+        "phase9/performance_report.json",
+        "phase9/accessibility_report.json",
+        "phase9/test_results.json"
+      ],
+      "approval_required": [
+        "performance hardening verified",
+        "mobile and accessibility quality approved"
+      ]
+    },
+    {
+      "phase": 10,
+      "name": "SEO, indexing, and release hardening",
+      "objective": "Finalize indexing-safe metadata, sitemaps, robots policy, structured internal linking, analytics hooks, and production readiness.",
+      "output": [
+        "sitemap",
+        "robots_policy",
+        "final_metadata_audit",
+        "internal_linking_audit",
+        "release_checklist"
+      ],
+      "test_cases": [
+        "all indexable routes appear in sitemap",
+        "metadata complete for all release routes",
+        "canonical URLs resolve correctly",
+        "internal links and breadcrumbs are valid"
+      ],
+      "validation": [
+        "indexing model aligns to page intent",
+        "release routes are coherent and complete",
+        "no broken canonical links",
+        "production build ready"
+      ],
+      "evidence": [
+        "phase10/release_audit.json",
+        "phase10/seo_report.json",
+        "phase10/test_results.json"
+      ],
+      "approval_required": [
+        "SEO and indexing verified",
+        "production release approved"
+      ]
+    }
+  ],
+  "failure_handling": {
+    "on_failure": [
+      "generate failure_report.json",
+      "generate root_cause.md",
+      "generate recommendation.md",
+      "stop execution",
+      "wait for human approval before retry"
+    ],
+    "retry_rule": "Retry requires fix applied, human approval, and new sub-phase folder phaseXa."
+  }
+}

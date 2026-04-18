@@ -1,0 +1,299 @@
+{
+  "name": "unifyplane_website_constraints",
+  "version": "1.0.0",
+  "scope": "unifyplane.dev",
+  "source_of_truth": {
+    "canonical_docs_root": "/home/manandakrishna/myprojects/unifyplane/unifyplane-dev/docs/canonical",
+    "website_information_architecture": "/home/manandakrishna/myprojects/unifyplane/unifyplane-dev/docs/canonical/website-information-architecture.v2.md",
+    "rule": "All content, routes, metadata, and UI decisions must remain aligned to canonical markdown documents."
+  },
+  "governing_chain": {
+    "ia_chain": [
+      "practical problem recognition",
+      "plain-language definition",
+      "current readiness",
+      "evidence",
+      "operational parts",
+      "deeper foundations"
+    ],
+    "reader_flow": [
+      "problem",
+      "definition",
+      "current truth",
+      "evidence",
+      "operational reality",
+      "deeper understanding"
+    ]
+  },
+  "content_constraints": {
+    "canonical_first": true,
+    "one_page_one_job": true,
+    "problem_before_abstraction": true,
+    "evidence_before_expansion": true,
+    "current_truth_separate_from_future_direction": true,
+    "continuity_first_identity": true,
+    "rules": [
+      "Pages must not redefine canonical meaning.",
+      "Top-level pages must preserve role separation.",
+      "Claims must remain proportional to current maturity and evidence.",
+      "AI, safety, security, and governance concerns must be visible where relevant without replacing the continuity-first identity.",
+      "Components must contain only real operational parts.",
+      "Writing must remain secondary to canonical documentation.",
+      "Foundation pages must distinguish current demonstrated use, broader intended use, and future scope."
+    ]
+  },
+  "information_architecture_constraints": {
+    "primary_navigation": [
+      "Home",
+      "What is UnifyPlane",
+      "Why it matters",
+      "Current Readiness",
+      "Evidence",
+      "Components",
+      "Foundations"
+    ],
+    "secondary_navigation": [
+      "Writing"
+    ],
+    "required_components": [
+      "unifyplane-core",
+      "agent-runtime",
+      "inspect-repo"
+    ],
+    "required_foundations_v1": [
+      "Continuity",
+      "Proof",
+      "Drift",
+      "Evidence",
+      "Change",
+      "Impact"
+    ],
+    "forbidden_top_level_labels": [
+      "Concepts",
+      "Blog",
+      "Why it exists"
+    ],
+    "rules": [
+      "Primary navigation order must match the IA chain.",
+      "Writing must remain optional, secondary, or footer-level.",
+      "Foundations must not dominate first contact.",
+      "Components must not include disciplines, audiences, or enterprise functions."
+    ]
+  },
+  "audience_constraints": {
+    "primary_audience": [
+      "enterprise architecture and architecture-governance readers",
+      "assurance, audit, and control-oriented technical readers",
+      "security assurance and security architecture readers",
+      "senior engineering, platform, and technical-governance readers"
+    ],
+    "secondary_audience": [
+      "business leadership readers",
+      "broader governance audiences",
+      "general AI-risk readers",
+      "adjacent readers interested in safety, security, or assurance implications"
+    ],
+    "rules": [
+      "Primary audience signal must be optimized first.",
+      "Secondary audiences may be addressed where relevant or through Writing.",
+      "Secondary audiences must not reshape the homepage identity, top-level navigation, or first-definition language."
+    ]
+  },
+  "ux_constraints": {
+    "signal_targets": {
+      "hero_signal_time": "<3 seconds perceived recognition",
+      "home_section_signal_time": "<10 seconds perceived comprehension",
+      "foundation_page_first_pass_time": "<2 minutes"
+    },
+    "rules": [
+      "Homepage must summarize and route, not fully own deeper pages.",
+      "Hero must be text-first and immediately legible.",
+      "Deep pages must support structured reading, TOC, and onward navigation.",
+      "Trust must come from structure, explicit boundaries, and page-role clarity.",
+      "Do not use personalization that obscures the canonical information scent."
+    ]
+  },
+  "mobile_constraints": {
+    "mobile_first": true,
+    "rules": [
+      "Navigation must collapse cleanly on mobile.",
+      "Hero must remain readable without excessive wrapping.",
+      "Cards and sections must stack vertically.",
+      "No horizontal scrolling for primary content.",
+      "TOC must degrade to an in-page jump control or compact menu on mobile.",
+      "Tap targets must remain comfortably usable."
+    ]
+  },
+  "seo_constraints": {
+    "one_primary_intent_per_page": true,
+    "required_metadata": [
+      "unique title",
+      "unique description",
+      "canonical URL",
+      "Open Graph metadata"
+    ],
+    "rules": [
+      "Each route must own one primary search and reading intent.",
+      "Semantic heading hierarchy must be clear and stable.",
+      "Internal links must reinforce the governing chain.",
+      "Avoid duplication drift across Home, What, Why, Readiness, and Evidence.",
+      "Do not hide primary content behind tabs or client-only interactions unless strictly necessary."
+    ]
+  },
+  "performance_constraints": {
+    "static_first": true,
+    "server_components_default": true,
+    "rules": [
+      "Use static generation for canonical pages.",
+      "Default to Server Components; use Client Components only for necessary interaction islands.",
+      "Keep above-the-fold rendering primarily text-based.",
+      "Minimize client JavaScript.",
+      "Do not use heavy animation libraries or carousel patterns in critical rendering path.",
+      "Do not render markdown on the client.",
+      "Optimize fonts and images using framework-native mechanisms."
+    ],
+    "core_web_vitals_focus": [
+      "Low LCP",
+      "Low INP",
+      "Near-zero CLS"
+    ]
+  },
+  "visual_design_constraints": {
+    "tone": [
+      "serious",
+      "modern",
+      "quiet",
+      "technically credible",
+      "bounded",
+      "evidence-led"
+    ],
+    "must_feel_like": [
+      "technical documentation",
+      "continuity-first",
+      "implementation-aware",
+      "trust-sensitive"
+    ],
+    "must_not_feel_like": [
+      "startup landing page",
+      "dashboard product",
+      "concept blog",
+      "broad transformation marketing site",
+      "AI hype site"
+    ],
+    "rules": [
+      "Typography must be the primary design system.",
+      "Use restrained color and quiet polish.",
+      "Prefer borders and spacing over heavy shadows.",
+      "Avoid decorative abstraction that competes with reading.",
+      "Design and writing tone must feel like one system."
+    ]
+  },
+  "layout_constraints": {
+    "long_form_content_max_width": "48rem-52rem",
+    "landing_page_outer_max_width": "72rem-76rem",
+    "rules": [
+      "Long-form narrative and foundation pages must use single-column reading layouts.",
+      "Grid layouts may be used for landing pages, summaries, and explore-next sections.",
+      "Vertical rhythm must be generous and consistent."
+    ]
+  },
+  "typography_constraints": {
+    "rules": [
+      "Maintain strong H1/H2/H3 hierarchy.",
+      "Body text must remain comfortably readable on mobile and desktop.",
+      "Avoid excessively wide paragraphs and dense bullet walls.",
+      "Use bold for high-signal emphasis and code style only for identifiers."
+    ],
+    "suggested_scale": {
+      "h1": "2.25rem-3rem",
+      "h2": "1.5rem-2rem",
+      "h3": "1.125rem-1.25rem",
+      "body": "1rem-1.125rem",
+      "small": "0.875rem"
+    }
+  },
+  "component_constraints": {
+    "required_reusable_components": [
+      "site-header",
+      "site-footer",
+      "hero-block",
+      "section-summary-block",
+      "section-card",
+      "boundary-status-block",
+      "table-of-contents",
+      "related-pages-block"
+    ],
+    "rules": [
+      "Boundary/status block must be reusable across readiness, evidence, and maturity notes.",
+      "Cards must support scan speed and not feel like product tiles.",
+      "Component pages must emphasize role, what is real, strengths, and boundaries."
+    ]
+  },
+  "page_template_constraints": {
+    "home": [
+      "Hero",
+      "Why this matters in practice",
+      "What UnifyPlane is",
+      "Current Readiness",
+      "Evidence first",
+      "Components",
+      "Explore deeper"
+    ],
+    "canonical_narrative_pages": [
+      "What is UnifyPlane",
+      "Why it matters",
+      "Current Readiness",
+      "Evidence"
+    ],
+    "component_pages": [
+      "unifyplane-core",
+      "agent-runtime",
+      "inspect-repo"
+    ],
+    "foundation_pages": [
+      "continuity",
+      "proof",
+      "drift",
+      "evidence",
+      "change",
+      "impact"
+    ],
+    "rules": [
+      "Home must summarize and route.",
+      "Canonical narrative pages must not collapse into one another.",
+      "Foundation pages must remain deeper than the top layer.",
+      "Component pages must not read like API docs or product sales pages."
+    ]
+  },
+  "implementation_constraints": {
+    "framework": "Next.js",
+    "router": "App Router",
+    "rendering_model": "static-first with Server Components by default",
+    "rules": [
+      "Build from content schema and route schema first, then style.",
+      "Metadata must be generated at route level.",
+      "Canonical markdown must drive both content and metadata where possible.",
+      "Client-side islands must be limited to necessary interactions such as mobile nav, TOC helpers, or theme toggles."
+    ]
+  },
+  "design_tokens_required_early": [
+    "colors",
+    "spacing",
+    "typography",
+    "radius",
+    "borders",
+    "shadows",
+    "layout widths",
+    "semantic status colors",
+    "breakpoints",
+    "z-index policy"
+  ],
+  "non_negotiables": [
+    "Continuity remains the conceptual center.",
+    "Evidence remains visible as a first-class trust layer.",
+    "Current truth must stay separate from future direction.",
+    "Components must remain operational parts only.",
+    "Home must deliver fast signal and route deeper.",
+    "Mobile usability and low client overhead are required."
+  ]
+}
