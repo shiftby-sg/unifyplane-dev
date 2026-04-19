@@ -14,7 +14,8 @@
 
 .hero {
   max-width: 76ch;
-  margin: 0 auto;
+  /* Keep a readable measure, but align with the left edge of other bands. */
+  margin: 0;
 }
 
 .headline {
