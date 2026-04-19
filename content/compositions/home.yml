@@ -5,7 +5,7 @@
       "id": "hero",
       "kind": "hero",
       "headline": "The problem is not just complexity.",
-      "subhead": "Continuity between intent, implementation, and runtime behavior weakens over time, especially as AI accelerates change. UnifyPlane is an evidence-oriented continuity approach grounded in implementation, with readiness explicit where controls, safety, and security trust boundaries matter.",
+      "subhead": "Continuity between intent, implementation, and runtime behavior weakens over time, especially as AI accelerates change. UnifyPlane is an evidence-oriented continuity approach grounded in real implementation and evidence, with explicit readiness boundaries (real today, uneven maturity).",
       "primaryCta": { "label": "What is UnifyPlane", "href": "/what-is-unifyplane" },
       "secondaryCta": { "label": "Why it matters", "href": "/why-it-matters" }
     },
