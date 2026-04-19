@@ -31,7 +31,7 @@
 
 # Why it matters
 
-## Why it matters
+## The problem is not just complexity
 
 The problem is not just complexity.
 
@@ -68,7 +68,7 @@ That separation is common, costly, and too often normalized.
 
 ---
 
-## The problem in practice
+## Where continuity weakens in practice
 
 A design changes.
 A workflow is reconfigured.
@@ -105,7 +105,7 @@ This is a repeating problem, not a rare exception.
 
 ---
 
-## How this shows up in real environments
+## Why this appears across different delivery models
 
 This problem appears across very different delivery environments and working styles.
 
@@ -124,7 +124,7 @@ None of these conditions are unusual. But together they make continuity weaker, 
 
 ---
 
-## Why existing structures often miss it
+## Why enterprise processes often miss it
 
 Most enterprises already have many structures:
 
@@ -161,7 +161,7 @@ It is that continuity weakens across the enterprise processes that are supposed 
 
 ---
 
-## Why this matters more now
+## Why AI-enabled and heterogeneous systems make it more urgent
 
 This is not a new problem created by AI. Enterprises have long faced it.
 
@@ -194,7 +194,7 @@ It is about a more basic need:
 
 ---
 
-## Why controls, safety, and security fit here
+## Why controls, safety, and security depend on it too
 
 Controls become weaker when they are separated from execution reality.
 

@@ -1,9 +1,39 @@
 :root {
-  --color-bg: #0b0f14;
-  --color-fg: #e7eef7;
-  --color-muted: #a9b4c3;
-  --color-border: rgba(231, 238, 247, 0.12);
-  --color-accent: #8ab4ff;
+  /* Spec: light-only-v1 tokens (contracts/specs/unifyplane.design.spec.json) */
+  --color-bg: #fafaf9;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f5f5f4;
+  --color-border: #e7e5e4;
+  --color-text: #1c1917;
+  --color-text-muted: #57534e;
+
+  --color-accent: #0f766e;
+  --color-accent-hover: #115e59;
+  --color-accent-subtle: #ccfbf1;
+  --color-accent-text: #134e4a;
+
+  --color-overlay: rgba(0, 0, 0, 0.35);
+
+  /* Back-compat aliases used across the current codebase. */
+  --color-fg: var(--color-text);
+  --color-muted: var(--color-text-muted);
+
+  /* Readiness semantics */
+  --color-semantic-proven-bg: #ecfdf5;
+  --color-semantic-proven-border: #a7f3d0;
+  --color-semantic-proven-text: #065f46;
+
+  --color-semantic-emerging-bg: #fffbeb;
+  --color-semantic-emerging-border: #fcd34d;
+  --color-semantic-emerging-text: #92400e;
+
+  --color-semantic-future-bg: #eff6ff;
+  --color-semantic-future-border: #93c5fd;
+  --color-semantic-future-text: #1d4ed8;
+
+  --color-semantic-warning-bg: #fef2f2;
+  --color-semantic-warning-border: #fecaca;
+  --color-semantic-warning-text: #b91c1c;
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -14,13 +44,14 @@
   --space-4: 16px;
   --space-6: 24px;
   --space-8: 32px;
+  --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
 
   --layout-content: 52rem;
   --layout-wide: 76rem;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * {
@@ -38,7 +69,7 @@ body {
     Arial, "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.6;
   background: var(--color-bg);
-  color: var(--color-fg);
+  color: var(--color-text);
 }
 
 .skipLink {
@@ -48,8 +79,8 @@ body {
   padding: 10px 12px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  background: var(--color-bg);
-  color: var(--color-fg);
+  background: var(--color-surface);
+  color: var(--color-text);
 }
 
 .skipLink:focus {

@@ -1,136 +1,118 @@
-Yes — here is a revised **Website Design System Spec v2** with the missing implementation-level precision added.
+# UnifyPlane Design System Spec
 
-It preserves the original intent: evidence-led, continuity-first, documentation-first, restrained, fast, and trustworthy for the primary technical audience. It also tightens the areas that were still underdefined: accessibility, breakpoints, boundary semantics, component states, token completeness, and v1 scope decisions.   
+This document is the narrative companion to `contracts/specs/unifyplane.design.spec.json`.
+
+It defines the design-system baseline for `unifyplane.dev` as a documentation-first, evidence-led site. The goal is not to create a generic product-marketing surface. The goal is to create a site that feels technically serious, bounded in claims, easy to scan, and trustworthy for readers who care about implementation reality, evidence, readiness, and control.
 
 ---
 
-# Website Design System Spec v2
-
 ## 1. Purpose
-
-This document defines the implementation-ready design system baseline for `unifyplane.dev`.
 
 The design system exists to keep the site:
 
 * consistent
 * fast
-* mobile-optimized
-* SEO-safe
+* mobile-first
 * accessible
+* SEO-safe
 * easy to scan
 * trustworthy for the primary audience
 
-It must reinforce the IA and canonical positioning of UnifyPlane as an evidence-oriented continuity approach, not as a product-marketing site, hype concept, abstract framework catalog, or dashboard-like application shell.  
+It must reinforce UnifyPlane as:
+
+* an evidence-oriented continuity approach
+* a bounded execution, evidence, and drift-reduction model
+* a documentation-first technical narrative
+
+It must not drift into:
+
+* a startup-style landing page
+* a generic SaaS product site
+* a dashboard shell
+* a hype AI site
+* a broad enterprise-transformation promise
 
 ---
 
-## 2. Design Intent
+## 2. Audience and Reading Intent
 
-The site should feel like:
+The primary audience is:
 
-* a serious technical documentation site
+* enterprise architecture and architecture-governance readers
+* assurance, audit, and control-oriented technical readers
+* security assurance and security architecture readers
+* senior engineering, platform, and technical-governance readers
+
+These readers need fast answers to:
+
+* What problem is this site about?
+* What kind of thing is UnifyPlane?
+* Is it already real?
+* What evidence exists?
+* What is mature versus early?
+* Where do controls, safety, and security fit?
+
+The experience should therefore optimize for:
+
+* scanning
+* structured reading
+* semantic hierarchy
+* onward navigation
+* visible maturity boundaries
+
+It is not optimized for:
+
+* entertainment
+* decorative spectacle
+* interaction-heavy exploration
+
+---
+
+## 3. Experience Principles
+
+The design identity in one sentence:
+
+**A fast, mobile-first, evidence-led technical documentation experience with quiet polish, strong typography, low visual noise, clear maturity boundaries, and continuity-first information scent.**
+
+The site must feel like:
+
+* serious technical documentation
 * modern but restrained
 * evidence-led
 * continuity-first
 * implementation-aware
 * bounded in tone and claims
 
-It should not feel like:
+The site must not feel like:
 
 * a startup landing page
 * a dashboard product
 * a concept blog
-* a broad transformation-marketing site
+* a transformation-marketing site
 * an AI-hype site
 
-### Design identity in one sentence
+Core principles:
 
-**A fast, mobile-first, evidence-led technical documentation experience with quiet modern polish, strong typography, low visual noise, clear maturity boundaries, and continuity-first information scent.** 
-
----
-
-## 3. Experience Goals
-
-### 3.1 Signal goals
-
-The interface should support:
-
-* hero signal in under 3 seconds
-* homepage section-level understanding in under 10 seconds
-* foundation-page first-pass comprehension in under 2 minutes
-
-### 3.2 Trust goals
-
-Trust should come from:
-
-* structure
-* clarity
-* visible maturity boundaries
-* low noise
-* stable page patterns
-* strong typography
-* evidence-first presentation
-
-### 3.3 Reading goals
-
-The site is primarily a reading and understanding system.
-
-Design must optimize for:
-
-* scanning
-* structured reading
-* conceptual clarity
-* onward navigation
-* semantic hierarchy
-
-Not for:
-
-* entertainment
-* highly interactive exploration
-* decorative visual spectacle
+* problem before abstraction
+* evidence before expansion
+* one page, one job
+* practical before theoretical
+* distinctive but not doctrinal
+* documentation, not product marketing
 
 ---
 
-## 4. Audience Fit
+## 4. Governing UX Chain
 
-The design is optimized first for:
+The site structure should reinforce this sequence:
 
-* enterprise architecture and architecture-governance readers
-* assurance, audit, and control-oriented technical readers
-* security assurance and security architecture readers
-* senior engineering, platform, and technical-governance readers 
+`practical problem recognition -> plain-language definition -> current readiness -> evidence -> operational parts -> deeper foundations`
 
-These readers want to know quickly:
+Page-level reading flow should reinforce:
 
-* what problem this site is about
-* what kind of thing UnifyPlane is
-* whether it is already real
-* where evidence exists
-* what is mature vs early
-* where controls, safety, and security fit
+`problem -> definition -> current truth -> evidence -> operational reality -> deeper understanding`
 
-So the UI should feel:
-
-* clear
-* bounded
-* technically legible
-* serious
-* evidence-aware
-* low-noise
-
----
-
-## 5. Governing UX Chain
-
-The site structure and page templates must reinforce this chain:
-
-**practical problem recognition → plain-language definition → current readiness → evidence → operational parts → deeper foundations** 
-
-Page-to-page reading flow should reinforce:
-
-**problem → definition → current truth → evidence → operational reality → deeper understanding** 
-
-This chain must influence:
+This chain should shape:
 
 * navigation order
 * homepage section order
@@ -141,160 +123,75 @@ This chain must influence:
 
 ---
 
-## 6. v1 Scope Decisions
+## 5. Information Architecture
 
-These decisions are fixed for v1 unless intentionally changed later.
+Primary navigation:
 
-### 6.1 Theme policy
-
-* **Light mode only in v1**
-* dark mode is deferred
-* theme toggle is not included in the initial release
-
-### 6.2 Visual identity policy
-
-* use **one restrained accent family only**
-* use **border-first surfaces**
-* use **minimal shadows**
-* avoid decorative brand flourishes
-
-### 6.3 Layout policy
-
-* canonical narrative pages are **single-column reading pages**
-* landing pages may use grid for route summaries
-* deep reading pages should not use multi-column prose layouts
-
-### 6.4 Interaction policy
-
-* interactivity is limited to:
-
-  * nav
-  * mobile drawer
-  * TOC
-  * anchor links
-  * optional search later
-
----
-
-## 7. Core Design Principles
-
-### 7.1 Problem before abstraction
-
-Readers should meet the practical enterprise problem before deeper conceptual material. 
-
-### 7.2 Evidence before expansion
-
-UI should distinguish:
-
-* what is proven now
-* what is implemented but immature
-* what is future but grounded 
-
-### 7.3 One page, one job
-
-Visual design must preserve page-role clarity.
-No page should visually or structurally try to be everything. 
-
-### 7.4 Practical before theoretical
-
-UI should privilege recognizable enterprise language, clear sections, and readable content over abstract visual concepts. 
-
-### 7.5 Distinctive, but not doctrinal
-
-The site should feel differentiated without forcing internal doctrine language too early. 
-
----
-
-## 8. Visual Style
-
-### 8.1 Tone
-
-Visual tone should be:
-
-* quiet
-* technical
-* modern
-* confident
-* restrained
-
-### 8.2 Avoid
-
-Avoid:
-
-* glossy gradients dominating content
-* large decorative hero graphics
-* heavy animation
-* overdesigned enterprise chrome
-* “AI aesthetic” clichés
-* dashboard-like framing for narrative pages
-
-### 8.3 Prefer
-
-Prefer:
-
-* clean geometry
-* strong typography
-* generous whitespace
-* subtle borders
-* restrained depth
-* calm accent usage
-* stable page patterns
-
----
-
-## 9. Layout System
-
-### 9.1 Width rules
-
-#### Long-form canonical pages
-
-* reading width: `48rem–52rem`
-
-#### Landing pages and homepage sections
-
-* outer content width: `72rem–76rem`
-
-#### Mobile
-
-* generous horizontal padding
-* no edge-to-edge body copy
-* no cramped long-form layouts
-
-### 9.2 Vertical rhythm
-
-Use predictable spacing:
-
-* large section spacing
-* moderate heading-to-body spacing
-* readable paragraph spacing
-* generous separation between section blocks
-
-### 9.3 Grid usage
-
-Use grid for:
-
-* homepage section layouts
-* landing-page cards
-* explore-next blocks
-* component/foundation landing summaries
-
-Use single-column reading layout for:
-
+* Home
 * What is UnifyPlane
 * Why it matters
 * Current Readiness
 * Evidence
-* component pages
-* foundation pages
+* Components
+* Foundations
+
+Secondary navigation:
+
+* Writing
+
+Canonical components in v1:
+
+* `unifyplane-core`
+* `inspect-repo`
+* `agent-runtime`
+
+The components layer must not introduce audience lenses, disciplines, or organizational functions as if they were product components.
 
 ---
 
-## 10. Responsive Breakpoint System
+## 6. Layout System
 
-Breakpoint tokens must be defined early and used consistently.
+Two page types are defined:
+
+### Reading pages
+
+Use for canonical narrative and long-form technical content.
+
+Rules:
+
+* single-column reading layout
+* target reading width: `48rem` to `52rem`
+* no multi-column prose
+* optional TOC support on larger breakpoints
+
+### Landing pages
+
+Use for route summaries, preview cards, and onward navigation.
+
+Rules:
+
+* target outer width: `72rem` to `76rem`
+* grid allowed for cards and summary blocks
+* page should summarize and route, not duplicate full reading content
+
+Spacing intent:
+
+* mobile horizontal padding: `1rem`
+* tablet horizontal padding: `1.5rem`
+* desktop horizontal padding: `2rem`
+* section gap: `4rem`
+* heading-to-body gap: `0.75rem`
+* paragraph gap: `1rem`
+* card gap: `1.25rem`
+
+---
+
+## 7. Responsive Behavior
+
+Breakpoint tokens:
 
 ```ts
-breakpoints = {
+{
   sm: "640px",
   md: "768px",
   lg: "1024px",
@@ -303,98 +200,271 @@ breakpoints = {
 }
 ```
 
-### 10.1 Behavior by breakpoint
+Behavior by range:
 
-#### `< sm`
+### `< sm`
 
-* single-column layout only
-* mobile nav drawer
-* TOC collapses to jump menu
+* single-column layout
+* mobile drawer navigation
+* TOC becomes jump menu
 * cards stack vertically
 
-#### `sm–md`
+### `sm` to `md`
 
-* single-column reading remains default
-* 2-column card grids allowed only on landing pages if spacing remains generous
+* reading pages stay single-column
+* landing grids may expand to 2 columns only if spacing remains generous
 
-#### `md–lg`
+### `md` to `lg`
 
-* desktop nav begins
+* desktop navigation begins
 * optional side TOC on long pages
-* card grids can expand to 2 columns
+* landing grids may use up to 2 columns
 
-#### `lg+`
+### `lg` and above
 
-* side TOC allowed for long-form pages
-* landing page grids can expand to 2–3 columns
-* header remains restrained, not oversized
+* side TOC allowed on long-form pages
+* landing grids may use 2 to 3 columns
+* header remains restrained
 
 ---
 
-## 11. Typography System
+## 8. Typography
 
 Typography is the primary visual system.
 
-### 11.1 Character
-
-Typography should feel:
+Character:
 
 * readable
 * structured
 * calm
 * technical without being code-heavy
 
-### 11.2 Type scale
+Font families:
 
-Recommended baseline:
+* Sans: `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`
+* Mono: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`
 
-* `H1`: `2.25rem–3rem`
-* `H2`: `1.5rem–2rem`
-* `H3`: `1.125rem–1.25rem`
-* `Body`: `1rem–1.125rem`
-* `Small`: `0.875rem`
+Portable weight scale:
 
-### 11.3 Line-height rules
+* Regular: `400`
+* Medium: `500`
+* Semibold: `600`
+* Bold: `700`
 
-* headlines: tighter, around `1.1–1.2`
-* body: comfortable, around `1.6–1.75`
-* small text: not cramped, around `1.4–1.5`
+Recommended type scale:
 
-### 11.4 Reading constraints
+* `H1`: `2.25rem` to `3rem`, line-height `1.1` to `1.2`, weight `700`
+* `H2`: `1.5rem` to `2rem`, line-height `1.15` to `1.25`, weight `600`
+* `H3`: `1.125rem` to `1.25rem`, line-height `1.2` to `1.3`, weight `600`
+* `Body`: `1rem` to `1.125rem`, line-height `1.6` to `1.75`, weight `400`
+* `Small`: `0.875rem`, line-height `1.4` to `1.5`, weight `400`
 
-* avoid overly wide paragraphs
-* avoid small body text
-* avoid dense bullet walls
-* preserve scan-friendly hierarchy
+Emphasis rules:
 
-### 11.5 Emphasis rules
-
-Use:
-
-* **bold** for high-signal terms
-* muted text for secondary explanation
-* code style only for file names, route names, identifiers, and component names
+* use bold for high-signal terms
+* use muted text for secondary explanation
+* use mono only for file names, route names, identifiers, and component names
 
 Avoid:
 
 * excessive italics
+* dense bullet walls
 * too many inline status pills
 * colorful inline emphasis everywhere
 
 ---
 
-## 12. Color System
+## 9. Color and Token Contract
 
-Color supports structure, not identity theater.
+Color supports structure and semantics. It is not the main source of brand identity.
 
-### 12.1 Color roles
+Theme policy for v1:
 
-Color should support:
+* light mode only
+* dark mode deferred
+* no theme toggle
 
-* structure
-* interaction
-* semantic boundaries
-* status clarity
-* section grouping
+Palette groups:
 
-Color should not be the main source of site identity.
+* neutral
+* accent
+* semantic readiness states
+
+Token contract:
+
+* palette keys are the source of truth
+* CSS variable aliases must be derived from the token contract, not invented ad hoc
+* surface and border tokens must resolve to named palette entries
+* semantic readiness colors may only be used where readiness meaning is also visible in text or labels
+
+Core alias mapping:
+
+* `bg` -> `neutral.background`
+* `surface` -> `neutral.surface`
+* `surface-subtle` -> `neutral.surfaceSubtle`
+* `border` -> `neutral.border`
+* `text` -> `neutral.text`
+* `text-muted` -> `neutral.textMuted`
+* `accent` -> `accent.primary`
+* `accent-hover` -> `accent.primaryHover`
+* `accent-subtle` -> `accent.primarySubtle`
+* `accent-text` -> `accent.primaryText`
+
+Usage rules:
+
+* one restrained accent family only
+* border-first surfaces
+* minimal shadows
+* avoid decorative flourishes
+* use semantic color mainly for readiness and boundary states
+
+---
+
+## 10. Surfaces
+
+Surface style:
+
+* border-first
+* minimal shadow
+* restrained radius
+
+Radius tokens:
+
+* card: `12px`
+* button: `10px`
+* input: `10px`
+* pill: `999px`
+
+Border tokens should be described structurally, not as inline CSS strings:
+
+* default border -> `1px solid neutral.border`
+* strong border -> `1px solid neutral.textMuted`
+
+This keeps the design contract implementation-friendly across CSS, tokens, and future tooling.
+
+---
+
+## 11. Components
+
+Global components:
+
+* `site-header`
+* `site-footer`
+* `mobile-nav-drawer`
+* `breadcrumbs`
+* `side-toc`
+* `jump-menu`
+
+Content components:
+
+* `hero`
+* `section-intro`
+* `evidence-card`
+* `readiness-band`
+* `boundary-note`
+* `route-card`
+* `component-card`
+* `foundation-card`
+* `related-pages`
+* `quote-callout`
+
+Interaction scope for v1 is intentionally small:
+
+* navigation
+* mobile drawer
+* TOC
+* anchor links
+
+Deferred:
+
+* site search
+
+---
+
+## 12. Readiness Semantics
+
+Readiness semantics are required across the site.
+
+Categories:
+
+* `Proven Now`: supported by current evidence and implementation reality
+* `Implemented but Immature`: real implementation exists, but maturity is uneven or early
+* `Future but Grounded`: direction is grounded, but not mature enough to overstate
+
+Rules:
+
+* every major claim should map implicitly or explicitly to a readiness boundary
+* future direction must not be blended with current truth
+* evidence pages must distinguish what is proved from what is not yet proved
+
+Color must not be the sole carrier of readiness meaning.
+
+---
+
+## 13. Accessibility and Performance
+
+Accessibility baseline:
+
+* target WCAG 2.2 AA
+* semantic heading hierarchy required
+* visible keyboard focus required
+* all nav and TOC interactions keyboard accessible
+* minimum body contrast must meet AA
+* tap targets should be at least `44x44` CSS pixels
+* skip link required
+* reduced-motion preference respected
+
+Performance rules:
+
+* prefer static rendering
+* keep JS minimal on reading pages
+* defer non-essential interactivity
+* avoid heavy animation
+* avoid oversized hero media
+* prioritize typography and content over decorative assets
+
+---
+
+## 14. Content Rules
+
+Homepage must:
+
+* summarize and route
+* signal that UnifyPlane is already real but bounded in maturity
+* show that controls, safety, and security matter
+* keep AI as an urgency amplifier rather than the core identity
+
+Homepage must not:
+
+* fully own detailed readiness interpretation
+* fully own component detail
+* fully own deep foundations
+
+Components page must include only:
+
+* `unifyplane-core`
+* `inspect-repo`
+* `agent-runtime`
+
+Foundations v1 priorities:
+
+* Continuity
+* Proof
+* Drift
+* Evidence
+* Change
+* Impact
+
+---
+
+## 15. V1 Fixed Decisions
+
+The following are fixed for v1 unless intentionally changed:
+
+* light mode only
+* one restrained accent family
+* border-first surfaces
+* minimal shadows
+* single-column canonical reading pages
+* limited interactivity
+* Writing remains optional and secondary

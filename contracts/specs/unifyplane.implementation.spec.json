@@ -1,0 +1,201 @@
+{
+  "specVersion": "1.0.0",
+  "name": "unifyplane.implementation",
+  "authoritativeDesignSpec": "contracts/specs/unifyplane.design.spec.json",
+  "authoritativeAuditSpec": "contracts/specs/unifyplane.design.audit.spec.json",
+  "globalRules": [
+    {
+      "id": "G0.1",
+      "title": "Fail-Closed Implementation",
+      "rules": [
+        "Any failure must stop execution for the current phase run.",
+        "No partial UI rollout.",
+        "No silent fallback to legacy implementation."
+      ]
+    },
+    {
+      "id": "G0.2",
+      "title": "Phase Validation Mandatory",
+      "rules": [
+        "Each phase must produce the phase output artifacts.",
+        "Each phase must produce a pass/fail validation result.",
+        "Each phase must produce a test execution result."
+      ]
+    },
+    {
+      "id": "G0.3",
+      "title": "Evidence Storage Mandatory",
+      "rules": [
+        "Evidence outputs must be stored under evidence/reports/implementation/phaseN/run_###/."
+      ]
+    },
+    {
+      "id": "G0.4",
+      "title": "Failure Handling",
+      "rules": [
+        "On any failure, generate implementation_failure_report.json, root_cause.md, and remediation.md.",
+        "On any failure, stop and require human approval before re-running."
+      ]
+    },
+    {
+      "id": "G0.5",
+      "title": "Human Approval Gate",
+      "rules": [
+        "After each phase, evidence must be reviewed and explicitly approved before the next phase can run."
+      ]
+    },
+    {
+      "id": "G0.6",
+      "title": "Re-run Rules",
+      "rules": [
+        "Re-run requires a spec-aligned fix and a new run folder.",
+        "Re-run must never overwrite prior evidence."
+      ]
+    },
+    {
+      "id": "G0.7",
+      "title": "Locked Contract Enforcement",
+      "rules": [
+        "Implementation must use design_spec.lock.json and design_audit_spec.lock.json copied from an approved designaudit Phase 1 run.",
+        "Implementation must pin its own execution contract as implementation_spec.lock.json in Phase 1.",
+        "Implementation phases must not read mutable contracts/specs/*.json directly (except Phase 1 when creating implementation_spec.lock.json)."
+      ]
+    }
+  ],
+  "requiredSuccessArtifacts": [
+    "validation.json",
+    "evidence_index.json",
+    "status.json",
+    "test_results.json"
+  ],
+  "requiredFailureArtifacts": [
+    "implementation_failure_report.json",
+    "root_cause.md",
+    "remediation.md",
+    "status.json"
+  ],
+  "phases": [
+    {
+      "id": 1,
+      "name": "Implementation Context Binding",
+      "objective": "Bind implementation to locked, audit-approved contracts.",
+      "approvalRequired": true,
+      "outputs": ["implementation_context.json", "locked_spec_verified.json"],
+      "checks": ["locks are present and readable", "locks are sourced from an approved designaudit phase1 run", "implementation spec lock is present"],
+      "validation": ["lock files exist in run directory", "lock files validate structurally", "implementation_spec.lock.json validates structurally"],
+      "failureConditions": ["missing lock files", "invalid lock file structure", "implementation spec lock missing"],
+      "requiredArtifacts": ["implementation_context.json", "locked_spec_verified.json"]
+    },
+    {
+      "id": 2,
+      "name": "Token System Alignment",
+      "objective": "Ensure tokens match the locked design spec contract.",
+      "approvalRequired": true,
+      "outputs": ["token_map.json", "token_alignment_report.json"],
+      "checks": ["CSS variables match token contract", "no hardcoded colors outside token definitions"],
+      "validation": ["all expected token aliases exist", "no token bypass violations"],
+      "failureConditions": ["missing token aliases", "hardcoded colors found in non-token CSS"],
+      "requiredArtifacts": ["token_map.json", "token_alignment_report.json"]
+    },
+    {
+      "id": 3,
+      "name": "Layout System Implementation",
+      "objective": "Validate page-type layout contracts (reading vs landing).",
+      "approvalRequired": true,
+      "outputs": ["layout_implementation_report.json"],
+      "checks": ["reading pages are single-column", "no multi-column prose patterns"],
+      "validation": ["no disallowed multi-column usage detected"],
+      "failureConditions": ["multi-column prose detected on reading pages"],
+      "requiredArtifacts": ["layout_implementation_report.json"]
+    },
+    {
+      "id": 4,
+      "name": "Navigation & IA Implementation",
+      "objective": "Align navigation and routes with the locked spec.",
+      "approvalRequired": true,
+      "outputs": ["navigation_structure.json", "route_alignment_report.json"],
+      "checks": ["all required routes exist", "nav order matches spec", "Writing is secondary"],
+      "validation": ["no missing routes", "no nav ordering mismatches"],
+      "failureConditions": ["missing required route", "nav order mismatch", "Writing is not secondary"],
+      "requiredArtifacts": ["navigation_structure.json", "route_alignment_report.json"]
+    },
+    {
+      "id": 5,
+      "name": "Component System Implementation",
+      "objective": "Validate allowed component system and constraints.",
+      "approvalRequired": true,
+      "outputs": ["component_registry.json", "component_validation_report.json"],
+      "checks": ["required global components exist", "components registry matches allowed slugs"],
+      "validation": ["no missing required globals", "registry slugs match allowed set"],
+      "failureConditions": ["missing required component", "registry slugs mismatch"],
+      "requiredArtifacts": ["component_registry.json", "component_validation_report.json"]
+    },
+    {
+      "id": 6,
+      "name": "Homepage Implementation",
+      "objective": "Validate homepage as routing layer (not content owner).",
+      "approvalRequired": true,
+      "outputs": ["homepage_structure.json", "homepage_behavior_report.json"],
+      "checks": ["summarizes and routes", "readiness is signaled", "no deep interpretation ownership"],
+      "validation": ["required routes linked", "readiness buckets visible", "composition is used"],
+      "failureConditions": ["missing required routes", "homepage owns deep interpretation", "composition not used"],
+      "requiredArtifacts": ["homepage_structure.json", "homepage_behavior_report.json"]
+    },
+    {
+      "id": 7,
+      "name": "Content Page Implementation",
+      "objective": "Validate canonical reading pages exist and contain required structural sections.",
+      "approvalRequired": true,
+      "outputs": ["content_pages_report.json"],
+      "checks": ["required pages exist", "required sections present"],
+      "validation": ["no missing pages", "no missing required section headings"],
+      "failureConditions": ["missing canonical reading page", "missing required section heading"],
+      "requiredArtifacts": ["content_pages_report.json"]
+    },
+    {
+      "id": 8,
+      "name": "Readiness Semantics Implementation",
+      "objective": "Validate readiness buckets and trust boundaries are present.",
+      "approvalRequired": true,
+      "outputs": ["readiness_system_report.json"],
+      "checks": ["Proven/Immature/Future present", "future separated from current"],
+      "validation": ["all bucket headings present"],
+      "failureConditions": ["missing readiness headings"],
+      "requiredArtifacts": ["readiness_system_report.json"]
+    },
+    {
+      "id": 9,
+      "name": "Accessibility Implementation",
+      "objective": "Validate WCAG baseline markers (repo-local static checks).",
+      "approvalRequired": true,
+      "outputs": ["a11y_validation_report.json"],
+      "checks": ["skip link", "focus visible", "reduced motion", "main landmark"],
+      "validation": ["all baseline checks pass"],
+      "failureConditions": ["missing a11y baseline requirement"],
+      "requiredArtifacts": ["a11y_validation_report.json"]
+    },
+    {
+      "id": 10,
+      "name": "Performance Implementation",
+      "objective": "Validate performance constraints using repo-local build artifacts.",
+      "approvalRequired": true,
+      "outputs": ["performance_validation_report.json"],
+      "checks": ["production build artifacts present", "JS chunk totals recorded"],
+      "validation": ["required artifacts present"],
+      "failureConditions": ["missing build artifacts"],
+      "requiredArtifacts": ["performance_validation_report.json"]
+    },
+    {
+      "id": 11,
+      "name": "Final Conformance Validation",
+      "objective": "Strictly validate latest approved designaudit Phase 11 (APPLIED) matches current repo state.",
+      "approvalRequired": true,
+      "outputs": ["final_designaudit_result.json", "diff_vs_previous_audit.json"],
+      "checks": ["repo is clean", "latest approved designaudit phase11 is APPLIED", "repo sha matches designaudit phase11 sha"],
+      "validation": ["designaudit phase11 is approved and APPLIED", "repo sha matches"],
+      "failureConditions": ["repo dirty", "designaudit phase11 missing/unapproved/not APPLIED", "repo sha mismatch"],
+      "requiredArtifacts": ["final_designaudit_result.json", "diff_vs_previous_audit.json"]
+    }
+  ]
+}
+

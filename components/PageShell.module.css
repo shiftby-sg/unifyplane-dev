@@ -3,6 +3,44 @@
   padding: var(--space-8) var(--space-4);
 }
 
+.shell h1 {
+  font-size: clamp(2.25rem, 3.4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-2);
+}
+
+.shell > p {
+  margin: 0 0 var(--space-6);
+  color: var(--color-text-muted);
+  max-width: 84ch;
+}
+
+.body {
+  display: block;
+}
+
+.main {
+  max-width: var(--layout-content);
+}
+
+.aside {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .shell[data-has-toc="yes"] .body {
+    display: grid;
+    grid-template-columns: minmax(0, var(--layout-content)) 16rem;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .shell[data-has-toc="yes"] .aside {
+    display: block;
+  }
+}
+
 .content {
   max-width: var(--layout-content);
 }

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UnifyPlane Governed Implementation Spec",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "specVersion",
+    "name",
+    "authoritativeDesignSpec",
+    "authoritativeAuditSpec",
+    "globalRules",
+    "requiredSuccessArtifacts",
+    "requiredFailureArtifacts",
+    "phases"
+  ],
+  "properties": {
+    "specVersion": { "type": "string", "minLength": 1 },
+    "name": { "const": "unifyplane.implementation" },
+    "authoritativeDesignSpec": { "type": "string", "minLength": 1 },
+    "authoritativeAuditSpec": { "type": "string", "minLength": 1 },
+    "globalRules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "rules"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "title": { "type": "string", "minLength": 1 },
+          "rules": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    },
+    "requiredSuccessArtifacts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "requiredFailureArtifacts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "phases": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "objective",
+          "approvalRequired",
+          "outputs",
+          "checks",
+          "validation",
+          "failureConditions",
+          "requiredArtifacts"
+        ],
+        "properties": {
+          "id": { "type": "integer", "minimum": 1, "maximum": 11 },
+          "name": { "type": "string", "minLength": 1 },
+          "objective": { "type": "string", "minLength": 1 },
+          "approvalRequired": { "type": "boolean" },
+          "outputs": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "checks": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "validation": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "failureConditions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "requiredArtifacts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    }
+  }
+}
+
