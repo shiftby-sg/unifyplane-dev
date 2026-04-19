@@ -9,3 +9,5 @@ docs/
 /evidence/
 .governed-dist/
 tools/
+!tools/governed/
+!tools/governed/**
