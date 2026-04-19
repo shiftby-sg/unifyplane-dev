@@ -68,7 +68,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
         <div className={styles.bandInner}>
           <h2 className={styles.bandTitle}>Start here</h2>
           <p className={styles.bandIntro}>
-            Begin with the plain-language definition and why the problem matters in practice.
+            Start with the definition, then why it matters in practice.
           </p>
           <div className={styles.contextGrid}>
             {why && why.kind === "summary" ? (
@@ -105,28 +105,6 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
             Use readiness and evidence as the truth boundary for interpreting claims.
           </p>
           <div className={styles.trustGrid}>
-            {evidence && evidence.kind === "summary" ? (
-              <section className={styles.trustPanel} aria-label="Evidence">
-                <h3 className={styles.sectionTitle}>{evidence.title}</h3>
-                <article className={`${styles.card} ${styles.cardEmphasis}`}>
-                  <p className={styles.cardDesc}>{evidence.description}</p>
-                  <Link className={styles.cardLink} href={evidence.href}>
-                    Review evidence
-                  </Link>
-                </article>
-                <TrustBox label="Evidence scope" variant="evidence">
-                  <p className={styles.trustLine}>
-                    Artifacts and runs (proof + drift surfaces) support current claims within explicit
-                    boundaries.
-                  </p>
-                  <p className={styles.trustLine}>
-                    Use evidence to assess whether control and security assumptions still hold; it does
-                    not equal full maturity.
-                  </p>
-                </TrustBox>
-              </section>
-            ) : null}
-
             {readiness && readiness.kind === "summary" ? (
               <section className={styles.trustPanel} aria-label="Current readiness">
                 <h3 className={styles.sectionTitle}>{readiness.title}</h3>
@@ -150,6 +128,28 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                   </p>
                   <p className={styles.routeLine}>
                     Use this page as the truth boundary for interpreting claims elsewhere.
+                  </p>
+                </TrustBox>
+              </section>
+            ) : null}
+
+            {evidence && evidence.kind === "summary" ? (
+              <section className={styles.trustPanel} aria-label="Evidence">
+                <h3 className={styles.sectionTitle}>{evidence.title}</h3>
+                <article className={`${styles.card} ${styles.cardEmphasis}`}>
+                  <p className={styles.cardDesc}>{evidence.description}</p>
+                  <Link className={styles.cardLink} href={evidence.href}>
+                    Review evidence
+                  </Link>
+                </article>
+                <TrustBox label="Evidence scope" variant="evidence">
+                  <p className={styles.trustLine}>
+                    Artifacts and runs (proof + drift surfaces) support current claims within explicit
+                    boundaries.
+                  </p>
+                  <p className={styles.trustLine}>
+                    Use evidence to assess whether control and security assumptions still hold; it does
+                    not equal full maturity.
                   </p>
                 </TrustBox>
               </section>

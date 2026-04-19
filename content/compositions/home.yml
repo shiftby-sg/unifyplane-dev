@@ -20,7 +20,7 @@
       "id": "why",
       "kind": "summary",
       "title": "Why it matters",
-      "description": "In mixed estates (custom, COTS, SaaS, managed services, vendor delivery), continuity fragments across docs, tickets, repos, dashboards, and artifacts. Decisions get made from partial summaries, and teams reconstruct understanding after the fact.",
+      "description": "Continuity fragments across docs, tickets, repos, dashboards, and vendor artifacts. Decisions get made from partial summaries, and teams reconstruct understanding after the fact.",
       "href": "/why-it-matters"
     },
     {

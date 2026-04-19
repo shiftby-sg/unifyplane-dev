@@ -263,11 +263,13 @@
   }
 
   .contextGrid {
-    grid-template-columns: 1fr 1fr;
+    /* Keep sequential reading (not "two equal columns") while still using the same band wrapper. */
+    grid-template-columns: 1fr;
     gap: var(--space-8);
   }
   .trustGrid {
-    grid-template-columns: 1fr 1fr;
+    /* Trust anchors should read as a sequence, not two equal halves. */
+    grid-template-columns: 1fr;
     gap: var(--space-8);
   }
   .pair {
