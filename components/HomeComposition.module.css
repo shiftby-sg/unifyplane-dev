@@ -7,8 +7,14 @@
   box-sizing: border-box;
 }
 
+.bandInner {
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
 .hero {
   max-width: 76ch;
+  margin: 0 auto;
 }
 
 .headline {
@@ -55,6 +61,18 @@
 
 .contextBand {
   margin: 0 0 var(--space-8);
+}
+
+.bandTitle {
+  margin: 0 0 var(--space-2);
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.bandIntro {
+  margin: 0 0 var(--space-6);
+  color: var(--color-muted);
+  max-width: 84ch;
 }
 
 .contextGrid {
@@ -114,14 +132,24 @@
   letter-spacing: -0.01em;
 }
 
-.cardTitle {
-  margin: 0 0 var(--space-2);
-  font-size: 1.1rem;
+.cardDesc {
+  margin: 0 0 var(--space-3);
+  color: var(--color-muted);
 }
 
-.cardDesc {
-  margin: 0;
-  color: var(--color-muted);
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.cardLink:hover {
+  color: var(--color-accent-hover);
 }
 
 .trustBox {
@@ -163,11 +191,12 @@
   display: inline-flex;
   align-items: center;
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   padding: 6px 10px;
   font-size: 0.95rem;
   color: var(--color-muted);
-  background: var(--color-surface);
+  background: transparent;
+  cursor: default;
 }
 
 .railProven {
@@ -228,6 +257,10 @@
     margin: var(--space-8) 0 var(--space-10);
   }
 
+  .sectionTitle {
+    min-height: 2.5rem;
+  }
+
   .contextGrid {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-8);
@@ -238,5 +271,9 @@
   }
   .pair {
     grid-template-columns: 1fr 1fr;
+  }
+  .linksList {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
   }
 }
