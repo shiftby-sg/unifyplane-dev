@@ -1,0 +1,314 @@
+{
+  "specVersion": "1.0.0",
+  "name": "unifyplane.design.audit",
+  "authoritativeDesignSpec": "contracts/specs/unifyplane.design.spec.json",
+  "globalRules": [
+    {
+      "id": "G0.1",
+      "title": "Fail-Closed Design Audit",
+      "rules": [
+        "Any failed validation must stop execution for the current phase run.",
+        "No partial design rollout.",
+        "No silent fallback to existing UI."
+      ]
+    },
+    {
+      "id": "G0.2",
+      "title": "Phase Validation Mandatory",
+      "rules": [
+        "Each phase must produce an audit output artifact.",
+        "Each phase must produce a pass/fail validation result.",
+        "Each phase must include evidence references (files, routes, components)."
+      ]
+    },
+    {
+      "id": "G0.3",
+      "title": "Evidence Storage Mandatory",
+      "rules": [
+        "Evidence outputs must be stored under the governed evidence root for the designaudit track."
+      ]
+    },
+    {
+      "id": "G0.4",
+      "title": "Failure Handling",
+      "rules": [
+        "On any failure, generate design_failure_report.json, root_cause.md, and spec_gap_analysis.md.",
+        "On any failure, stop and require human approval before re-running."
+      ]
+    },
+    {
+      "id": "G0.5",
+      "title": "Human Approval Gate",
+      "rules": [
+        "After each phase, evidence must be reviewed and explicitly approved before the next phase can run."
+      ]
+    },
+    {
+      "id": "G0.6",
+      "title": "Re-run Rules",
+      "rules": [
+        "Re-run requires a spec-aligned fix, human approval, and a new run folder.",
+        "Re-run should be tracked as a new run, not overwriting previous evidence."
+      ]
+    }
+  ],
+  "classifications": ["APPLIED", "PARTIAL", "MISSING", "CONFLICT"],
+  "requiredFailureArtifacts": [
+    "design_failure_report.json",
+    "root_cause.md",
+    "spec_gap_analysis.md",
+    "status.json"
+  ],
+  "requiredSuccessArtifacts": ["validation.json", "evidence_index.json", "status.json"],
+  "phases": [
+    {
+      "id": 1,
+      "name": "Spec Ingestion & Integrity Check",
+      "objective": "Ensure the design spec and audit spec are valid, complete, and usable as contracts.",
+      "approvalRequired": true,
+      "outputs": [
+        "spec loaded",
+        "schema validated",
+        "required sections present"
+      ],
+      "checks": [
+        "validate presence and readability of authoritativeDesignSpec",
+        "validate presence and readability of audit spec",
+        "validate design spec required sections",
+        "validate audit spec schema and phase structure"
+      ],
+      "validation": [
+        "missing required section fails",
+        "invalid structure fails"
+      ],
+      "failureConditions": [
+        "missing required section",
+        "invalid JSON or invalid schema"
+      ],
+      "requiredArtifacts": [
+        "spec_validation.json",
+        "completeness_report.json",
+        "design_spec.lock.json",
+        "design_audit_spec.lock.json"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Current Site State Extraction",
+      "objective": "Build a canonical deterministic snapshot of the current implementation.",
+      "approvalRequired": true,
+      "outputs": [
+        "route inventory",
+        "component inventory",
+        "layout patterns",
+        "token map",
+        "nav structure",
+        "homepage composition behavior"
+      ],
+      "checks": [
+        "routes extracted from app router",
+        "navigation extracted from code",
+        "layout templates extracted",
+        "CSS variables extracted",
+        "component list extracted",
+        "homepage behavior extracted"
+      ],
+      "validation": [
+        "no inferred data",
+        "deterministic snapshot only"
+      ],
+      "failureConditions": [
+        "snapshot contains inferred data",
+        "required sources not parseable"
+      ],
+      "requiredArtifacts": ["site_snapshot.json"]
+    },
+    {
+      "id": 3,
+      "name": "Information Architecture Conformance",
+      "objective": "Verify IA matches the spec-defined canonical structure and flow.",
+      "approvalRequired": true,
+      "outputs": ["IA diff", "route validation"],
+      "checks": [
+        "primary nav order matches spec",
+        "required routes exist",
+        "Writing is secondary",
+        "route roles match layout intent"
+      ],
+      "validation": [
+        "all required routes exist",
+        "order preserved",
+        "no extra primary routes",
+        "page role matches spec"
+      ],
+      "failureConditions": [
+        "missing routes",
+        "wrong nav order",
+        "wrong page role"
+      ],
+      "requiredArtifacts": ["ia_diff.json", "route_validation.json"]
+    },
+    {
+      "id": 4,
+      "name": "Layout System Conformance",
+      "objective": "Validate page structure against the spec layout rules.",
+      "approvalRequired": true,
+      "outputs": ["layout audit"],
+      "checks": [
+        "reading pages are single-column",
+        "width constraints respected",
+        "landing grids used only where allowed",
+        "no multi-column prose"
+      ],
+      "validation": [
+        "layout matches declared page type",
+        "grid not used for long-form prose"
+      ],
+      "failureConditions": ["multi-column reading page", "grid misuse"],
+      "requiredArtifacts": ["layout_audit.json"]
+    },
+    {
+      "id": 5,
+      "name": "Token & Color System Conformance",
+      "objective": "Verify implementation follows the spec token contract and color system rules.",
+      "approvalRequired": true,
+      "outputs": ["token audit", "color usage map"],
+      "checks": [
+        "CSS variables map to spec aliases",
+        "no ad hoc color usage",
+        "semantic colors used only when meaning exists",
+        "single accent family"
+      ],
+      "validation": [
+        "token mapping correct",
+        "no orphan tokens",
+        "no hardcoded colors violating spec"
+      ],
+      "failureConditions": [
+        "direct hex usage bypassing tokens",
+        "multiple accent families"
+      ],
+      "requiredArtifacts": ["token_audit.json", "color_usage_map.json"]
+    },
+    {
+      "id": 6,
+      "name": "Typography Conformance",
+      "objective": "Ensure typography matches the reading-first system defined in the spec.",
+      "approvalRequired": true,
+      "outputs": ["typography audit"],
+      "checks": [
+        "scale usage consistent",
+        "line-height ranges consistent",
+        "emphasis rules respected",
+        "mono usage restricted"
+      ],
+      "validation": [
+        "readable hierarchy",
+        "no decorative emphasis misuse"
+      ],
+      "failureConditions": ["readability violations", "emphasis misuse"],
+      "requiredArtifacts": ["typography_audit.json"]
+    },
+    {
+      "id": 7,
+      "name": "Component Contract Conformance",
+      "objective": "Verify global and content components match the spec component contract.",
+      "approvalRequired": true,
+      "outputs": ["component audit"],
+      "checks": [
+        "global components present",
+        "content components present",
+        "no undefined components introduced",
+        "components page includes only allowed components"
+      ],
+      "validation": [
+        "component inventory matches spec",
+        "no conceptual components"
+      ],
+      "failureConditions": ["extra components", "missing required components"],
+      "requiredArtifacts": ["component_audit.json"]
+    },
+    {
+      "id": 8,
+      "name": "Homepage Behavioral Conformance",
+      "objective": "Validate homepage is routing-first and documentation-first, not ownership-first marketing.",
+      "approvalRequired": true,
+      "outputs": ["homepage audit"],
+      "checks": [
+        "section order matches spec",
+        "summarize and route",
+        "readiness boundary signaled",
+        "not owning deep interpretation"
+      ],
+      "validation": [
+        "no deep content ownership",
+        "routing sections present"
+      ],
+      "failureConditions": [
+        "homepage acting as full explanation",
+        "missing routing sections"
+      ],
+      "requiredArtifacts": ["homepage_audit.json"]
+    },
+    {
+      "id": 9,
+      "name": "Readiness Semantics Conformance",
+      "objective": "Ensure trust model is visible and consistent across pages.",
+      "approvalRequired": true,
+      "outputs": ["readiness audit"],
+      "checks": [
+        "readiness categories present and used",
+        "future separated from current",
+        "evidence linked to claims"
+      ],
+      "validation": [
+        "readiness visible where needed",
+        "future not presented as current"
+      ],
+      "failureConditions": [
+        "future presented as current",
+        "no readiness signaling"
+      ],
+      "requiredArtifacts": ["readiness_audit.json"]
+    },
+    {
+      "id": 10,
+      "name": "Accessibility & Performance Conformance",
+      "objective": "Validate accessibility and performance baselines with repo-local tooling only.",
+      "approvalRequired": true,
+      "outputs": ["a11y report", "performance report"],
+      "checks": [
+        "keyboard navigation baseline",
+        "semantic headings baseline",
+        "focus visibility baseline",
+        "contrast baseline (static token-level)",
+        "minimal JS and no heavy animation (static checks + build)"
+      ],
+      "validation": [
+        "accessibility baseline met",
+        "performance constraints respected"
+      ],
+      "failureConditions": [
+        "repo-local check tooling absent",
+        "accessibility baseline failure",
+        "performance baseline failure"
+      ],
+      "requiredArtifacts": ["a11y_report.json", "performance_report.json"]
+    },
+    {
+      "id": 11,
+      "name": "Conformance Summary & Decision",
+      "objective": "Produce final conformance decision and remediation plan from approved phase outputs.",
+      "approvalRequired": true,
+      "outputs": ["conformance report", "gap matrix", "remediation plan"],
+      "checks": [
+        "aggregate only approved prior runs",
+        "classify each area as APPLIED, PARTIAL, MISSING, or CONFLICT"
+      ],
+      "validation": ["reports present and consistent with prior approved phases"],
+      "failureConditions": ["missing prior approved phase evidence"],
+      "requiredArtifacts": ["conformance_report.json", "gap_matrix.json", "remediation_plan.md"]
+    }
+  ]
+}
+

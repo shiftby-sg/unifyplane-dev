@@ -58,7 +58,7 @@ Evidence also matters because it is one of the only practical ways to assess whe
 
 ---
 
-## What Counts as Evidence Here
+## What counts as evidence here
 
 In the current state of UnifyPlane, evidence falls into four broad categories.
 
@@ -84,18 +84,20 @@ When this page refers to **proof + drift surfaces**, it means the parts of the s
 
 ---
 
-## Current Evidence Scope
+## Evidence currently available
 
 The current evidence base is strongest around `unifyplane-core`, with two demonstrated component paths:
 
-* `unifyplane-core` → `agent-runtime`
-* `unifyplane-core` → `inspect-repo`
+* `unifyplane-core` -> `agent-runtime`
+* `unifyplane-core` -> `inspect-repo`
 
 These runs matter because they show that the same bounded runtime model can support different execution shapes while still producing structured proof surfaces.
 
 ---
 
-## Evidence from `unifyplane-core`
+## Runtime and execution evidence
+
+### Evidence from `unifyplane-core`
 
 ### 1. Declared-to-runtime continuity
 
@@ -131,7 +133,7 @@ Current evidence also shows that Core already uses fail-closed and integrity-ori
 
 ---
 
-## Evidence from `agent-runtime`
+### Evidence from `agent-runtime`
 
 `agent-runtime` is not yet as mature as `unifyplane-core`, but it is already real enough to show bounded agent execution and authority-side evidence.
 
@@ -155,7 +157,7 @@ So the evidence is strong enough to show real structure, bounded execution, and 
 
 ---
 
-## Evidence from `inspect-repo`
+### Evidence from `inspect-repo`
 
 `inspect-repo` shows a different execution shape.
 
@@ -182,7 +184,25 @@ So the execution and evidence model are real, but not every inspection result sh
 
 ---
 
-## What the Evidence Already Proves
+## Proof surfaces
+
+This page describes proof-oriented surfaces primarily through declared-to-runtime continuity, evidence-backed runtime closure, and bounded execution under declared surfaces.
+
+---
+
+## Drift surfaces
+
+Drift visibility and drift reduction surfaces are called out where evidence shows divergence between declared intent and runtime reality, and where controls reduce silent drift.
+
+---
+
+## Evidence boundaries
+
+Evidence supports current claims within explicit boundaries. It is not a proxy for full maturity, and it must distinguish what is proven from what is not yet proven.
+
+---
+
+## What current evidence proves
 
 At the current stage, the evidence already supports the following claims.
 
@@ -208,7 +228,7 @@ Evidence in UnifyPlane is not treated as an afterthought. It is already part of 
 
 ---
 
-## What the Evidence Does Not Yet Fully Prove
+## What current evidence does not yet prove
 
 This page is also here to keep boundaries clear.
 

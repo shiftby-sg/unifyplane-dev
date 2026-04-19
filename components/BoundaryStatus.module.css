@@ -29,15 +29,15 @@
 }
 
 .proven .dot {
-  background: #3dd68c;
+  background: var(--color-semantic-proven-text);
 }
 
 .immature .dot {
-  background: #ffd166;
+  background: var(--color-semantic-emerging-text);
 }
 
 .future .dot {
-  background: #8ab4ff;
+  background: var(--color-semantic-future-text);
 }
 
 .note {

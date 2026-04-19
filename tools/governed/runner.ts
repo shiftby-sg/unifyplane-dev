@@ -3,6 +3,7 @@ import path from "node:path";
 import { createNextRunDir } from "./runs.js";
 import { writeJsonAtomic } from "./fs-utils.js";
 import { findLatestApprovedRun } from "./state.js";
+import { DEFAULT_TRACK, type GovernedTrack } from "./paths.js";
 import { runPhase1 } from "./phase1.js";
 import { runPhase2 } from "./phase2.js";
 import { runPhase3 } from "./phase3.js";
@@ -13,10 +14,14 @@ import { runPhase7 } from "./phase7.js";
 import { runPhase8 } from "./phase8.js";
 import { runPhase9 } from "./phase9.js";
 import { runPhase10 } from "./phase10.js";
+import { runDesignAuditPhase } from "./designaudit/phases.js";
+import { loadAuditSpecFromRun } from "./designaudit/spec.js";
+import { runImplementationPhase } from "./implementation/phases.js";
+import { loadImplementationSpecFromRepo, loadImplementationSpecFromRun, writeLockedSpec } from "./implementation/spec.js";
 
-type RunPhaseArgs = { phase: number };
+type RunPhaseArgs = { phase: number; track?: GovernedTrack };
 
-async function failClosed(runDir: string, err: unknown): Promise<never> {
+async function failClosedLegacy(runDir: string, err: unknown): Promise<never> {
   const message =
     err instanceof Error ? err.message : typeof err === "string" ? err : "Error";
   await writeJsonAtomic(path.join(runDir, "failure_report.json"), {
@@ -48,64 +53,270 @@ async function failClosed(runDir: string, err: unknown): Promise<never> {
   process.exit(1);
 }
 
-export async function runPhase({ phase }: RunPhaseArgs): Promise<void> {
-  const run = await createNextRunDir(phase);
+async function failClosedDesignAudit(
+  opts: { runDir: string; runId: string; phase: number; track: GovernedTrack },
+  err: unknown,
+): Promise<never> {
+  const message =
+    err instanceof Error ? err.message : typeof err === "string" ? err : "Error";
+
+  await writeJsonAtomic(path.join(opts.runDir, "design_failure_report.json"), {
+    ok: false,
+    track: opts.track,
+    phase: opts.phase,
+    runId: opts.runId,
+    error: message,
+    generatedAt: new Date().toISOString(),
+  });
+  await fs.writeFile(
+    path.join(opts.runDir, "root_cause.md"),
+    `# Root Cause\n\n${message}\n`,
+    "utf8",
+  );
+  await fs.writeFile(
+    path.join(opts.runDir, "spec_gap_analysis.md"),
+    `# Spec Gap Analysis\n\n${message}\n`,
+    "utf8",
+  );
+  await writeJsonAtomic(path.join(opts.runDir, "status.json"), {
+    generatedAt: new Date().toISOString(),
+    track: opts.track,
+    phase: opts.phase,
+    runId: opts.runId,
+    result: "fail",
+    approved: false,
+    authoritativeDesignSpec: "contracts/specs/unifyplane.design.spec.json",
+    authoritativeAuditSpec: "contracts/specs/unifyplane.design.audit.spec.json",
+    evidenceFiles: [
+      "design_failure_report.json",
+      "root_cause.md",
+      "spec_gap_analysis.md",
+      "status.json",
+    ],
+  });
+
+  process.exit(1);
+}
+
+async function failClosedImplementation(
+  opts: { runDir: string; runId: string; phase: number; track: GovernedTrack; designauditLockSource?: { runId: string; runDir: string } },
+  err: unknown,
+): Promise<never> {
+  const message =
+    err instanceof Error ? err.message : typeof err === "string" ? err : "Error";
+
+  await writeJsonAtomic(path.join(opts.runDir, "implementation_failure_report.json"), {
+    ok: false,
+    track: opts.track,
+    phase: opts.phase,
+    runId: opts.runId,
+    error: message,
+    generatedAt: new Date().toISOString(),
+  });
+  await fs.writeFile(path.join(opts.runDir, "root_cause.md"), `# Root Cause\n\n${message}\n`, "utf8");
+  await fs.writeFile(
+    path.join(opts.runDir, "remediation.md"),
+    `# Remediation\n\nFix the root cause, then re-run this phase into a new run folder.\n`,
+    "utf8",
+  );
+  await writeJsonAtomic(path.join(opts.runDir, "status.json"), {
+    generatedAt: new Date().toISOString(),
+    track: "implementation",
+    phase: opts.phase,
+    runId: opts.runId,
+    result: "fail",
+    approved: false,
+    authoritativeDesignSpec: "contracts/specs/unifyplane.design.spec.json",
+    authoritativeAuditSpec: "contracts/specs/unifyplane.design.audit.spec.json",
+    designauditLockSource: opts.designauditLockSource ?? null,
+    evidenceFiles: [
+      "implementation_failure_report.json",
+      "root_cause.md",
+      "remediation.md",
+      "status.json",
+    ],
+  });
+
+  process.exit(1);
+}
+
+export async function runPhase({ phase, track }: RunPhaseArgs): Promise<void> {
+  const resolvedTrack = track ?? DEFAULT_TRACK;
+  const run = await createNextRunDir(phase, resolvedTrack);
 
   try {
-    // Pin Phase 1 canonical inventory as the only canonical path source for later phases.
-    if (phase > 1) {
-      const approvedPhase1 = await findLatestApprovedRun(1);
-      if (!approvedPhase1) {
-        throw new Error(
-          "No approved Phase 1 run found (approval.json missing). Cannot proceed.",
+    if (resolvedTrack === "implementationplan") {
+      // Pin Phase 1 canonical inventory as the only canonical path source for later phases.
+      if (phase > 1) {
+        const approvedPhase1 = await findLatestApprovedRun(1, resolvedTrack);
+        if (!approvedPhase1) {
+          throw new Error(
+            "No approved Phase 1 run found (approval.json missing). Cannot proceed.",
+          );
+        }
+        const phase1Inventory = path.join(
+          approvedPhase1.runDir,
+          "canonical_inventory.json",
+        );
+        const inventoryText = await fs.readFile(phase1Inventory, "utf8");
+        await fs.writeFile(
+          path.join(run.runDir, "canonical_inventory.lock.json"),
+          inventoryText,
+          "utf8",
         );
       }
-      const phase1Inventory = path.join(
-        approvedPhase1.runDir,
-        "canonical_inventory.json",
-      );
-      const inventoryText = await fs.readFile(phase1Inventory, "utf8");
-      await fs.writeFile(
-        path.join(run.runDir, "canonical_inventory.lock.json"),
-        inventoryText,
-        "utf8",
-      );
+
+      if (phase === 1) {
+        await runPhase1({ runDir: run.runDir });
+      } else if (phase === 2) {
+        await runPhase2({ runDir: run.runDir });
+      } else if (phase === 3) {
+        await runPhase3({ runDir: run.runDir });
+      } else if (phase === 4) {
+        await runPhase4({ runDir: run.runDir });
+      } else if (phase === 5) {
+        await runPhase5({ runDir: run.runDir });
+      } else if (phase === 6) {
+        await runPhase6({ runDir: run.runDir });
+      } else if (phase === 7) {
+        await runPhase7({ runDir: run.runDir });
+      } else if (phase === 8) {
+        await runPhase8({ runDir: run.runDir });
+      } else if (phase === 9) {
+        await runPhase9({ runDir: run.runDir });
+      } else if (phase === 10) {
+        await runPhase10({ runDir: run.runDir });
+      } else {
+        throw new Error(`Phase ${phase} not implemented yet in the runner.`);
+      }
+
+      // Minimum required evidence for every phase run.
+      // (Phase implementations must overwrite these with real content.)
+      const requiredFiles = ["missing_md_report.json", "validation.json", "test_results.json"];
+      for (const f of requiredFiles) {
+        const p = path.join(run.runDir, f);
+        await fs.stat(p);
+      }
+      return;
     }
 
-    if (phase === 1) {
-      await runPhase1({ runDir: run.runDir });
-    } else if (phase === 2) {
-      await runPhase2({ runDir: run.runDir });
-    } else if (phase === 3) {
-      await runPhase3({ runDir: run.runDir });
-    } else if (phase === 4) {
-      await runPhase4({ runDir: run.runDir });
-    } else if (phase === 5) {
-      await runPhase5({ runDir: run.runDir });
-    } else if (phase === 6) {
-      await runPhase6({ runDir: run.runDir });
-    } else if (phase === 7) {
-      await runPhase7({ runDir: run.runDir });
-    } else if (phase === 8) {
-      await runPhase8({ runDir: run.runDir });
-    } else if (phase === 9) {
-      await runPhase9({ runDir: run.runDir });
-    } else if (phase === 10) {
-      await runPhase10({ runDir: run.runDir });
-    } else {
-      throw new Error(
-        `Phase ${phase} not implemented yet in the runner.`,
+    if (resolvedTrack === "designaudit") {
+      let prevApprovedRunDir: string | null = null;
+      if (phase > 1) {
+        const prevApproved = await findLatestApprovedRun(phase - 1, resolvedTrack);
+        if (!prevApproved) {
+          throw new Error(
+            `No approved Phase ${phase - 1} run found for track '${resolvedTrack}'. Cannot proceed.`,
+          );
+        }
+        prevApprovedRunDir = prevApproved.runDir;
+
+        // Propagate spec locks forward through the approved chain; phase implementations must never read mutable tip specs.
+        const lockNames = ["design_spec.lock.json", "design_audit_spec.lock.json"];
+        for (const lockName of lockNames) {
+          const src = path.join(prevApproved.runDir, lockName);
+          const dest = path.join(run.runDir, lockName);
+          const txt = await fs.readFile(src, "utf8");
+          await fs.writeFile(dest, txt, "utf8");
+        }
+      }
+
+      await runDesignAuditPhase({ phase, runDir: run.runDir, runId: run.runId, prevApprovedRunDir });
+
+      const auditSpec = await loadAuditSpecFromRun(run.runDir);
+      const phaseSpec = auditSpec.phases.find((p) => p.id === phase);
+      if (!phaseSpec) throw new Error(`Audit spec missing phase ${phase}.`);
+
+      const required = Array.from(
+        new Set<string>([...auditSpec.requiredSuccessArtifacts, ...phaseSpec.requiredArtifacts]),
       );
+      for (const f of required) {
+        await fs.stat(path.join(run.runDir, f));
+      }
+      return;
     }
 
-    // Minimum required evidence for every phase run.
-    // (Phase implementations must overwrite these with real content.)
-    const requiredFiles = ["missing_md_report.json", "validation.json", "test_results.json"];
-    for (const f of requiredFiles) {
-      const p = path.join(run.runDir, f);
-      await fs.stat(p);
+    if (resolvedTrack === "implementation") {
+      let prevApprovedRunDir: string | null = null;
+      let designauditLockSource: { runId: string; runDir: string } | null = null;
+
+      if (phase === 1) {
+        const approvedDesignAuditPhase1 = await findLatestApprovedRun(1, "designaudit");
+        if (!approvedDesignAuditPhase1) {
+          throw new Error("No approved designaudit Phase 1 run found. Cannot bind implementation locks.");
+        }
+        designauditLockSource = { runId: approvedDesignAuditPhase1.runId, runDir: approvedDesignAuditPhase1.runDir };
+
+        const lockNames = ["design_spec.lock.json", "design_audit_spec.lock.json"];
+        for (const lockName of lockNames) {
+          const src = path.join(approvedDesignAuditPhase1.runDir, lockName);
+          const dest = path.join(run.runDir, lockName);
+          const txt = await fs.readFile(src, "utf8");
+          await fs.writeFile(dest, txt, "utf8");
+        }
+
+        await writeJsonAtomic(path.join(run.runDir, "designaudit_lock_source.json"), {
+          generatedAt: new Date().toISOString(),
+          phase: 1,
+          runId: approvedDesignAuditPhase1.runId,
+          runDir: approvedDesignAuditPhase1.runDir,
+        });
+
+        // Pin the implementation execution contract for this chain.
+        const implSpec = await loadImplementationSpecFromRepo();
+        await writeLockedSpec(run.runDir, "implementation_spec.lock.json", "contracts/specs/unifyplane.implementation.spec.json", implSpec);
+      } else {
+        const prevApproved = await findLatestApprovedRun(phase - 1, resolvedTrack);
+        if (!prevApproved) {
+          throw new Error(`No approved Phase ${phase - 1} run found for track '${resolvedTrack}'. Cannot proceed.`);
+        }
+        prevApprovedRunDir = prevApproved.runDir;
+
+        const lockNames = ["design_spec.lock.json", "design_audit_spec.lock.json", "implementation_spec.lock.json", "designaudit_lock_source.json"];
+        for (const lockName of lockNames) {
+          const src = path.join(prevApproved.runDir, lockName);
+          const dest = path.join(run.runDir, lockName);
+          const txt = await fs.readFile(src, "utf8");
+          await fs.writeFile(dest, txt, "utf8");
+        }
+      }
+
+      await runImplementationPhase({ phase, runDir: run.runDir, runId: run.runId, prevApprovedRunDir });
+
+      const implSpec = await loadImplementationSpecFromRun(run.runDir);
+      const phaseSpec = implSpec.phases.find((p) => p.id === phase);
+      if (!phaseSpec) throw new Error(`Implementation spec missing phase ${phase}.`);
+
+      const required = Array.from(new Set<string>([...implSpec.requiredSuccessArtifacts, ...phaseSpec.requiredArtifacts]));
+      for (const f of required) {
+        await fs.stat(path.join(run.runDir, f));
+      }
+      return;
     }
+
+    throw new Error(`Unknown track '${resolvedTrack}'.`);
   } catch (err) {
-    await failClosed(run.runDir, err);
+    if (resolvedTrack === "designaudit") {
+      await failClosedDesignAudit(
+        { runDir: run.runDir, runId: run.runId, phase, track: resolvedTrack },
+        err,
+      );
+    } else if (resolvedTrack === "implementation") {
+      const sourcePath = path.join(run.runDir, "designaudit_lock_source.json");
+      let src: { runId: string; runDir: string } | undefined;
+      try {
+        const raw = JSON.parse(await fs.readFile(sourcePath, "utf8")) as any;
+        if (raw && typeof raw === "object" && typeof raw.runId === "string" && typeof raw.runDir === "string") {
+          src = { runId: raw.runId, runDir: raw.runDir };
+        }
+      } catch {
+        // ignore
+      }
+      await failClosedImplementation(
+        { runDir: run.runDir, runId: run.runId, phase, track: resolvedTrack, designauditLockSource: src },
+        err,
+      );
+    }
+    await failClosedLegacy(run.runDir, err);
   }
 }

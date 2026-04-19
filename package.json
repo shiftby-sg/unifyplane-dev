@@ -14,9 +14,11 @@
     "lint": "next lint",
     "governed:build": "tsc -p tools/governed/tsconfig.json",
     "governed": "pnpm -s governed:build && node .governed-dist/governed/cli.js",
+    "governed:test": "pnpm -s governed:build && node .governed-dist/governed/selftest.js",
     "phase": "pnpm governed phase",
     "approve": "pnpm governed approve",
-    "validate:registry": "pnpm governed validate-registry"
+    "validate:registry": "pnpm governed validate-registry",
+    "validate:implementation-spec": "pnpm governed validate-implementation-spec"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

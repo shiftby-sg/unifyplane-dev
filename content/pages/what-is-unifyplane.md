@@ -31,7 +31,7 @@
 
 # What is UnifyPlane
 
-## What Is UnifyPlane?
+## What is UnifyPlane?
 
 UnifyPlane is an evidence-oriented continuity approach for helping organizations keep change manageable and runtime behavior explainable over time.
 
@@ -53,7 +53,7 @@ This is not a problem created by AI, but AI adoption makes it more urgent. As en
 
 ---
 
-## The Problem It Addresses
+## The problem it addresses
 
 UnifyPlane addresses a continuity problem.
 
@@ -72,7 +72,7 @@ UnifyPlane is intended to reduce that separation by helping keep change, runtime
 
 ---
 
-## What UnifyPlane Does
+## What UnifyPlane does
 
 At its strongest current point, UnifyPlane helps by:
 
@@ -94,7 +94,7 @@ These capabilities are currently most visible through `unifyplane-core`, with ad
 
 ---
 
-## What UnifyPlane Is Not
+## What UnifyPlane is not
 
 UnifyPlane should not be understood as:
 
@@ -112,7 +112,7 @@ UnifyPlane already has real implementation surfaces, real runtime behavior, and 
 
 ---
 
-## Why It Is Not a Packaged Product
+## Why it is not a packaged product
 
 UnifyPlane is not best described as something you simply install and switch on.
 
@@ -129,7 +129,7 @@ Its value does not come from one interface or one component. It comes from keepi
 
 ---
 
-## How UnifyPlane Should Be Understood Today
+## How UnifyPlane should be understood today
 
 Today, UnifyPlane is best understood as:
 
@@ -149,7 +149,7 @@ So UnifyPlane is already real, but not evenly mature across every part of its la
 
 ---
 
-## Current Focus
+## Current focus
 
 The current focus of UnifyPlane is strongest in:
 
@@ -170,7 +170,7 @@ But these areas are not yet equally mature across all authorities or lifecycle s
 
 ---
 
-## Long-Term Direction
+## Long-term direction
 
 The broader direction of UnifyPlane includes stronger capability around:
 

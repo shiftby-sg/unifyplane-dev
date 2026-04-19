@@ -1,7 +1,777 @@
 {
-  "title": "Website Design System Spec v2",
-  "format": "markdown",
-  "file": "unifyplane.design.spec.md",
-  "description": "Implementation-ready design system baseline for unifyplane.dev",
-  "version": 2
+  "specVersion": "1.0.0",
+  "project": {
+    "name": "unifyplane.dev",
+    "type": "documentation-first marketing website",
+    "mode": "light-only-v1",
+    "primaryGoal": "Present UnifyPlane as an evidence-oriented continuity approach for helping organizations keep change manageable and runtime behavior explainable over time."
+  },
+  "brand": {
+    "name": "UnifyPlane",
+    "essence": [
+      "continuity-first",
+      "evidence-oriented",
+      "drift-reduction",
+      "proof-oriented",
+      "bounded in claims"
+    ],
+    "positioning": {
+      "is": [
+        "an evidence-oriented continuity approach",
+        "a bounded execution, evidence, and drift-reduction model",
+        "a documentation-first technical narrative"
+      ],
+      "isNot": [
+        "a startup-style SaaS landing page",
+        "a generic product site",
+        "a hype AI site",
+        "a dashboard shell",
+        "a broad enterprise transformation promise"
+      ]
+    }
+  },
+  "audience": {
+    "primary": [
+      "enterprise architecture and architecture-governance readers",
+      "assurance, audit, and control-oriented technical readers",
+      "security assurance and security architecture readers",
+      "senior engineering, platform, and technical-governance readers"
+    ],
+    "secondary": [
+      "business leadership readers",
+      "broad governance audiences",
+      "general AI-risk readers"
+    ],
+    "readerQuestions": [
+      "What problem is this site about?",
+      "What kind of thing is UnifyPlane?",
+      "Is it already real?",
+      "What evidence exists?",
+      "What is mature versus early?",
+      "Where do controls, safety, and security fit?"
+    ]
+  },
+  "problemModel": {
+    "coreProblem": "The continuity between intended change, what was actually built, configured, and deployed, and how systems behave in production often weakens over time.",
+    "stakes": [
+      "change becomes harder to manage",
+      "runtime behavior becomes harder to explain",
+      "confidence depends more on assumption than evidence",
+      "controls, safety expectations, and security assumptions become harder to trust"
+    ],
+    "context": {
+      "notJustComplexity": true,
+      "notCreatedByAI": true,
+      "aiMakesItMoreUrgent": true
+    }
+  },
+  "experiencePrinciples": {
+    "identitySentence": "A fast, mobile-first, evidence-led technical documentation experience with quiet modern polish, strong typography, low visual noise, clear maturity boundaries, and continuity-first information scent.",
+    "mustFeelLike": [
+      "serious technical documentation",
+      "modern but restrained",
+      "evidence-led",
+      "continuity-first",
+      "implementation-aware",
+      "bounded in tone and claims"
+    ],
+    "mustNotFeelLike": [
+      "startup landing page",
+      "dashboard product",
+      "concept blog",
+      "transformation-marketing site",
+      "AI-hype site"
+    ],
+    "corePrinciples": [
+      "problem before abstraction",
+      "evidence before expansion",
+      "one page one job",
+      "practical before theoretical",
+      "distinctive but not doctrinal",
+      "documentation not product marketing"
+    ]
+  },
+  "uxGoals": {
+    "signalGoals": {
+      "heroSignalSeconds": 3,
+      "homepageSectionUnderstandingSeconds": 10,
+      "foundationFirstPassMinutes": 2
+    },
+    "trustGoals": [
+      "structure",
+      "clarity",
+      "visible maturity boundaries",
+      "low noise",
+      "stable page patterns",
+      "strong typography",
+      "evidence-first presentation"
+    ],
+    "readingGoals": [
+      "scanning",
+      "structured reading",
+      "conceptual clarity",
+      "onward navigation",
+      "semantic hierarchy"
+    ],
+    "notOptimizedFor": [
+      "entertainment",
+      "high interactivity",
+      "decorative spectacle"
+    ]
+  },
+  "contentStrategy": {
+    "governingUxChain": [
+      "practical problem recognition",
+      "plain-language definition",
+      "current readiness",
+      "evidence",
+      "operational parts",
+      "deeper foundations"
+    ],
+    "pageFlow": [
+      "problem",
+      "definition",
+      "current truth",
+      "evidence",
+      "operational reality",
+      "deeper understanding"
+    ],
+    "editorialRules": [
+      "keep current truth separate from future direction",
+      "tie claims to evidence where possible",
+      "do not lead with doctrine language",
+      "keep interpretation honest",
+      "make maturity unevenness visible",
+      "keep safety and security integrated, not dominant",
+      "keep AI visible as amplifier, not identity replacement"
+    ]
+  },
+  "informationArchitecture": {
+    "primaryNavigation": [
+      "Home",
+      "What is UnifyPlane",
+      "Why it matters",
+      "Current Readiness",
+      "Evidence",
+      "Components",
+      "Foundations"
+    ],
+    "secondaryNavigation": [
+      "Writing"
+    ],
+    "routes": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Home",
+        "purpose": "Give the fastest possible signal and route readers into the canonical flow.",
+        "sections": [
+          "Hero",
+          "Why this matters in practice",
+          "What UnifyPlane is",
+          "Current Readiness",
+          "Evidence first",
+          "Components",
+          "Explore deeper"
+        ],
+        "layout": "landing"
+      },
+      {
+        "id": "what-is",
+        "path": "/what-is-unifyplane",
+        "title": "What is UnifyPlane",
+        "purpose": "Provide the canonical plain-language definition.",
+        "sections": [
+          "What is UnifyPlane?",
+          "The problem it addresses",
+          "What UnifyPlane does",
+          "What UnifyPlane is not",
+          "Why it is not a packaged product",
+          "How UnifyPlane should be understood today",
+          "Current focus",
+          "Long-term direction"
+        ],
+        "layout": "reading"
+      },
+      {
+        "id": "why-it-matters",
+        "path": "/why-it-matters",
+        "title": "Why it matters",
+        "purpose": "Make the enterprise problem legible and recognizable.",
+        "sections": [
+          "The problem is not just complexity",
+          "Where continuity weakens in practice",
+          "Why enterprise processes often miss it",
+          "Why this appears across different delivery models",
+          "Why controls, safety, and security depend on it too",
+          "Why AI-enabled and heterogeneous systems make it more urgent"
+        ],
+        "layout": "reading"
+      },
+      {
+        "id": "current-readiness",
+        "path": "/current-readiness",
+        "title": "Current Readiness",
+        "purpose": "Define the current truth boundary.",
+        "sections": [
+          "Why these buckets exist",
+          "Proven Now",
+          "Implemented but Immature",
+          "Future but Grounded",
+          "What should not be overstated yet"
+        ],
+        "layout": "reading"
+      },
+      {
+        "id": "evidence",
+        "path": "/evidence",
+        "title": "Evidence",
+        "purpose": "Show that UnifyPlane is grounded in real artifacts, runs, and implementation evidence.",
+        "sections": [
+          "What counts as evidence here",
+          "Evidence currently available",
+          "Runtime and execution evidence",
+          "Proof surfaces",
+          "Drift surfaces",
+          "Evidence boundaries",
+          "What current evidence proves",
+          "What current evidence does not yet prove"
+        ],
+        "layout": "reading"
+      },
+      {
+        "id": "components",
+        "path": "/components",
+        "title": "Components",
+        "purpose": "Explain the real operational parts of UnifyPlane in public-facing language.",
+        "sections": [
+          "Core Execution and Control",
+          "Execution Components",
+          "Evidence and Assurance"
+        ],
+        "children": [
+          "/components/unifyplane-core",
+          "/components/inspect-repo",
+          "/components/agent-runtime"
+        ],
+        "layout": "landing"
+      },
+      {
+        "id": "foundations",
+        "path": "/foundations",
+        "title": "Foundations",
+        "purpose": "Provide deeper conceptual pages without turning the top layer abstract.",
+        "sections": [
+          "Continuity",
+          "Proof",
+          "Drift",
+          "Evidence",
+          "Change",
+          "Impact"
+        ],
+        "layout": "landing"
+      },
+      {
+        "id": "writing",
+        "path": "/writing",
+        "title": "Writing",
+        "purpose": "Optional secondary essays and commentary grounded in current readiness and evidence.",
+        "layout": "landing",
+        "optional": true
+      }
+    ],
+    "readerPaths": {
+      "primary": [
+        "/",
+        "/what-is-unifyplane",
+        "/current-readiness",
+        "/evidence",
+        "/components"
+      ],
+      "problemFirst": [
+        "/",
+        "/why-it-matters",
+        "/what-is-unifyplane",
+        "/evidence"
+      ],
+      "trustFirst": [
+        "/",
+        "/current-readiness",
+        "/evidence",
+        "/components"
+      ],
+      "deeperTechnical": [
+        "/",
+        "/foundations",
+        "/components",
+        "/evidence"
+      ]
+    }
+  },
+  "layoutSystem": {
+    "pageTypes": {
+      "reading": {
+        "description": "Single-column long-form reading page",
+        "maxReadingWidth": "52rem",
+        "minReadingWidthIntent": "48rem",
+        "multiColumnProse": false
+      },
+      "landing": {
+        "description": "Route summary and section preview page",
+        "maxOuterWidth": "76rem",
+        "minOuterWidthIntent": "72rem"
+      }
+    },
+    "gridUsage": {
+      "allowedFor": [
+        "homepage section layouts",
+        "landing-page cards",
+        "explore-next blocks",
+        "component landing summaries",
+        "foundation landing summaries"
+      ],
+      "disallowedFor": [
+        "long-form prose on canonical reading pages"
+      ]
+    },
+    "spacing": {
+      "mobileHorizontalPadding": "1rem",
+      "tabletHorizontalPadding": "1.5rem",
+      "desktopHorizontalPadding": "2rem",
+      "sectionGap": "4rem",
+      "headingToBodyGap": "0.75rem",
+      "paragraphGap": "1rem",
+      "cardGap": "1.25rem"
+    }
+  },
+  "breakpoints": {
+    "sm": "640px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px",
+    "2xl": "1440px"
+  },
+  "responsiveBehavior": {
+    "ltSm": {
+      "layout": "single-column",
+      "nav": "mobile-drawer",
+      "toc": "jump-menu",
+      "cards": "stacked"
+    },
+    "smToMd": {
+      "layout": "single-column reading default",
+      "landingGrids": "up to 2 columns if spacing remains generous"
+    },
+    "mdToLg": {
+      "nav": "desktop-nav",
+      "toc": "optional side TOC on long pages",
+      "landingGrids": "up to 2 columns"
+    },
+    "lgPlus": {
+      "toc": "side TOC allowed on long-form pages",
+      "landingGrids": "2 to 3 columns",
+      "header": "restrained"
+    }
+  },
+  "typography": {
+    "role": "primary visual system",
+    "character": [
+      "readable",
+      "structured",
+      "calm",
+      "technical without being code-heavy"
+    ],
+    "fontFamilies": {
+      "sans": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+    },
+    "weightScale": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "scale": {
+      "h1": {
+        "min": "2.25rem",
+        "max": "3rem",
+        "lineHeight": "1.1-1.2",
+        "weight": 700
+      },
+      "h2": {
+        "min": "1.5rem",
+        "max": "2rem",
+        "lineHeight": "1.15-1.25",
+        "weight": 600
+      },
+      "h3": {
+        "min": "1.125rem",
+        "max": "1.25rem",
+        "lineHeight": "1.2-1.3",
+        "weight": 600
+      },
+      "body": {
+        "min": "1rem",
+        "max": "1.125rem",
+        "lineHeight": "1.6-1.75",
+        "weight": 400
+      },
+      "small": {
+        "size": "0.875rem",
+        "lineHeight": "1.4-1.5",
+        "weight": 400
+      }
+    },
+    "emphasisRules": {
+      "useBoldFor": [
+        "high-signal terms"
+      ],
+      "useMutedFor": [
+        "secondary explanation"
+      ],
+      "useMonoFor": [
+        "file names",
+        "route names",
+        "identifiers",
+        "component names"
+      ],
+      "avoid": [
+        "excessive italics",
+        "too many inline status pills",
+        "colorful inline emphasis everywhere"
+      ]
+    }
+  },
+  "colorSystem": {
+    "intent": "Color supports structure, interaction, semantic boundaries, status clarity, and section grouping; it is not the main source of identity.",
+    "themePolicy": {
+      "lightModeOnly": true,
+      "darkModeDeferred": true,
+      "themeToggle": false
+    },
+    "palette": {
+      "neutral": {
+        "background": "#FAFAF9",
+        "surface": "#FFFFFF",
+        "surfaceSubtle": "#F5F5F4",
+        "border": "#E7E5E4",
+        "text": "#1C1917",
+        "textMuted": "#57534E"
+      },
+      "accent": {
+        "primary": "#0F766E",
+        "primaryHover": "#115E59",
+        "primarySubtle": "#CCFBF1",
+        "primaryText": "#134E4A"
+      },
+      "semantic": {
+        "proven": {
+          "bg": "#ECFDF5",
+          "border": "#A7F3D0",
+          "text": "#065F46"
+        },
+        "emerging": {
+          "bg": "#FFFBEB",
+          "border": "#FCD34D",
+          "text": "#92400E"
+        },
+        "future": {
+          "bg": "#EFF6FF",
+          "border": "#93C5FD",
+          "text": "#1D4ED8"
+        },
+        "warning": {
+          "bg": "#FEF2F2",
+          "border": "#FECACA",
+          "text": "#B91C1C"
+        }
+      }
+    },
+    "tokenContract": {
+      "cssVariablePrefix": "--color",
+      "aliases": {
+        "bg": "neutral.background",
+        "surface": "neutral.surface",
+        "surface-subtle": "neutral.surfaceSubtle",
+        "border": "neutral.border",
+        "text": "neutral.text",
+        "text-muted": "neutral.textMuted",
+        "accent": "accent.primary",
+        "accent-hover": "accent.primaryHover",
+        "accent-subtle": "accent.primarySubtle",
+        "accent-text": "accent.primaryText"
+      },
+      "rules": [
+        "palette keys are the source of truth for design intent",
+        "css variable aliases must be derived from this mapping rather than invented ad hoc",
+        "surface and border tokens must resolve to named palette entries or semantic state entries",
+        "semantic readiness colors may be aliased only where readiness meaning is already visible in text or labeling"
+      ]
+    },
+    "usageRules": [
+      "one restrained accent family only",
+      "border-first surfaces",
+      "minimal shadows",
+      "avoid decorative brand flourishes",
+      "use semantic color mainly for readiness and boundary states"
+    ]
+  },
+  "surfaces": {
+    "style": "border-first",
+    "shadowPolicy": "minimal",
+    "radius": {
+      "card": "12px",
+      "button": "10px",
+      "input": "10px",
+      "pill": "999px"
+    },
+    "borders": {
+      "default": {
+        "width": "1px",
+        "style": "solid",
+        "colorToken": "neutral.border"
+      },
+      "strong": {
+        "width": "1px",
+        "style": "solid",
+        "colorToken": "neutral.textMuted"
+      }
+    }
+  },
+  "components": {
+    "global": [
+      {
+        "id": "site-header",
+        "purpose": "Primary navigation and brand anchor",
+        "states": [
+          "default",
+          "scrolled",
+          "mobile-open"
+        ]
+      },
+      {
+        "id": "site-footer",
+        "purpose": "Secondary navigation and document meta"
+      },
+      {
+        "id": "mobile-nav-drawer",
+        "purpose": "Navigation on small screens",
+        "states": [
+          "closed",
+          "open"
+        ]
+      },
+      {
+        "id": "breadcrumbs",
+        "purpose": "Reinforce page position in the canonical flow"
+      },
+      {
+        "id": "side-toc",
+        "purpose": "In-page navigation for long pages",
+        "states": [
+          "hidden",
+          "sticky",
+          "active-anchor"
+        ]
+      },
+      {
+        "id": "jump-menu",
+        "purpose": "Compact TOC on mobile"
+      }
+    ],
+    "content": [
+      {
+        "id": "hero",
+        "purpose": "Fast problem-definition-readiness signal"
+      },
+      {
+        "id": "section-intro",
+        "purpose": "Lead-in block for each major section"
+      },
+      {
+        "id": "evidence-card",
+        "purpose": "Summarize evidence without becoming a raw artifact index"
+      },
+      {
+        "id": "readiness-band",
+        "purpose": "Show Proven Now / Implemented but Immature / Future but Grounded"
+      },
+      {
+        "id": "boundary-note",
+        "purpose": "Make truth boundaries and non-overstatement explicit"
+      },
+      {
+        "id": "route-card",
+        "purpose": "Preview landing-page destinations"
+      },
+      {
+        "id": "component-card",
+        "purpose": "Summarize operational parts of UnifyPlane"
+      },
+      {
+        "id": "foundation-card",
+        "purpose": "Summarize conceptual foundations"
+      },
+      {
+        "id": "related-pages",
+        "purpose": "Onward navigation to adjacent canonical pages"
+      },
+      {
+        "id": "quote-callout",
+        "purpose": "Highlight high-signal statements sparingly"
+      }
+    ],
+    "interactionScopeV1": [
+      "navigation",
+      "mobile drawer",
+      "TOC",
+      "anchor links"
+    ],
+    "deferred": [
+      "site search"
+    ]
+  },
+  "readinessSemantics": {
+    "required": true,
+    "categories": [
+      {
+        "id": "proven-now",
+        "label": "Proven Now",
+        "meaning": "Supported by current evidence and implementation reality"
+      },
+      {
+        "id": "implemented-but-immature",
+        "label": "Implemented but Immature",
+        "meaning": "Real implementation exists but maturity is uneven or early"
+      },
+      {
+        "id": "future-but-grounded",
+        "label": "Future but Grounded",
+        "meaning": "Forward direction is grounded but not yet realized enough to overstate"
+      }
+    ],
+    "rules": [
+      "every major claim should map implicitly or explicitly to a readiness boundary",
+      "future direction must not be blended with current truth",
+      "evidence pages must distinguish what is proved from what is not yet proved"
+    ]
+  },
+  "contentRules": {
+    "homepage": {
+      "mustDo": [
+        "summarize and route",
+        "signal that UnifyPlane is already real but bounded in maturity",
+        "show that controls, safety, and security matter",
+        "keep AI as urgency amplifier rather than core identity"
+      ],
+      "mustNotDo": [
+        "fully own detailed readiness interpretation",
+        "fully own component detail",
+        "fully own deep foundations"
+      ]
+    },
+    "componentsPage": {
+      "mustIncludeOnly": [
+        "unifyplane-core",
+        "inspect-repo",
+        "agent-runtime"
+      ],
+      "mustNotInclude": [
+        "disciplines presented as components",
+        "enterprise architecture as a component"
+      ]
+    },
+    "foundationsPage": {
+      "v1Priorities": [
+        "Continuity",
+        "Proof",
+        "Drift",
+        "Evidence",
+        "Change",
+        "Impact"
+      ],
+      "secondary": [
+        "DEC",
+        "Traceability",
+        "Lineage",
+        "Fail-closed execution",
+        "Authority",
+        "Bounded execution",
+        "Dependency graph",
+        "CIA"
+      ],
+      "laterExpansion": [
+        "Governance continuity",
+        "AI-runtime assurance",
+        "Cyber continuity"
+      ]
+    }
+  },
+  "seoAndMetadata": {
+    "siteTitlePattern": "%s | UnifyPlane",
+    "defaultTitle": "UnifyPlane",
+    "defaultDescription": "Evidence-oriented continuity approach for helping organizations keep change manageable and runtime behavior explainable over time.",
+    "openGraphType": "website",
+    "schemaHints": [
+      "WebSite",
+      "WebPage",
+      "BreadcrumbList"
+    ]
+  },
+  "accessibility": {
+    "baseline": "WCAG 2.2 AA target",
+    "rules": [
+      "semantic heading hierarchy required",
+      "visible keyboard focus required",
+      "all nav and TOC interactions keyboard accessible",
+      "color must not be sole carrier of readiness meaning",
+      "minimum body contrast must meet AA",
+      "tap targets should be at least 44x44 CSS pixels",
+      "skip link required",
+      "reduced-motion preference respected"
+    ]
+  },
+  "performance": {
+    "goals": [
+      "fast first paint",
+      "low visual noise",
+      "minimal JS on reading pages"
+    ],
+    "rules": [
+      "prefer static content rendering",
+      "defer non-essential interactivity",
+      "avoid heavy animation",
+      "avoid oversized hero media",
+      "prioritize typography and content over decorative assets"
+    ]
+  },
+  "implementationHints": {
+    "preferredStackShape": [
+      "static-first site generation",
+      "content collections for canonical docs",
+      "design tokens for color, spacing, type, and readiness semantics"
+    ],
+    "tokenCategories": [
+      "color",
+      "spacing",
+      "typography",
+      "radius",
+      "shadow",
+      "border",
+      "breakpoint",
+      "z-index"
+    ]
+  },
+  "v1Decisions": {
+    "fixed": [
+      "light mode only",
+      "single restrained accent family",
+      "border-first surfaces",
+      "minimal shadows",
+      "single-column canonical reading pages",
+      "limited interactivity",
+      "Writing is optional and secondary"
+    ]
+  }
 }
+

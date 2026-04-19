@@ -5,7 +5,7 @@
       "id": "hero",
       "kind": "hero",
       "headline": "The problem is not just complexity.",
-      "subhead": "Continuity between intended change, implemented reality, and runtime behavior often weakens over time. This shows up across design, development, release, operations, and assurance—especially as AI accelerates change without improving traceability. UnifyPlane is an evidence-oriented continuity approach grounded in implementation, with readiness explicit where control and runtime trust matter.",
+      "subhead": "Continuity between intended change, implemented reality, and runtime behavior often weakens over time. This shows up across design, development, release, operations, and assurance - especially as AI accelerates change without improving traceability. UnifyPlane is an evidence-oriented continuity approach grounded in implementation, with readiness explicit where control and runtime trust matter.",
       "primaryCta": { "label": "What is UnifyPlane", "href": "/what-is-unifyplane" },
       "secondaryCta": { "label": "Why it matters", "href": "/why-it-matters" }
     },
@@ -13,7 +13,7 @@
       "id": "what",
       "kind": "summary",
       "title": "What UnifyPlane is",
-      "description": "A bounded execution, evidence, and drift-reduction approach — not a packaged software product.",
+      "description": "A bounded execution, evidence, and drift-reduction approach - not a packaged software product.",
       "href": "/what-is-unifyplane"
     },
     {
@@ -41,14 +41,14 @@
       "id": "components",
       "kind": "summary",
       "title": "Components",
-      "description": "The real operational parts of UnifyPlane: unifyplane-core, agent-runtime, inspect-repo — with honest maturity boundaries.",
+      "description": "The real operational parts of UnifyPlane: unifyplane-core, agent-runtime, inspect-repo - with honest maturity boundaries.",
       "href": "/components"
     },
     {
       "id": "foundations",
       "kind": "summary",
       "title": "Foundations",
-      "description": "Deeper explanations: continuity, proof, drift, evidence, change, impact — secondary to the core narrative path.",
+      "description": "Deeper explanations: continuity, proof, drift, evidence, change, impact - secondary to the core narrative path.",
       "href": "/foundations"
     },
     {

@@ -31,6 +31,8 @@
 
 # Current Readiness
 
+## Why these buckets exist
+
 This page separates what UnifyPlane can truthfully present today from what is still emerging and what remains future-facing.
 
 The purpose of these readiness buckets is simple: keep the narrative honest.
@@ -249,6 +251,12 @@ These buckets are not marketing tiers. They are readiness boundaries.
 * **Proven Now** means there is already enough real implementation and evidence to speak plainly.
 * **Implemented but Immature** means the capability exists, but depth, breadth, or maturity is still limited.
 * **Future but Grounded** means the direction is legitimate, but should not yet be presented as if it is already achieved.
+
+---
+
+## What should not be overstated yet
+
+This site separates proven capability from emerging and future direction. Do not treat the "Implemented but Immature" and "Future but Grounded" buckets as equivalent to broad operational maturity.
 
 ---
 
