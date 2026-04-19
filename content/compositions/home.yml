@@ -4,10 +4,11 @@
     {
       "id": "hero",
       "kind": "hero",
-      "headline": "The problem is not just complexity.",
-      "subhead": "Continuity between intent, implementation, and runtime behavior weakens over time, especially as AI accelerates change. UnifyPlane is an evidence-oriented continuity approach grounded in real implementation and evidence, with explicit readiness boundaries (real today, uneven maturity).",
-      "primaryCta": { "label": "What is UnifyPlane", "href": "/what-is-unifyplane" },
-      "secondaryCta": { "label": "Why it matters", "href": "/why-it-matters" }
+      "headline": "The problem is not new. AI is making it harder to ignore.",
+      "coreSignal": "Change creates drift.\\nDrift creates impact.\\nImpact stays hidden.",
+      "identity": "UnifyPlane is an evidence-based approach that makes change and impact visible—so you can understand what actually happened and why.",
+      "primaryCta": { "label": "Understand the approach", "href": "/what-is-unifyplane" },
+      "secondaryCta": { "label": "See why it matters", "href": "/why-it-matters" }
     },
     {
       "id": "what",

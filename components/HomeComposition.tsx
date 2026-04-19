@@ -48,7 +48,8 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
           <div className={styles.bandInner}>
             <div className={styles.hero}>
               <h1 className={styles.headline}>{hero.headline}</h1>
-              <p className={styles.subhead}>{hero.subhead}</p>
+              <h2 className={styles.coreSignal}>{hero.coreSignal}</h2>
+              <p className={styles.identity}>{hero.identity}</p>
               <div className={styles.ctaRow}>
                 <Link className={styles.ctaPrimary} href={hero.primaryCta.href}>
                   {hero.primaryCta.label}

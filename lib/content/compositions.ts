@@ -9,7 +9,8 @@ export type HomeComposition = {
         id: string;
         kind: "hero";
         headline: string;
-        subhead: string;
+        coreSignal: string;
+        identity: string;
         primaryCta: { label: string; href: string };
         secondaryCta?: { label: string; href: string };
       }
@@ -33,7 +34,8 @@ const HomeHeroSectionSchema = z.object({
   id: z.string().min(1),
   kind: z.literal("hero"),
   headline: z.string().min(1),
-  subhead: z.string().min(1),
+  coreSignal: z.string().min(1),
+  identity: z.string().min(1),
   primaryCta: z.object({
     label: z.string().min(1),
     href: z.string().min(1).startsWith("/")
