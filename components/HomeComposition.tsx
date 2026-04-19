@@ -88,6 +88,26 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
 
       <section className={styles.trustBand} data-home-band="trust" aria-label="Trust anchors">
         <div className={styles.trustGrid}>
+          {evidence && evidence.kind === "summary" ? (
+            <section className={styles.trustPanel} aria-label="Evidence">
+              <h2 className={styles.sectionTitle}>Evidence</h2>
+              <Link href={evidence.href} className={`${styles.card} ${styles.cardEmphasis}`}>
+                <h3 className={styles.cardTitle}>{evidence.title}</h3>
+                <p className={styles.cardDesc}>{evidence.description}</p>
+              </Link>
+              <TrustBox label="Evidence scope" variant="evidence">
+                <p className={styles.trustLine}>
+                  Artifacts and runs (proof + drift surfaces) support current claims within explicit
+                  boundaries.
+                </p>
+                <p className={styles.trustLine}>
+                  Use evidence to assess whether control and security assumptions still hold; it does
+                  not equal full maturity.
+                </p>
+              </TrustBox>
+            </section>
+          ) : null}
+
           {readiness && readiness.kind === "summary" ? (
             <section className={styles.trustPanel} aria-label="Current readiness">
               <h2 className={styles.sectionTitle}>Current Readiness</h2>
@@ -109,26 +129,6 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                 </p>
                 <p className={styles.routeLine}>
                   Use this page as the truth boundary for interpreting claims elsewhere.
-                </p>
-              </TrustBox>
-            </section>
-          ) : null}
-
-          {evidence && evidence.kind === "summary" ? (
-            <section className={styles.trustPanel} aria-label="Evidence">
-              <h2 className={styles.sectionTitle}>Evidence</h2>
-              <Link href={evidence.href} className={`${styles.card} ${styles.cardEmphasis}`}>
-                <h3 className={styles.cardTitle}>{evidence.title}</h3>
-                <p className={styles.cardDesc}>{evidence.description}</p>
-              </Link>
-              <TrustBox label="Evidence scope" variant="evidence">
-                <p className={styles.trustLine}>
-                  Artifacts and runs (proof + drift surfaces) support current claims within explicit
-                  boundaries.
-                </p>
-                <p className={styles.trustLine}>
-                  Use evidence to assess whether control and security assumptions still hold; it does
-                  not equal full maturity.
                 </p>
               </TrustBox>
             </section>
