@@ -4,17 +4,49 @@
     {
       "id": "hero",
       "kind": "hero",
-      "headline": "The problem is not new. AI is making it harder to ignore.",
-      "coreSignal": "Change creates drift.\\nDrift creates impact.\\nImpact stays hidden.",
-      "identity": "UnifyPlane is an evidence-based approach that makes change and impact visible—so you can understand what actually happened and why.",
+      "headline": "The problem is not new. AI amplifies it.",
+      "coreSignal": "Change creates drift.\nDrift creates impact.\nImpact stays hidden.",
+      "identity": "UnifyPlane makes change and impact visible.\nUnderstand what actually happened\u2014and why.",
       "primaryCta": { "label": "Understand the approach", "href": "/what-is-unifyplane" },
       "secondaryCta": { "label": "See why it matters", "href": "/why-it-matters" }
+    },
+    {
+      "id": "why-practice",
+      "kind": "recognition",
+      "title": "Why this matters in practice",
+      "groups": [
+        {
+          "lead": "This is how it shows up in practice.",
+          "body": "Knowledge spans docs, tickets, repos, and dashboards.\nSystems are split across teams."
+        },
+        {
+          "lead": "Change is understood in fragments.",
+          "body": "Decisions come from partial views.\nProduction understanding is rebuilt after the fact."
+        },
+        {
+          "lead": "Drift is not obvious when it starts.",
+          "body": "It becomes visible later.\nIncidents, unexpected behavior, failed assumptions."
+        },
+        {
+          "lead": "This is not new.",
+          "body": "Systems change faster and are more distributed.\nAI makes what happened harder to explain."
+        },
+        {
+          "lead": "The problem is not just change.",
+          "body": "The connection breaks down.\nIntended, built, running."
+        }
+      ]
     },
     {
       "id": "what",
       "kind": "summary",
       "title": "What is UnifyPlane",
-      "description": "A bounded execution, evidence, and drift-reduction approach - not a packaged software product.",
+      "blocks": [
+        "UnifyPlane is an evidence-oriented approach for keeping change manageable and runtime behavior explainable over time.",
+        "It helps keep a clear connection between\nwhat was intended,\nwhat was built,\nand how systems actually behave in production.",
+        "UnifyPlane keeps that connection visible as systems change.",
+        "It is a bounded execution, evidence, and drift-reduction approach\u2014not a packaged software product."
+      ],
       "href": "/what-is-unifyplane"
     },
     {

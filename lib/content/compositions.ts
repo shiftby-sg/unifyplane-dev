@@ -16,6 +16,19 @@ export type HomeComposition = {
       }
     | {
         id: string;
+        kind: "recognition";
+        title: string;
+        groups: Array<{ lead: string; body?: string; list?: string[]; emphasis?: "anchor" }>;
+      }
+    | {
+        id: "what";
+        kind: "summary";
+        title: string;
+        blocks: string[];
+        href: string;
+      }
+    | {
+        id: "why" | "readiness" | "evidence" | "components" | "foundations";
         kind: "summary";
         title: string;
         description: string;
@@ -48,8 +61,41 @@ const HomeHeroSectionSchema = z.object({
     .optional()
 });
 
-const HomeSummarySectionSchema = z.object({
+const HomeRecognitionSectionSchema = z.object({
   id: z.string().min(1),
+  kind: z.literal("recognition"),
+  title: z.string().min(1),
+  groups: z
+    .array(
+      z
+        .object({
+          lead: z.string().min(1),
+          body: z.string().min(1).optional(),
+          list: z.array(z.string().min(1)).min(1).optional(),
+          emphasis: z.literal("anchor").optional()
+        })
+        .superRefine((value, ctx) => {
+          if (!value.body && !value.list) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "Recognition group must include body or list."
+            });
+          }
+        })
+    )
+    .length(5)
+});
+
+const HomeDefinitionSummarySectionSchema = z.object({
+  id: z.literal("what"),
+  kind: z.literal("summary"),
+  title: z.string().min(1),
+  blocks: z.array(z.string().min(1)).length(4),
+  href: z.string().min(1).startsWith("/")
+});
+
+const HomeSummarySectionSchema = z.object({
+  id: z.enum(["why", "readiness", "evidence", "components", "foundations"]),
   kind: z.literal("summary"),
   title: z.string().min(1),
   description: z.string().min(1),
@@ -83,6 +129,8 @@ const HomeCompositionSchema = z
     sections: z.array(
       z.union([
         HomeHeroSectionSchema,
+        HomeRecognitionSectionSchema,
+        HomeDefinitionSummarySectionSchema,
         HomeSummarySectionSchema,
         HomeLinksSectionSchema
       ])
@@ -91,6 +139,7 @@ const HomeCompositionSchema = z
   .superRefine((value, ctx) => {
     const heroCount = value.sections.filter((section) => section.kind === "hero").length;
     const linksCount = value.sections.filter((section) => section.kind === "links").length;
+    const recognitionCount = value.sections.filter((section) => section.kind === "recognition").length;
 
     if (heroCount !== 1) {
       ctx.addIssue({
@@ -104,6 +153,14 @@ const HomeCompositionSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: `Home composition must contain exactly one links section; received ${linksCount}.`,
+        path: ["sections"]
+      });
+    }
+
+    if (recognitionCount !== 1) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Home composition must contain exactly one recognition section; received ${recognitionCount}.`,
         path: ["sections"]
       });
     }
