@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import styles from "./HomeComposition.module.css";
 import type { HomeComposition } from "../lib/content/compositions";
 
@@ -24,76 +24,100 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
   );
 
   const what = summaries.get("what");
-  const readiness = summaries.get("readiness");
-  const evidence = summaries.get("evidence");
   const components = summaries.get("components");
   const foundations = summaries.get("foundations");
+  const readinessRows = [
+    {
+      href: "/current-readiness#proven-now",
+      title: "Proven now",
+      sentence: "Already working with real execution and supporting evidence.",
+      meta: "Intent-to-runtime continuity · bounded execution · drift visibility · proof",
+      accentClass: styles.readinessRowProven,
+      emphasisClass: styles.readinessRowStrong,
+    },
+    {
+      href: "/current-readiness#implemented-but-immature",
+      title: "Implemented but immature",
+      sentence: "Real capabilities, but still uneven in depth and coverage.",
+      meta: "Emerging authorities · broader drift handling · early change assessment",
+      accentClass: styles.readinessRowImmature,
+      emphasisClass: styles.readinessRowMedium,
+    },
+    {
+      href: "/current-readiness#future-but-grounded",
+      title: "Future but grounded",
+      sentence: "Valid direction, but not yet current capability.",
+      meta: "Lifecycle assessment · impact visibility · assurance development",
+      accentClass: styles.readinessRowFuture,
+      emphasisClass: styles.readinessRowSoft,
+    },
+  ];
   const componentLinks = [
     {
       href: "/components/unifyplane-core",
       title: "UnifyPlane Core",
-      meta: "Execution and evidence center",
+      meta: "Coordinates system-wide execution, evidence, control, and closure across the system.",
       accentClass: styles.componentTileCore,
     },
     {
       href: "/components/agent-runtime",
       title: "Agent Runtime",
-      meta: "Bounded AI execution path",
+      meta: "Runs within runtime boundaries, keeping behavior observable.",
       accentClass: styles.componentTileAgent,
     },
     {
       href: "/components/inspect-repo",
       title: "Inspect Repo",
-      meta: "Repo inspection and drift visibility",
+      meta: "Inspects code and config to detect drift, intent gaps, and behavior changes.",
       accentClass: styles.componentTileInspect,
     },
   ];
   const foundationLinks = [
     {
       href: "/foundations/continuity",
-      title: "Continuity",
-      meta: "System Context",
-      more: "Intended change baseline.",
+      title: "Intent",
+      meta: "",
+      more: "What was intended",
       accentClass: styles.foundationNodeContinuity,
       areaClass: styles.foundationAnchor,
     },
     {
       href: "/foundations/proof",
       title: "Proof",
-      meta: "Verified state",
-      more: "What is derived from evidence.",
+      meta: "What can be proven",
+      more: "Backed by evidence",
       accentClass: styles.foundationNodeProof,
       areaClass: styles.foundationSupportNode,
     },
     {
       href: "/foundations/drift",
       title: "Drift",
-      meta: "Alignment loss",
-      more: "Difference between intended and actual behavior accumulates.",
+      meta: "Behavior diverges",
+      more: "Where intended and actual behavior diverge",
       accentClass: styles.foundationNodeDrift,
       areaClass: styles.foundationChainNode,
     },
     {
       href: "/foundations/evidence",
       title: "Evidence",
-      meta: "Observed behavior",
-      more: "Signals that substantiate current claims.",
+      meta: "What happened",
+      more: "What actually happened",
       accentClass: styles.foundationNodeEvidence,
       areaClass: styles.foundationSupportNode,
     },
     {
       href: "/foundations/change",
       title: "Change",
-      meta: "Lifecycle",
-      more: "Where the relationship starts.",
+      meta: "Introduced into the system",
+      more: "A change is introduced",
       accentClass: styles.foundationNodeChange,
       areaClass: styles.foundationChainNode,
     },
     {
       href: "/foundations/impact",
       title: "Impact",
-      meta: "Consequence",
-      more: "Where behavior matters operationally.",
+      meta: "Downstream effect",
+      more: "What it causes next",
       accentClass: styles.foundationNodeImpact,
       areaClass: styles.foundationChainNode,
     },
@@ -179,12 +203,12 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                   <span className={styles.modelLabel}>Intended</span>
                   <span className={styles.modelDetail}>planned change</span>
                 </div>
-                <div className={styles.modelConnector} aria-hidden="true">â†’</div>
+                <div className={styles.modelConnector} aria-hidden="true">→</div>
                 <div className={styles.modelNode}>
                   <span className={styles.modelLabel}>Built</span>
                   <span className={styles.modelDetail}>implemented reality</span>
                 </div>
-                <div className={styles.modelConnector} aria-hidden="true">â†’</div>
+                <div className={styles.modelConnector} aria-hidden="true">→</div>
                 <div className={styles.modelNode}>
                   <span className={styles.modelLabel}>Running</span>
                   <span className={styles.modelDetail}>production behavior</span>
@@ -196,58 +220,47 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
         </section>
       ) : null}
 
-      {readiness && readiness.kind === "summary" && evidence && evidence.kind === "summary" ? (
-        <section className={styles.proofBand} data-home-band="truth-evidence" aria-label="Current truth and evidence">
-          <div className={styles.bandInner}>
-            <div className={styles.proofContent}>
-              <h2 className={styles.bandTitle}>Current truth and evidence</h2>
-              <p className={styles.bandIntro}>
-                Readiness defines what can be claimed now. Evidence shows what supports it.
-              </p>
-              <div className={styles.proofGrid}>
-                <article className={styles.proofPanel} aria-label="Current readiness">
-                  <h3 className={styles.sectionTitle}>{readiness.title}</h3>
-                  <p className={styles.signalText}>Current claims are separated by maturity.</p>
-                  <ul className={styles.signalList} aria-label="Readiness buckets">
-                    <li>Proven now</li>
-                    <li>Implemented but immature</li>
-                    <li>Future but grounded</li>
-                  </ul>
-                  <Link className={styles.cardLink} href={readiness.href}>
-                    See current readiness
-                  </Link>
-                </article>
-                <article className={styles.proofPanel} aria-label="Evidence">
-                  <h3 className={styles.sectionTitle}>{evidence.title}</h3>
-                  <p className={styles.signalText}>Artifacts and runs show what current claims can support.</p>
-                  <ul className={styles.signalList} aria-label="Evidence surfaces">
-                    <li>Artifacts</li>
-                    <li>Runs</li>
-                    <li>Proof surfaces</li>
-                    <li>Drift surfaces</li>
-                  </ul>
-                  <Link className={styles.cardLink} href={evidence.href}>
-                    Review evidence
-                  </Link>
-                </article>
-              </div>
+      <section className={styles.readinessBand} data-home-band="readiness" aria-label="Current readiness">
+        <div className={styles.bandInner}>
+          <div className={styles.readinessContent}>
+            <h2 className={styles.bandTitle}>Current readiness</h2>
+            <p className={styles.bandIntro}>What can be claimed now depends on maturity — choose a level to explore.</p>
+            <div className={styles.readinessList} aria-label="Readiness buckets">
+              {readinessRows.map((row) => (
+                <Link
+                  key={row.href}
+                  href={row.href}
+                  className={`${styles.readinessRow} ${row.accentClass} ${row.emphasisClass}`}
+                >
+                  <span className={styles.readinessRowText}>
+                    <span className={styles.readinessRowTitle}>{row.title}</span>
+                    <span className={styles.readinessRowSentence}>{row.sentence}</span>
+                    <span className={styles.readinessRowMeta}>{row.meta}</span>
+                  </span>
+                  <span className={styles.readinessRowArrow} aria-hidden="true">
+                    →
+                  </span>
+                </Link>
+              ))}
             </div>
+            <Link className={`${styles.cardLink} ${styles.readinessFooterLink}`} href="/current-readiness">
+              See full readiness boundary
+            </Link>
           </div>
-        </section>
-      ) : null}
+        </div>
+      </section>
 
       <section className={styles.routeBand} data-home-band="routes" aria-label="Onward routes">
         <div className={styles.bandInner}>
           <div className={styles.routeStack}>
             <section className={styles.routeSection} aria-label="Components">
-              <h2 className={styles.bandTitle}>Operational paths</h2>
               <p className={styles.bandIntro}>
-                Move from current proof into the parts you can inspect and the foundations behind them.
+                From proof to execution - where evidence is produced.
               </p>
               {components && components.kind === "summary" ? (
                 <article className={styles.signalPanel}>
                   <h3 className={styles.sectionTitle}>Components</h3>
-                  <p className={styles.signalText}>Operational parts you can inspect or run.</p>
+                  <p className={styles.signalText}>The components that run the system, enforce execution boundaries, and make evidence visible.</p>
                   <div className={styles.componentGrid} aria-label="Operational components">
                     {componentLinks.map((component) => (
                       <Link
@@ -269,8 +282,9 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
 
             {foundations && foundations.kind === "summary" ? (
               <section className={styles.routeSection} aria-label="Foundations">
-                <h3 className={styles.sectionTitle}>Foundations</h3>
-                <p className={styles.signalText}>Deeper concepts stay secondary to current truth.</p>
+                <p className={styles.bandIntro}>These components make change, drift, and evidence visible in the model below.</p>
+                <h3 className={styles.sectionTitle}>How change moves through execution</h3>
+                <p className={styles.signalText}>This model shows how change moves through the system, where it diverges, and how outcomes become visible.</p>
                 <div className={styles.foundationMap} aria-label="Foundation topics">
                   <div className={styles.foundationFrame}>
                     <div className={`${styles.foundationBand} ${styles.foundationContextBand}`} aria-label="Context">
@@ -280,7 +294,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                       >
                         <span className={styles.foundationContextLine}>
                           <strong>{foundationLinks[0].title}</strong>
-                          <span> - {foundationLinks[0].meta}</span>
+                          {foundationLinks[0].meta ? <span> - {foundationLinks[0].meta}</span> : null}
                         </span>
                         <span className={styles.foundationNodeMore}>{foundationLinks[0].more}</span>
                       </Link>
@@ -358,7 +372,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                   </div>
                 </div>
                 <Link className={styles.cardLink} href={foundations.href}>
-                  Browse foundations
+                  See the full model
                 </Link>
               </section>
             ) : null}
@@ -368,3 +382,5 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
     </>
   );
 }
+
+

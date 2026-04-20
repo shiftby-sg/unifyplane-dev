@@ -74,14 +74,14 @@
       "id": "components",
       "kind": "summary",
       "title": "Components",
-      "description": "The real operational parts of UnifyPlane: unifyplane-core, agent-runtime, inspect-repo - with honest maturity boundaries.",
+      "description": "The components that run the system, enforce execution boundaries, and make evidence visible.",
       "href": "/components"
     },
     {
       "id": "foundations",
       "kind": "summary",
-      "title": "Foundations",
-      "description": "Deeper explanations: continuity, proof, drift, evidence, change, impact - secondary to the core narrative path.",
+      "title": "How change moves through execution",
+      "description": "This model shows how change moves through the system, where it diverges, and how outcomes become visible.",
       "href": "/foundations"
     },
     {

@@ -11,6 +11,22 @@ import { RelatedLinks } from "../../components/RelatedLinks";
 
 const mdPath = path.join(process.cwd(), "content/pages/current-readiness.md");
 
+function addReadinessAnchors(html: string) {
+  return html
+    .replace(
+      /<h2>Proven Now<\/h2>/,
+      '<h2 id="proven-now">Proven Now</h2>',
+    )
+    .replace(
+      /<h2>Implemented but Immature<\/h2>/,
+      '<h2 id="implemented-but-immature">Implemented but Immature</h2>',
+    )
+    .replace(
+      /<h2>Future but Grounded<\/h2>/,
+      '<h2 id="future-but-grounded">Future but Grounded</h2>',
+    );
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const { frontmatter } = await loadMarkdownFile(mdPath);
   return pageMetadata({
@@ -23,6 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CurrentReadinessPage() {
   const doc = await loadMarkdownFile(mdPath);
+  const html = addReadinessAnchors(doc.html);
   return (
     <PageShell pathname="/current-readiness">
       <h1>{doc.frontmatter.title}</h1>
@@ -31,7 +48,7 @@ export default async function CurrentReadinessPage() {
         variant="proven"
         note="Readiness is presented as boundaries: proven now, implemented but immature, and future but grounded."
       />
-      <Prose html={doc.html} />
+      <Prose html={html} />
       <RelatedLinks links={doc.frontmatter.related} />
       <JsonLd
         data={pageJsonLd({
