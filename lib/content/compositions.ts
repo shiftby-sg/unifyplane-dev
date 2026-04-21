@@ -123,6 +123,8 @@ const REQUIRED_SUMMARY_IDS = [
   "foundations"
 ] as const;
 
+const jsonCache = new Map<string, Promise<unknown>>();
+
 const HomeCompositionSchema = z
   .object({
     version: z.string().min(1),
@@ -188,14 +190,29 @@ const HomeCompositionSchema = z
         });
       }
     }
-  });
+});
 
 async function loadJsonYaml<T>(relPath: string): Promise<T> {
+  const cached = jsonCache.get(relPath);
+  if (cached) {
+    return cached as Promise<T>;
+  }
+
   const abs = path.join(process.cwd(), relPath);
-  const raw = await fs.readFile(abs, "utf8");
-  // Policy: our .yml compositions are YAML-JSON subset; fail closed if not parseable as JSON.
-  const normalized = raw.charCodeAt(0) === 0xfeff ? raw.slice(1) : raw;
-  return JSON.parse(normalized) as T;
+  const promise = fs
+    .readFile(abs, "utf8")
+    .then((raw) => {
+      // Policy: our .yml compositions are YAML-JSON subset; fail closed if not parseable as JSON.
+      const normalized = raw.charCodeAt(0) === 0xfeff ? raw.slice(1) : raw;
+      return JSON.parse(normalized) as T;
+    })
+    .catch((error) => {
+      jsonCache.delete(relPath);
+      throw error;
+    });
+
+  jsonCache.set(relPath, promise);
+  return promise;
 }
 
 export async function loadHomeComposition(): Promise<HomeComposition> {

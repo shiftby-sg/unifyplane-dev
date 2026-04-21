@@ -2,18 +2,105 @@
 import styles from "./HomeComposition.module.css";
 import type { HomeComposition } from "../lib/content/compositions";
 
-function renderBlock(block: string, className: string) {
-  return (
-    <p className={className}>
-      {block.split("\n").map((line, idx, arr) => (
-        <span key={`${idx}-${line}`}>
-          {line}
-          {idx < arr.length - 1 ? <br /> : null}
-        </span>
-      ))}
-    </p>
-  );
-}
+const READINESS_ROWS = [
+  {
+    href: "/current-readiness#proven-now",
+    title: "Proven now",
+    sentence: "Already working with real execution and supporting evidence.",
+    meta: ["Intent-to-runtime continuity", "bounded execution", "drift visibility", "proof"].join(" \u00b7 "),
+    accentClass: styles.readinessRowProven,
+    emphasisClass: styles.readinessRowStrong,
+  },
+  {
+    href: "/current-readiness#implemented-but-immature",
+    title: "Implemented but immature",
+    sentence: "Real capabilities, but still uneven in depth and coverage.",
+    meta: ["Emerging authorities", "broader drift handling", "early change assessment"].join(" \u00b7 "),
+    accentClass: styles.readinessRowImmature,
+    emphasisClass: styles.readinessRowMedium,
+  },
+  {
+    href: "/current-readiness#future-but-grounded",
+    title: "Future but grounded",
+    sentence: "Valid direction, but not yet current capability.",
+    meta: ["Lifecycle assessment", "impact visibility", "assurance development"].join(" \u00b7 "),
+    accentClass: styles.readinessRowFuture,
+    emphasisClass: styles.readinessRowSoft,
+  },
+] as const;
+
+const COMPONENT_LINKS = [
+  {
+    href: "/components/unifyplane-core",
+    title: "UnifyPlane Core",
+    meta: "Coordinates system-wide execution and evidence.",
+    accentClass: styles.componentTileCore,
+  },
+  {
+    href: "/components/agent-runtime",
+    title: "Agent Runtime",
+    meta: "Executes agents within controlled runtime boundaries, keeping behavior observable.",
+    accentClass: styles.componentTileAgent,
+  },
+  {
+    href: "/components/inspect-repo",
+    title: "Inspect Repo",
+    meta: "Inspects code and configuration to detect where behavior diverges from intent.",
+    accentClass: styles.componentTileInspect,
+  },
+] as const;
+
+const FOUNDATION_LINKS = [
+  {
+    href: "/foundations/continuity",
+    title: "Intent",
+    meta: "",
+    more: "What was intended",
+    accentClass: styles.foundationNodeContinuity,
+    areaClass: styles.foundationAnchor,
+  },
+  {
+    href: "/foundations/proof",
+    title: "Proof",
+    meta: "What can be proven",
+    more: "Backed by evidence",
+    accentClass: styles.foundationNodeProof,
+    areaClass: styles.foundationSupportNode,
+  },
+  {
+    href: "/foundations/drift",
+    title: "Drift",
+    meta: "Divergence from intent",
+    more: "Where behavior diverges from intent",
+    accentClass: styles.foundationNodeDrift,
+    areaClass: styles.foundationChainNode,
+  },
+  {
+    href: "/foundations/evidence",
+    title: "Evidence",
+    meta: "What happened",
+    more: "What actually happened",
+    accentClass: styles.foundationNodeEvidence,
+    areaClass: styles.foundationSupportNode,
+  },
+  {
+    href: "/foundations/change",
+    title: "Change",
+    meta: "Introduced into the system",
+    more: "A change is introduced",
+    accentClass: styles.foundationNodeChange,
+    areaClass: styles.foundationChainNode,
+  },
+  {
+    href: "/foundations/impact",
+    title: "Impact",
+    meta: "Downstream effect",
+    more: "What it causes next",
+    accentClass: styles.foundationNodeImpact,
+    areaClass: styles.foundationChainNode,
+  },
+] as const;
+
 export function HomeCompositionView({ composition }: { composition: HomeComposition }) {
   const hero = composition.sections.find((s) => s.kind === "hero");
   const recognition = composition.sections.find((s) => s.kind === "recognition");
@@ -27,102 +114,8 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
   const evidence = summaries.get("evidence");
   const components = summaries.get("components");
   const foundations = summaries.get("foundations");
-  const readinessRows = [
-    {
-      href: "/current-readiness#proven-now",
-      title: "Proven now",
-      sentence: "Already working with real execution and supporting evidence.",
-      meta: ["Intent-to-runtime continuity", "bounded execution", "drift visibility", "proof"].join(" \u00b7 "),
-      accentClass: styles.readinessRowProven,
-      emphasisClass: styles.readinessRowStrong,
-    },
-    {
-      href: "/current-readiness#implemented-but-immature",
-      title: "Implemented but immature",
-      sentence: "Real capabilities, but still uneven in depth and coverage.",
-      meta: ["Emerging authorities", "broader drift handling", "early change assessment"].join(" \u00b7 "),
-      accentClass: styles.readinessRowImmature,
-      emphasisClass: styles.readinessRowMedium,
-    },
-    {
-      href: "/current-readiness#future-but-grounded",
-      title: "Future but grounded",
-      sentence: "Valid direction, but not yet current capability.",
-      meta: ["Lifecycle assessment", "impact visibility", "assurance development"].join(" \u00b7 "),
-      accentClass: styles.readinessRowFuture,
-      emphasisClass: styles.readinessRowSoft,
-    },
-  ];
-  const componentLinks = [
-    {
-      href: "/components/unifyplane-core",
-      title: "UnifyPlane Core",
-      meta: "Coordinates system-wide execution and evidence.",
-      accentClass: styles.componentTileCore,
-    },
-    {
-      href: "/components/agent-runtime",
-      title: "Agent Runtime",
-      meta: "Executes agents within controlled runtime boundaries, keeping behavior observable.",
-      accentClass: styles.componentTileAgent,
-    },
-    {
-      href: "/components/inspect-repo",
-      title: "Inspect Repo",
-      meta: "Inspects code and configuration to detect where behavior diverges from intent.",
-      accentClass: styles.componentTileInspect,
-    },
-  ];
-  const foundationLinks = [
-    {
-      href: "/foundations/continuity",
-      title: "Intent",
-      meta: "",
-      more: "What was intended",
-      accentClass: styles.foundationNodeContinuity,
-      areaClass: styles.foundationAnchor,
-    },
-    {
-      href: "/foundations/proof",
-      title: "Proof",
-      meta: "What can be proven",
-      more: "Backed by evidence",
-      accentClass: styles.foundationNodeProof,
-      areaClass: styles.foundationSupportNode,
-    },
-    {
-      href: "/foundations/drift",
-      title: "Drift",
-      meta: "Divergence from intent",
-      more: "Where behavior diverges from intent",
-      accentClass: styles.foundationNodeDrift,
-      areaClass: styles.foundationChainNode,
-    },
-    {
-      href: "/foundations/evidence",
-      title: "Evidence",
-      meta: "What happened",
-      more: "What actually happened",
-      accentClass: styles.foundationNodeEvidence,
-      areaClass: styles.foundationSupportNode,
-    },
-    {
-      href: "/foundations/change",
-      title: "Change",
-      meta: "Introduced into the system",
-      more: "A change is introduced",
-      accentClass: styles.foundationNodeChange,
-      areaClass: styles.foundationChainNode,
-    },
-    {
-      href: "/foundations/impact",
-      title: "Impact",
-      meta: "Downstream effect",
-      more: "What it causes next",
-      accentClass: styles.foundationNodeImpact,
-      areaClass: styles.foundationChainNode,
-    },
-  ];
+  const evidenceSummary = evidence && "description" in evidence ? evidence : null;
+  const foundationsSummary = foundations && "description" in foundations ? foundations : null;
 
   return (
     <>
@@ -166,7 +159,16 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                     }`}
                   >
                     <p className={styles.recognitionLead}>{group.lead}</p>
-                    {group.body ? renderBlock(group.body, styles.recognitionBody) : null}
+                    {group.body ? (
+                      <p className={styles.recognitionBody}>
+                        {group.body.split("\n").map((line, idx, arr) => (
+                          <span key={`${idx}-${line}`}>
+                            {line}
+                            {idx < arr.length - 1 ? <br /> : null}
+                          </span>
+                        ))}
+                      </p>
+                    ) : null}
                     {group.list?.length ? (
                       <ul className={styles.recognitionList}>
                         {group.list.map((item) => (
@@ -192,7 +194,16 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                 <h2 className={styles.bandTitle}>{what.title}</h2>
                 <div className={styles.definitionBlocks}>
                   {what.blocks.map((block, i) => (
-                    <div key={i}>{renderBlock(block, styles.definitionBlock)}</div>
+                    <div key={i}>
+                      <p className={styles.definitionBlock}>
+                        {block.split("\n").map((line, idx, arr) => (
+                          <span key={`${idx}-${line}`}>
+                            {line}
+                            {idx < arr.length - 1 ? <br /> : null}
+                          </span>
+                        ))}
+                      </p>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -233,7 +244,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
             <h2 className={styles.bandTitle}>Current readiness</h2>
             <p className={styles.bandIntro}>What can be claimed today is bounded by current maturity.</p>
             <div className={styles.readinessList} aria-label="Readiness buckets">
-              {readinessRows.map((row) => (
+              {READINESS_ROWS.map((row) => (
                 <Link
                   key={row.href}
                   href={row.href}
@@ -257,16 +268,16 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
         </div>
       </section>
 
-      {evidence && evidence.kind === "summary" ? (
+      {evidenceSummary ? (
         <section className={styles.evidenceBand} data-home-band="evidence" aria-label="Evidence">
           <div className={styles.bandInner}>
             <div className={styles.evidenceContent}>
-              <h2 className={styles.bandTitle}>{evidence.title}</h2>
-              <p className={styles.bandIntro}>{evidence.description}</p>
+              <h2 className={styles.bandTitle}>{evidenceSummary.title}</h2>
+              <p className={styles.bandIntro}>{evidenceSummary.description}</p>
               <p className={styles.evidenceSignal} aria-label="Evidence signals">
                 {["Artifacts", "Execution runs", "Proof surfaces", "Drift visibility"].join(" \u00b7 ")}
               </p>
-              <Link className={styles.cardLink} href={evidence.href}>
+              <Link className={styles.cardLink} href={evidenceSummary.href}>
                 Review the evidence
               </Link>
             </div>
@@ -283,7 +294,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                   <h3 className={styles.sectionTitle}>{components.title}</h3>
                   <p className={styles.signalText}>These components drive execution and make change, drift, and evidence directly observable before the model below explains how that behavior unfolds.</p>
                   <div className={styles.componentGrid} aria-label="Operational components">
-                    {componentLinks.map((component) => (
+                    {COMPONENT_LINKS.map((component) => (
                       <Link
                         key={component.href}
                         href={component.href}
@@ -304,24 +315,24 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
         </div>
       </section>
 
-      {foundations && foundations.kind === "summary" ? (
+      {foundationsSummary ? (
         <section className={styles.foundationsBand} data-home-band="foundations" aria-label="Foundations">
           <div className={styles.bandInner}>
             <section className={styles.routeSection} aria-label="Foundations">
-              <h3 className={styles.sectionTitle}>{foundations.title}</h3>
-              <p className={styles.signalText}>{foundations.description}</p>
+              <h3 className={styles.sectionTitle}>{foundationsSummary.title}</h3>
+              <p className={styles.signalText}>{foundationsSummary.description}</p>
               <div className={styles.foundationMap} aria-label="Foundation topics">
                 <div className={styles.foundationFrame}>
                   <div className={`${styles.foundationBand} ${styles.foundationContextBand}`} aria-label="Context">
-                    <Link
-                      href={foundationLinks[0].href}
-                      className={`${styles.foundationNode} ${foundationLinks[0].accentClass} ${foundationLinks[0].areaClass}`}
-                    >
-                      <span className={styles.foundationContextLine}>
-                        <strong>{foundationLinks[0].title}</strong>
-                        {foundationLinks[0].meta ? <span> - {foundationLinks[0].meta}</span> : null}
+                      <Link
+                        href={FOUNDATION_LINKS[0].href}
+                        className={`${styles.foundationNode} ${FOUNDATION_LINKS[0].accentClass} ${FOUNDATION_LINKS[0].areaClass}`}
+                      >
+                        <span className={styles.foundationContextLine}>
+                        <strong>{FOUNDATION_LINKS[0].title}</strong>
+                        {FOUNDATION_LINKS[0].meta ? <span> - {FOUNDATION_LINKS[0].meta}</span> : null}
                       </span>
-                      <span className={styles.foundationNodeMore}>{foundationLinks[0].more}</span>
+                      <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[0].more}</span>
                     </Link>
                   </div>
 
@@ -333,34 +344,34 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                   <div className={styles.foundationBand} aria-label="Process">
                     <div className={styles.foundationChainRow} aria-label="Primary foundation chain">
                       <Link
-                        href={foundationLinks[4].href}
-                        className={`${styles.foundationNode} ${foundationLinks[4].accentClass} ${foundationLinks[4].areaClass}`}
+                        href={FOUNDATION_LINKS[4].href}
+                        className={`${styles.foundationNode} ${FOUNDATION_LINKS[4].accentClass} ${FOUNDATION_LINKS[4].areaClass}`}
                       >
-                        <span className={styles.foundationNodeTitle}>{foundationLinks[4].title}</span>
-                        <span className={styles.foundationNodeMeta}>{foundationLinks[4].meta}</span>
-                        <span className={styles.foundationNodeMore}>{foundationLinks[4].more}</span>
+                        <span className={styles.foundationNodeTitle}>{FOUNDATION_LINKS[4].title}</span>
+                        <span className={styles.foundationNodeMeta}>{FOUNDATION_LINKS[4].meta}</span>
+                        <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[4].more}</span>
                       </Link>
                       <span className={styles.foundationNodeArrow} aria-hidden="true">
                         {"\u2192"}
                       </span>
                       <Link
-                        href={foundationLinks[2].href}
-                        className={`${styles.foundationNode} ${foundationLinks[2].accentClass} ${foundationLinks[2].areaClass}`}
+                        href={FOUNDATION_LINKS[2].href}
+                        className={`${styles.foundationNode} ${FOUNDATION_LINKS[2].accentClass} ${FOUNDATION_LINKS[2].areaClass}`}
                       >
-                        <span className={styles.foundationNodeTitle}>{foundationLinks[2].title}</span>
-                        <span className={styles.foundationNodeMeta}>{foundationLinks[2].meta}</span>
-                        <span className={styles.foundationNodeMore}>{foundationLinks[2].more}</span>
+                        <span className={styles.foundationNodeTitle}>{FOUNDATION_LINKS[2].title}</span>
+                        <span className={styles.foundationNodeMeta}>{FOUNDATION_LINKS[2].meta}</span>
+                        <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[2].more}</span>
                       </Link>
                       <span className={styles.foundationNodeArrow} aria-hidden="true">
                         {"\u2192"}
                       </span>
                       <Link
-                        href={foundationLinks[5].href}
-                        className={`${styles.foundationNode} ${foundationLinks[5].accentClass} ${foundationLinks[5].areaClass}`}
+                        href={FOUNDATION_LINKS[5].href}
+                        className={`${styles.foundationNode} ${FOUNDATION_LINKS[5].accentClass} ${FOUNDATION_LINKS[5].areaClass}`}
                       >
-                        <span className={styles.foundationNodeTitle}>{foundationLinks[5].title}</span>
-                        <span className={styles.foundationNodeMeta}>{foundationLinks[5].meta}</span>
-                        <span className={styles.foundationNodeMore}>{foundationLinks[5].more}</span>
+                        <span className={styles.foundationNodeTitle}>{FOUNDATION_LINKS[5].title}</span>
+                        <span className={styles.foundationNodeMeta}>{FOUNDATION_LINKS[5].meta}</span>
+                        <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[5].more}</span>
                       </Link>
                     </div>
                   </div>
@@ -374,29 +385,29 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                     <div className={styles.foundationSupportRow} aria-label="Supporting foundations">
                       <span className={styles.foundationSupportSpacer} aria-hidden="true" />
                       <Link
-                        href={foundationLinks[3].href}
-                        className={`${styles.foundationNode} ${styles.foundationSupportNode} ${foundationLinks[3].accentClass} ${foundationLinks[3].areaClass}`}
+                        href={FOUNDATION_LINKS[3].href}
+                        className={`${styles.foundationNode} ${styles.foundationSupportNode} ${FOUNDATION_LINKS[3].accentClass} ${FOUNDATION_LINKS[3].areaClass}`}
                       >
-                        <span className={styles.foundationNodeTitle}>{foundationLinks[3].title}</span>
-                        <span className={styles.foundationNodeMeta}>{foundationLinks[3].meta}</span>
-                        <span className={styles.foundationNodeMore}>{foundationLinks[3].more}</span>
+                        <span className={styles.foundationNodeTitle}>{FOUNDATION_LINKS[3].title}</span>
+                        <span className={styles.foundationNodeMeta}>{FOUNDATION_LINKS[3].meta}</span>
+                        <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[3].more}</span>
                       </Link>
                       <span className={styles.foundationNodeArrow} aria-hidden="true">
                         {"\u2192"}
                       </span>
                       <Link
-                        href={foundationLinks[1].href}
-                        className={`${styles.foundationNode} ${styles.foundationSupportNode} ${styles.foundationNodeProof} ${foundationLinks[1].areaClass}`}
+                        href={FOUNDATION_LINKS[1].href}
+                        className={`${styles.foundationNode} ${styles.foundationSupportNode} ${styles.foundationNodeProof} ${FOUNDATION_LINKS[1].areaClass}`}
                       >
-                        <span className={styles.foundationNodeTitle}>{foundationLinks[1].title}</span>
-                        <span className={styles.foundationNodeMeta}>{foundationLinks[1].meta}</span>
-                        <span className={styles.foundationNodeMore}>{foundationLinks[1].more}</span>
+                        <span className={styles.foundationNodeTitle}>{FOUNDATION_LINKS[1].title}</span>
+                        <span className={styles.foundationNodeMeta}>{FOUNDATION_LINKS[1].meta}</span>
+                        <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[1].more}</span>
                       </Link>
                     </div>
                   </div>
                 </div>
               </div>
-              <Link className={styles.cardLink} href={foundations.href}>
+              <Link className={styles.cardLink} href={foundationsSummary.href}>
                 See the full model
               </Link>
             </section>
