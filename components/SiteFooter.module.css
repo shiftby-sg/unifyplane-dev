@@ -21,17 +21,6 @@
   align-items: flex-end;
 }
 
-.links {
-  display: inline-flex;
-  gap: var(--space-3);
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.links a {
-  color: var(--color-muted);
-}
-
 .secondary {
   display: inline-flex;
   gap: var(--space-3);

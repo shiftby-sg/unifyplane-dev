@@ -49,3 +49,8 @@
   max-width: var(--layout-wide);
 }
 
+/* When the shell is wide (homepage, no TOC), center the content column within the wider shell. */
+.shell.wide[data-has-toc="no"] .main {
+  margin: 0 auto;
+}
+

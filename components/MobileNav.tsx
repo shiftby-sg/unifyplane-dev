@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import styles from "./MobileNav.module.css";
 import headerStyles from "./SiteHeader.module.css";
 import { primaryNav } from "../lib/site/nav";
@@ -19,7 +19,7 @@ export function MobileNav() {
   const toggleRef = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const reactId = useId();
-  const panelId = useMemo(() => `mobile-nav-${reactId.replaceAll(":", "")}`, [reactId]);
+  const panelId = `mobile-nav-${reactId.replaceAll(":", "")}`;
 
   useEffect(() => {
     if (!open) return;

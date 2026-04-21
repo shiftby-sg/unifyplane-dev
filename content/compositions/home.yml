@@ -1,54 +1,85 @@
-{
+﻿{
   "version": "1",
   "sections": [
     {
       "id": "hero",
       "kind": "hero",
-      "headline": "The problem is not just complexity.",
-      "subhead": "Continuity between intended change, implemented reality, and runtime behavior often weakens over time. This shows up across design, development, release, operations, and assurance - especially as AI accelerates change without improving traceability. UnifyPlane is an evidence-oriented continuity approach grounded in implementation, with readiness explicit where control and runtime trust matter.",
-      "primaryCta": { "label": "What is UnifyPlane", "href": "/what-is-unifyplane" },
-      "secondaryCta": { "label": "Why it matters", "href": "/why-it-matters" }
+      "headline": "The problem is not new. AI amplifies it.",
+      "coreSignal": "Change creates drift.\nDrift creates impact.\nImpact stays hidden.",
+      "identity": "Keep change, behavior, and impact connected over time.\nUnderstand what actually happened\u2014and why.",
+      "primaryCta": { "label": "Understand the approach", "href": "/what-is-unifyplane" },
+      "secondaryCta": { "label": "See why it matters", "href": "/why-it-matters" }
+    },
+    {
+      "id": "why-practice",
+      "kind": "recognition",
+      "title": "Why this matters in practice",
+      "groups": [
+        {
+          "lead": "This is how it shows up in practice.",
+          "body": "Knowledge spans docs, tickets, repos, and dashboards.\nSystems are split across teams."
+        },
+        {
+          "lead": "Change is understood in fragments.",
+          "body": "Decisions come from partial views.\nProduction understanding is rebuilt after the fact."
+        },
+        {
+          "lead": "Drift is not obvious when it starts.",
+          "body": "It becomes visible later.\nIncidents follow, behavior shifts unexpectedly, and assumptions fail."
+        },
+        {
+          "lead": "The pressure is higher now.",
+          "body": "Systems change faster and are more distributed.\nAI makes what happened harder to explain."
+        },
+        {
+          "lead": "The problem is not just change.",
+          "body": "The connection between intended, built, and running systems breaks down."
+        }
+      ]
     },
     {
       "id": "what",
       "kind": "summary",
-      "title": "What UnifyPlane is",
-      "description": "A bounded execution, evidence, and drift-reduction approach - not a packaged software product.",
+      "title": "What is UnifyPlane",
+      "blocks": [
+        "UnifyPlane is an evidence-oriented approach for keeping change and runtime behavior connected over time.",
+        "It keeps the connection between intended, built, and running systems visible."
+      ],
       "href": "/what-is-unifyplane"
     },
     {
       "id": "why",
       "kind": "summary",
       "title": "Why it matters",
-      "description": "In mixed estates (custom, COTS, SaaS, managed services, vendor delivery), continuity fragments across docs, tickets, repos, dashboards, and artifacts. Decisions get made from partial summaries, and teams reconstruct understanding after the fact.",
+      "description": "Continuity fragments across docs, tickets, repos, dashboards, and vendor artifacts. Decisions get made from partial summaries, and teams reconstruct understanding after the fact.",
       "href": "/why-it-matters"
     },
     {
       "id": "readiness",
       "kind": "summary",
-      "title": "Current Readiness",
-      "description": "What is proven now, what is implemented but immature, and what is future but grounded.",
+      "title": "Current readiness",
+      "description": "What is real now, what is emerging, and what is future but grounded.",
       "href": "/current-readiness"
     },
     {
       "id": "evidence",
       "kind": "summary",
       "title": "Evidence",
-      "description": "What evidence exists today, what it proves, and what it does not yet prove.",
+      "description": "Artifacts and execution runs show what supports the current readiness claims.",
       "href": "/evidence"
     },
     {
       "id": "components",
       "kind": "summary",
       "title": "Components",
-      "description": "The real operational parts of UnifyPlane: unifyplane-core, agent-runtime, inspect-repo - with honest maturity boundaries.",
+      "description": "The components that produce and expose evidence.",
       "href": "/components"
     },
     {
       "id": "foundations",
       "kind": "summary",
-      "title": "Foundations",
-      "description": "Deeper explanations: continuity, proof, drift, evidence, change, impact - secondary to the core narrative path.",
+      "title": "How change unfolds through execution",
+      "description": "This model shows how change, drift, and evidence unfold over time.",
       "href": "/foundations"
     },
     {
@@ -65,3 +96,4 @@
     }
   ]
 }
+

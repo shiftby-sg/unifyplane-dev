@@ -135,11 +135,64 @@
       "name": "Homepage Implementation",
       "objective": "Validate homepage as routing layer (not content owner).",
       "approvalRequired": true,
-      "outputs": ["homepage_structure.json", "homepage_behavior_report.json"],
+      "outputs": ["homepage_structure.json", "homepage_behavior_report.json", "homepage_ux_report.json"],
       "checks": ["summarizes and routes", "readiness is signaled", "no deep interpretation ownership"],
       "validation": ["required routes linked", "readiness buckets visible", "composition is used"],
       "failureConditions": ["missing required routes", "homepage owns deep interpretation", "composition not used"],
-      "requiredArtifacts": ["homepage_structure.json", "homepage_behavior_report.json"]
+      "requiredArtifacts": ["homepage_structure.json", "homepage_behavior_report.json", "homepage_ux_report.json"],
+      "uxChecklist": {
+        "version": "1",
+        "rules": [
+          {
+            "id": "S1",
+            "title": "No duplicate headings (section label repeated as card title)",
+            "severity": "critical",
+            "evidence": { "files": ["components/HomeComposition.tsx"] }
+          },
+          {
+            "id": "I1",
+            "title": "No full-card click (no Link wrapping a .card container)",
+            "severity": "critical",
+            "evidence": { "files": ["components/HomeComposition.tsx"] }
+          },
+          {
+            "id": "I2",
+            "title": "Card body text is selectable (derived from no full-card click)",
+            "severity": "critical",
+            "evidence": { "files": ["components/HomeComposition.tsx"] }
+          },
+          {
+            "id": "S3",
+            "title": "Desktop title row alignment enforced via CSS (sectionTitle min-height)",
+            "severity": "critical",
+            "evidence": { "files": ["components/HomeComposition.module.css"] }
+          },
+          {
+            "id": "L1",
+            "title": "All homepage bands use centered inner wrappers at desktop",
+            "severity": "critical",
+            "evidence": { "files": ["components/HomeComposition.tsx", "components/HomeComposition.module.css"] }
+          },
+          {
+            "id": "E1",
+            "title": "Explore section is compact at desktop (2-column links list)",
+            "severity": "critical",
+            "evidence": { "files": ["components/HomeComposition.module.css"] }
+          },
+          {
+            "id": "N1",
+            "title": "Homepage route labels match nav labels (no Operational parts / Deeper foundations)",
+            "severity": "critical",
+            "evidence": { "files": ["components/HomeComposition.tsx"] }
+          },
+          {
+            "id": "V2",
+            "title": "Readiness rail is informational (no pointer cursor / hover)",
+            "severity": "critical",
+            "evidence": { "files": ["components/HomeComposition.module.css"] }
+          }
+        ]
+      }
     },
     {
       "id": 7,

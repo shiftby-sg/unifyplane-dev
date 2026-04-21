@@ -9,12 +9,26 @@ export type HomeComposition = {
         id: string;
         kind: "hero";
         headline: string;
-        subhead: string;
+        coreSignal: string;
+        identity: string;
         primaryCta: { label: string; href: string };
         secondaryCta?: { label: string; href: string };
       }
     | {
         id: string;
+        kind: "recognition";
+        title: string;
+        groups: Array<{ lead: string; body?: string; list?: string[]; emphasis?: "anchor" }>;
+      }
+    | {
+        id: "what";
+        kind: "summary";
+        title: string;
+        blocks: string[];
+        href: string;
+      }
+    | {
+        id: "why" | "readiness" | "evidence" | "components" | "foundations";
         kind: "summary";
         title: string;
         description: string;
@@ -33,7 +47,8 @@ const HomeHeroSectionSchema = z.object({
   id: z.string().min(1),
   kind: z.literal("hero"),
   headline: z.string().min(1),
-  subhead: z.string().min(1),
+  coreSignal: z.string().min(1),
+  identity: z.string().min(1),
   primaryCta: z.object({
     label: z.string().min(1),
     href: z.string().min(1).startsWith("/")
@@ -46,8 +61,41 @@ const HomeHeroSectionSchema = z.object({
     .optional()
 });
 
-const HomeSummarySectionSchema = z.object({
+const HomeRecognitionSectionSchema = z.object({
   id: z.string().min(1),
+  kind: z.literal("recognition"),
+  title: z.string().min(1),
+  groups: z
+    .array(
+      z
+        .object({
+          lead: z.string().min(1),
+          body: z.string().min(1).optional(),
+          list: z.array(z.string().min(1)).min(1).optional(),
+          emphasis: z.literal("anchor").optional()
+        })
+        .superRefine((value, ctx) => {
+          if (!value.body && !value.list) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "Recognition group must include body or list."
+            });
+          }
+        })
+    )
+    .length(5)
+});
+
+const HomeDefinitionSummarySectionSchema = z.object({
+  id: z.literal("what"),
+  kind: z.literal("summary"),
+  title: z.string().min(1),
+  blocks: z.array(z.string().min(1)).min(2).max(4),
+  href: z.string().min(1).startsWith("/")
+});
+
+const HomeSummarySectionSchema = z.object({
+  id: z.enum(["why", "readiness", "evidence", "components", "foundations"]),
   kind: z.literal("summary"),
   title: z.string().min(1),
   description: z.string().min(1),
@@ -75,12 +123,16 @@ const REQUIRED_SUMMARY_IDS = [
   "foundations"
 ] as const;
 
+const jsonCache = new Map<string, Promise<unknown>>();
+
 const HomeCompositionSchema = z
   .object({
     version: z.string().min(1),
     sections: z.array(
       z.union([
         HomeHeroSectionSchema,
+        HomeRecognitionSectionSchema,
+        HomeDefinitionSummarySectionSchema,
         HomeSummarySectionSchema,
         HomeLinksSectionSchema
       ])
@@ -89,6 +141,7 @@ const HomeCompositionSchema = z
   .superRefine((value, ctx) => {
     const heroCount = value.sections.filter((section) => section.kind === "hero").length;
     const linksCount = value.sections.filter((section) => section.kind === "links").length;
+    const recognitionCount = value.sections.filter((section) => section.kind === "recognition").length;
 
     if (heroCount !== 1) {
       ctx.addIssue({
@@ -102,6 +155,14 @@ const HomeCompositionSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: `Home composition must contain exactly one links section; received ${linksCount}.`,
+        path: ["sections"]
+      });
+    }
+
+    if (recognitionCount !== 1) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Home composition must contain exactly one recognition section; received ${recognitionCount}.`,
         path: ["sections"]
       });
     }
@@ -129,13 +190,29 @@ const HomeCompositionSchema = z
         });
       }
     }
-  });
+});
 
 async function loadJsonYaml<T>(relPath: string): Promise<T> {
+  const cached = jsonCache.get(relPath);
+  if (cached) {
+    return cached as Promise<T>;
+  }
+
   const abs = path.join(process.cwd(), relPath);
-  const raw = await fs.readFile(abs, "utf8");
-  // Policy: our .yml compositions are YAML-JSON subset; fail closed if not parseable as JSON.
-  return JSON.parse(raw) as T;
+  const promise = fs
+    .readFile(abs, "utf8")
+    .then((raw) => {
+      // Policy: our .yml compositions are YAML-JSON subset; fail closed if not parseable as JSON.
+      const normalized = raw.charCodeAt(0) === 0xfeff ? raw.slice(1) : raw;
+      return JSON.parse(normalized) as T;
+    })
+    .catch((error) => {
+      jsonCache.delete(relPath);
+      throw error;
+    });
+
+  jsonCache.set(relPath, promise);
+  return promise;
 }
 
 export async function loadHomeComposition(): Promise<HomeComposition> {

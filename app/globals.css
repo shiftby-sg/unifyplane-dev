@@ -16,6 +16,7 @@
 
   /* Back-compat aliases used across the current codebase. */
   --color-fg: var(--color-text);
+  --color-fg-strong: #0c0a09;
   --color-muted: var(--color-text-muted);
 
   /* Readiness semantics */

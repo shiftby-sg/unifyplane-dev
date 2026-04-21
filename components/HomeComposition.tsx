@@ -1,33 +1,109 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import styles from "./HomeComposition.module.css";
 import type { HomeComposition } from "../lib/content/compositions";
 
-function TrustBox({
-  label,
-  variant,
-  children,
-}: {
-  label: string;
-  variant?: "readiness" | "evidence";
-  children: React.ReactNode;
-}) {
-  const variantClass =
-    variant === "readiness"
-      ? styles.trustBoxReadiness
-      : variant === "evidence"
-        ? styles.trustBoxEvidence
-        : "";
-  return (
-    <section className={`${styles.trustBox} ${variantClass}`} aria-label={label}>
-      <div className={styles.trustLabel}>{label}</div>
-      <div className={styles.trustBody}>{children}</div>
-    </section>
-  );
-}
+const READINESS_ROWS = [
+  {
+    href: "/current-readiness#proven-now",
+    title: "Proven now",
+    sentence: "Already working with real execution and supporting evidence.",
+    meta: ["Intent-to-runtime continuity", "bounded execution", "drift visibility", "proof"].join(" \u00b7 "),
+    accentClass: styles.readinessRowProven,
+    emphasisClass: styles.readinessRowStrong,
+  },
+  {
+    href: "/current-readiness#implemented-but-immature",
+    title: "Implemented but immature",
+    sentence: "Real capabilities, but still uneven in depth and coverage.",
+    meta: ["Emerging authorities", "broader drift handling", "early change assessment"].join(" \u00b7 "),
+    accentClass: styles.readinessRowImmature,
+    emphasisClass: styles.readinessRowMedium,
+  },
+  {
+    href: "/current-readiness#future-but-grounded",
+    title: "Future but grounded",
+    sentence: "Valid direction, but not yet current capability.",
+    meta: ["Lifecycle assessment", "impact visibility", "assurance development"].join(" \u00b7 "),
+    accentClass: styles.readinessRowFuture,
+    emphasisClass: styles.readinessRowSoft,
+  },
+] as const;
+
+const COMPONENT_LINKS = [
+  {
+    href: "/components/unifyplane-core",
+    title: "UnifyPlane Core",
+    meta: "Coordinates system-wide execution and evidence.",
+    accentClass: styles.componentTileCore,
+  },
+  {
+    href: "/components/agent-runtime",
+    title: "Agent Runtime",
+    meta: "Executes agents within controlled runtime boundaries, keeping behavior observable.",
+    accentClass: styles.componentTileAgent,
+  },
+  {
+    href: "/components/inspect-repo",
+    title: "Inspect Repo",
+    meta: "Inspects code and configuration to detect where behavior diverges from intent.",
+    accentClass: styles.componentTileInspect,
+  },
+] as const;
+
+const FOUNDATION_LINKS = [
+  {
+    href: "/foundations/continuity",
+    title: "Intent",
+    meta: "",
+    more: "What was intended",
+    accentClass: styles.foundationNodeContinuity,
+    areaClass: styles.foundationAnchor,
+  },
+  {
+    href: "/foundations/proof",
+    title: "Proof",
+    meta: "What can be proven",
+    more: "Backed by evidence",
+    accentClass: styles.foundationNodeProof,
+    areaClass: styles.foundationSupportNode,
+  },
+  {
+    href: "/foundations/drift",
+    title: "Drift",
+    meta: "Divergence from intent",
+    more: "Where behavior diverges from intent",
+    accentClass: styles.foundationNodeDrift,
+    areaClass: styles.foundationChainNode,
+  },
+  {
+    href: "/foundations/evidence",
+    title: "Evidence",
+    meta: "What happened",
+    more: "What actually happened",
+    accentClass: styles.foundationNodeEvidence,
+    areaClass: styles.foundationSupportNode,
+  },
+  {
+    href: "/foundations/change",
+    title: "Change",
+    meta: "Introduced into the system",
+    more: "A change is introduced",
+    accentClass: styles.foundationNodeChange,
+    areaClass: styles.foundationChainNode,
+  },
+  {
+    href: "/foundations/impact",
+    title: "Impact",
+    meta: "Downstream effect",
+    more: "What it causes next",
+    accentClass: styles.foundationNodeImpact,
+    areaClass: styles.foundationChainNode,
+  },
+] as const;
 
 export function HomeCompositionView({ composition }: { composition: HomeComposition }) {
   const hero = composition.sections.find((s) => s.kind === "hero");
-  const links = composition.sections.find((s) => s.kind === "links");
+  const recognition = composition.sections.find((s) => s.kind === "recognition");
   const summaries = new Map(
     composition.sections
       .filter((s) => s.kind === "summary")
@@ -35,145 +111,312 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
   );
 
   const what = summaries.get("what");
-  const why = summaries.get("why");
-  const readiness = summaries.get("readiness");
   const evidence = summaries.get("evidence");
   const components = summaries.get("components");
   const foundations = summaries.get("foundations");
+  const evidenceSummary = evidence && "description" in evidence ? evidence : null;
+  const foundationsSummary = foundations && "description" in foundations ? foundations : null;
 
   return (
     <>
       {hero && hero.kind === "hero" ? (
         <section className={styles.heroBand} data-home-band="hero">
-          <div className={styles.hero}>
-            <h1 className={styles.headline}>{hero.headline}</h1>
-            <p className={styles.subhead}>{hero.subhead}</p>
-            <div className={styles.ctaRow}>
-              <Link className={styles.ctaPrimary} href={hero.primaryCta.href}>
-                {hero.primaryCta.label}
-              </Link>
-              {hero.secondaryCta ? (
-                <Link className={styles.ctaSecondary} href={hero.secondaryCta.href}>
-                  {hero.secondaryCta.label}
+          <div className={styles.bandInner}>
+            <div className={styles.hero}>
+              <h1 className={styles.headline}>{hero.headline}</h1>
+              <h2 className={styles.coreSignal}>{hero.coreSignal}</h2>
+              <p className={styles.identity}>{hero.identity}</p>
+              <div className={styles.ctaRow}>
+                <Link className={styles.ctaPrimary} href={hero.primaryCta.href}>
+                  {hero.primaryCta.label}
                 </Link>
-              ) : null}
+                {hero.secondaryCta ? (
+                  <Link className={styles.ctaSecondary} href={hero.secondaryCta.href}>
+                    {hero.secondaryCta.label}
+                  </Link>
+                ) : null}
+              </div>
             </div>
           </div>
         </section>
       ) : null}
 
-      <section className={styles.contextBand} data-home-band="context" aria-label="Context">
-        <div className={styles.contextGrid}>
-          {why && why.kind === "summary" ? (
-            <section className={styles.section} aria-label="Why it matters in practice">
-              <h2 className={styles.sectionTitle}>Why this matters in practice</h2>
-              <Link href={why.href} className={styles.card}>
-                <h3 className={styles.cardTitle}>{why.title}</h3>
-                <p className={styles.cardDesc}>{why.description}</p>
-              </Link>
-            </section>
-          ) : null}
-
-          {what && what.kind === "summary" ? (
-            <section className={styles.section} aria-label="What UnifyPlane is">
-              <h2 className={styles.sectionTitle}>What UnifyPlane is</h2>
-              <Link href={what.href} className={styles.card}>
-                <h3 className={styles.cardTitle}>{what.title}</h3>
-                <p className={styles.cardDesc}>{what.description}</p>
-              </Link>
-            </section>
-          ) : null}
-        </div>
-      </section>
-
-      <section className={styles.trustBand} data-home-band="trust" aria-label="Trust anchors">
-        <div className={styles.trustGrid}>
-          {readiness && readiness.kind === "summary" ? (
-            <section className={styles.trustPanel} aria-label="Current readiness">
-              <h2 className={styles.sectionTitle}>Current Readiness</h2>
-              <Link href={readiness.href} className={`${styles.card} ${styles.cardEmphasis}`}>
-                <h3 className={styles.cardTitle}>{readiness.title}</h3>
-                <p className={styles.cardDesc}>{readiness.description}</p>
-              </Link>
-              <TrustBox label="Readiness boundary" variant="readiness">
-                <div className={styles.rail} aria-label="Readiness buckets">
-                  <div className={`${styles.railItem} ${styles.railProven}`}>Proven now</div>
-                  <div className={`${styles.railItem} ${styles.railImmature}`}>
-                    Implemented but immature
+      {recognition && recognition.kind === "recognition" ? (
+        <section
+          className={styles.recognitionBand}
+          data-home-band="recognition"
+          aria-label="Why this matters in practice"
+        >
+          <div className={styles.bandInner}>
+            <div className={styles.recognitionContent}>
+              <h2 className={styles.bandTitle}>{recognition.title}</h2>
+              <div className={styles.recognitionBlocks}>
+                {recognition.groups.map((group, i) => (
+                  <div
+                    key={i}
+                    className={`${styles.recognitionGroup} ${
+                      i === 2 ? styles.recognitionGroupCompact : ""
+                    }`}
+                  >
+                    <p className={styles.recognitionLead}>{group.lead}</p>
+                    {group.body ? (
+                      <p className={styles.recognitionBody}>
+                        {group.body.split("\n").map((line, idx, arr) => (
+                          <span key={`${idx}-${line}`}>
+                            {line}
+                            {idx < arr.length - 1 ? <br /> : null}
+                          </span>
+                        ))}
+                      </p>
+                    ) : null}
+                    {group.list?.length ? (
+                      <ul className={styles.recognitionList}>
+                        {group.list.map((item) => (
+                          <li className={styles.recognitionListItem} key={item}>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
                   </div>
-                  <div className={`${styles.railItem} ${styles.railFuture}`}>Future but grounded</div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {what && what.kind === "summary" && "blocks" in what ? (
+        <section className={styles.definitionBand} data-home-band="definition" aria-label="What is UnifyPlane">
+          <div className={styles.bandInner}>
+            <div className={styles.definitionContent}>
+              <div className={styles.definitionCopy}>
+                <h2 className={styles.bandTitle}>{what.title}</h2>
+                <div className={styles.definitionBlocks}>
+                  {what.blocks.map((block, i) => (
+                    <div key={i}>
+                      <p className={styles.definitionBlock}>
+                        {block.split("\n").map((line, idx, arr) => (
+                          <span key={`${idx}-${line}`}>
+                            {line}
+                            {idx < arr.length - 1 ? <br /> : null}
+                          </span>
+                        ))}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-                <p className={styles.trustLine}>
-                  Readiness is separated into what is proven now, what is implemented but immature,
-                  and what remains future but grounded.
-                </p>
-                <p className={styles.routeLine}>
-                  Use this page as the truth boundary for interpreting claims elsewhere.
-                </p>
-              </TrustBox>
-            </section>
-          ) : null}
+              </div>
+              <div className={styles.continuityModel} aria-label="Continuity model">
+                <div className={styles.modelNode}>
+                  <span className={styles.modelLabel}>Intended</span>
+                  <span className={styles.modelDetail}>planned change</span>
+                </div>
+                <div className={styles.modelConnector} aria-hidden="true">{"\u2192"}</div>
+                <div className={styles.modelNode}>
+                  <span className={styles.modelLabel}>Built</span>
+                  <span className={styles.modelDetail}>implemented reality</span>
+                </div>
+                <div className={styles.modelConnector} aria-hidden="true">{"\u2192"}</div>
+                <div className={styles.modelNode}>
+                  <span className={styles.modelLabel}>Running</span>
+                  <span className={styles.modelDetail}>production behavior</span>
+                </div>
+              </div>
+              <p className={styles.modelEvidence}>Evidence keeps the connection visible.</p>
+              <div className={styles.definitionFooter}>
+                <Link className={styles.cardLink} href={what.href}>
+                  Read definition
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
-          {evidence && evidence.kind === "summary" ? (
-            <section className={styles.trustPanel} aria-label="Evidence">
-              <h2 className={styles.sectionTitle}>Evidence</h2>
-              <Link href={evidence.href} className={`${styles.card} ${styles.cardEmphasis}`}>
-                <h3 className={styles.cardTitle}>{evidence.title}</h3>
-                <p className={styles.cardDesc}>{evidence.description}</p>
-              </Link>
-              <TrustBox label="Evidence scope" variant="evidence">
-                <p className={styles.trustLine}>
-                  Artifacts and runs (proof + drift surfaces) support current claims within explicit
-                  boundaries.
-                </p>
-                <p className={styles.trustLine}>
-                  Use evidence to assess whether control and security assumptions still hold; it does
-                  not equal full maturity.
-                </p>
-              </TrustBox>
-            </section>
-          ) : null}
-        </div>
-      </section>
-
-      <section className={styles.routeBand} data-home-band="routes" aria-label="Onward routes">
-        <div className={styles.pair}>
-          {components && components.kind === "summary" ? (
-            <section className={styles.section} aria-label="Components">
-              <h2 className={styles.sectionTitle}>Operational parts</h2>
-              <Link href={components.href} className={styles.card}>
-                <h3 className={styles.cardTitle}>{components.title}</h3>
-                <p className={styles.cardDesc}>{components.description}</p>
-              </Link>
-            </section>
-          ) : null}
-
-          {foundations && foundations.kind === "summary" ? (
-            <section className={styles.section} aria-label="Foundations">
-              <h2 className={styles.sectionTitle}>Deeper foundations</h2>
-              <Link href={foundations.href} className={styles.card}>
-                <h3 className={styles.cardTitle}>{foundations.title}</h3>
-                <p className={styles.cardDesc}>{foundations.description}</p>
-              </Link>
-            </section>
-          ) : null}
-        </div>
-      </section>
-
-      {links && links.kind === "links" ? (
-        <section className={styles.exploreBand} data-home-band="explore">
-          <section className={styles.links}>
-            <h2>{links.title}</h2>
-            <ul className={styles.linksList}>
-              {links.links.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href}>{l.label}</Link>
-                </li>
+      <section
+        className={styles.readinessBand}
+        data-home-band="readiness"
+        aria-label="Current readiness"
+      >
+        <div className={styles.bandInner}>
+          <div className={styles.readinessContent}>
+            <h2 className={styles.bandTitle}>Current readiness</h2>
+            <p className={styles.bandIntro}>What can be claimed today is bounded by current maturity.</p>
+            <div className={styles.readinessList} aria-label="Readiness buckets">
+              {READINESS_ROWS.map((row) => (
+                <Link
+                  key={row.href}
+                  href={row.href}
+                  className={`${styles.readinessRow} ${row.accentClass} ${row.emphasisClass}`}
+                >
+                  <span className={styles.readinessRowText}>
+                    <span className={styles.readinessRowTitle}>{row.title}</span>
+                    <span className={styles.readinessRowSentence}>{row.sentence}</span>
+                    <span className={styles.readinessRowMeta}>{row.meta}</span>
+                  </span>
+                  <span className={styles.readinessRowArrow} aria-hidden="true">
+                    {"\u2192"}
+                  </span>
+                </Link>
               ))}
-            </ul>
-          </section>
+            </div>
+            <Link className={`${styles.cardLink} ${styles.readinessFooterLink}`} href="/current-readiness">
+              See full readiness boundary
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {evidenceSummary ? (
+        <section className={styles.evidenceBand} data-home-band="evidence" aria-label="Evidence">
+          <div className={styles.bandInner}>
+            <div className={styles.evidenceContent}>
+              <h2 className={styles.bandTitle}>{evidenceSummary.title}</h2>
+              <p className={styles.bandIntro}>{evidenceSummary.description}</p>
+              <p className={styles.evidenceSignal} aria-label="Evidence signals">
+                {["Artifacts", "Execution runs", "Proof surfaces", "Drift visibility"].join(" \u00b7 ")}
+              </p>
+              <Link className={styles.cardLink} href={evidenceSummary.href}>
+                Review the evidence
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      <section className={styles.routeBand} data-home-band="components" aria-label="Components">
+        <div className={styles.bandInner}>
+          <div className={styles.routeStack}>
+            <section className={styles.routeSection} aria-label="Components">
+              {components && components.kind === "summary" ? (
+                <article className={styles.signalPanel}>
+                  <h3 className={styles.sectionTitle}>{components.title}</h3>
+                  <p className={styles.signalText}>These components drive execution and make change, drift, and evidence directly observable before the model below explains how that behavior unfolds.</p>
+                  <div className={styles.componentGrid} aria-label="Operational components">
+                    {COMPONENT_LINKS.map((component) => (
+                      <Link
+                        key={component.href}
+                        href={component.href}
+                        className={`${styles.componentTile} ${component.accentClass}`}
+                      >
+                        <span className={styles.componentTileTitle}>{component.title}</span>
+                        <span className={styles.componentTileMeta}>{component.meta}</span>
+                      </Link>
+                    ))}
+                  </div>
+                  <Link className={styles.cardLink} href={components.href}>
+                    Explore components
+                  </Link>
+                </article>
+              ) : null}
+            </section>
+          </div>
+        </div>
+      </section>
+
+      {foundationsSummary ? (
+        <section className={styles.foundationsBand} data-home-band="foundations" aria-label="Foundations">
+          <div className={styles.bandInner}>
+            <section className={styles.routeSection} aria-label="Foundations">
+              <h3 className={styles.sectionTitle}>{foundationsSummary.title}</h3>
+              <p className={styles.signalText}>{foundationsSummary.description}</p>
+              <div className={styles.foundationMap} aria-label="Foundation topics">
+                <div className={styles.foundationFrame}>
+                  <div className={`${styles.foundationBand} ${styles.foundationContextBand}`} aria-label="Context">
+                      <Link
+                        href={FOUNDATION_LINKS[0].href}
+                        className={`${styles.foundationNode} ${FOUNDATION_LINKS[0].accentClass} ${FOUNDATION_LINKS[0].areaClass}`}
+                      >
+                        <span className={styles.foundationContextLine}>
+                        <strong>{FOUNDATION_LINKS[0].title}</strong>
+                        {FOUNDATION_LINKS[0].meta ? <span> - {FOUNDATION_LINKS[0].meta}</span> : null}
+                      </span>
+                      <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[0].more}</span>
+                    </Link>
+                  </div>
+
+                  <span
+                    className={`${styles.foundationBandConnector} ${styles.foundationContextConnector}`}
+                    aria-hidden="true"
+                  />
+
+                  <div className={styles.foundationBand} aria-label="Process">
+                    <div className={styles.foundationChainRow} aria-label="Primary foundation chain">
+                      <Link
+                        href={FOUNDATION_LINKS[4].href}
+                        className={`${styles.foundationNode} ${FOUNDATION_LINKS[4].accentClass} ${FOUNDATION_LINKS[4].areaClass}`}
+                      >
+                        <span className={styles.foundationNodeTitle}>{FOUNDATION_LINKS[4].title}</span>
+                        <span className={styles.foundationNodeMeta}>{FOUNDATION_LINKS[4].meta}</span>
+                        <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[4].more}</span>
+                      </Link>
+                      <span className={styles.foundationNodeArrow} aria-hidden="true">
+                        {"\u2192"}
+                      </span>
+                      <Link
+                        href={FOUNDATION_LINKS[2].href}
+                        className={`${styles.foundationNode} ${FOUNDATION_LINKS[2].accentClass} ${FOUNDATION_LINKS[2].areaClass}`}
+                      >
+                        <span className={styles.foundationNodeTitle}>{FOUNDATION_LINKS[2].title}</span>
+                        <span className={styles.foundationNodeMeta}>{FOUNDATION_LINKS[2].meta}</span>
+                        <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[2].more}</span>
+                      </Link>
+                      <span className={styles.foundationNodeArrow} aria-hidden="true">
+                        {"\u2192"}
+                      </span>
+                      <Link
+                        href={FOUNDATION_LINKS[5].href}
+                        className={`${styles.foundationNode} ${FOUNDATION_LINKS[5].accentClass} ${FOUNDATION_LINKS[5].areaClass}`}
+                      >
+                        <span className={styles.foundationNodeTitle}>{FOUNDATION_LINKS[5].title}</span>
+                        <span className={styles.foundationNodeMeta}>{FOUNDATION_LINKS[5].meta}</span>
+                        <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[5].more}</span>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <span
+                    className={`${styles.foundationBandConnector} ${styles.foundationValidationConnector}`}
+                    aria-hidden="true"
+                  />
+
+                  <div className={styles.foundationBand} aria-label="Validation">
+                    <div className={styles.foundationSupportRow} aria-label="Supporting foundations">
+                      <span className={styles.foundationSupportSpacer} aria-hidden="true" />
+                      <Link
+                        href={FOUNDATION_LINKS[3].href}
+                        className={`${styles.foundationNode} ${styles.foundationSupportNode} ${FOUNDATION_LINKS[3].accentClass} ${FOUNDATION_LINKS[3].areaClass}`}
+                      >
+                        <span className={styles.foundationNodeTitle}>{FOUNDATION_LINKS[3].title}</span>
+                        <span className={styles.foundationNodeMeta}>{FOUNDATION_LINKS[3].meta}</span>
+                        <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[3].more}</span>
+                      </Link>
+                      <span className={styles.foundationNodeArrow} aria-hidden="true">
+                        {"\u2192"}
+                      </span>
+                      <Link
+                        href={FOUNDATION_LINKS[1].href}
+                        className={`${styles.foundationNode} ${styles.foundationSupportNode} ${styles.foundationNodeProof} ${FOUNDATION_LINKS[1].areaClass}`}
+                      >
+                        <span className={styles.foundationNodeTitle}>{FOUNDATION_LINKS[1].title}</span>
+                        <span className={styles.foundationNodeMeta}>{FOUNDATION_LINKS[1].meta}</span>
+                        <span className={styles.foundationNodeMore}>{FOUNDATION_LINKS[1].more}</span>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <Link className={styles.cardLink} href={foundationsSummary.href}>
+                See the full model
+              </Link>
+            </section>
+          </div>
         </section>
       ) : null}
     </>
   );
 }
+
+
+
