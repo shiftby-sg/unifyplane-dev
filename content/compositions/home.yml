@@ -1,4 +1,4 @@
-{
+﻿{
   "version": "1",
   "sections": [
     {
@@ -6,7 +6,7 @@
       "kind": "hero",
       "headline": "The problem is not new. AI amplifies it.",
       "coreSignal": "Change creates drift.\nDrift creates impact.\nImpact stays hidden.",
-      "identity": "UnifyPlane makes change and impact visible.\nUnderstand what actually happened\u2014and why.",
+      "identity": "Keep change, behavior, and impact connected over time.\nUnderstand what actually happened\u2014and why.",
       "primaryCta": { "label": "Understand the approach", "href": "/what-is-unifyplane" },
       "secondaryCta": { "label": "See why it matters", "href": "/why-it-matters" }
     },
@@ -33,7 +33,7 @@
         },
         {
           "lead": "The problem is not just change.",
-          "body": "The connection breaks down.\nIntended, built, running."
+          "body": "The connection between intended, built, and running systems breaks down."
         }
       ]
     },
@@ -42,10 +42,8 @@
       "kind": "summary",
       "title": "What is UnifyPlane",
       "blocks": [
-        "UnifyPlane is an evidence-oriented approach for keeping change manageable and runtime behavior explainable over time.",
-        "It helps keep a clear connection between\nwhat was intended,\nwhat was built,\nand how systems actually behave in production.",
-        "UnifyPlane keeps that connection visible as systems change.",
-        "It is a bounded execution, evidence, and drift-reduction approach\u2014not a packaged software product."
+        "UnifyPlane is an evidence-oriented approach for keeping change and runtime behavior connected over time.",
+        "It keeps the connection between intended, built, and running systems visible."
       ],
       "href": "/what-is-unifyplane"
     },
@@ -59,29 +57,29 @@
     {
       "id": "readiness",
       "kind": "summary",
-      "title": "Current Readiness",
-      "description": "What is proven now, what is implemented but immature, and what is future but grounded.",
+      "title": "Current readiness",
+      "description": "What is real now, what is emerging, and what is future but grounded.",
       "href": "/current-readiness"
     },
     {
       "id": "evidence",
       "kind": "summary",
       "title": "Evidence",
-      "description": "What evidence exists today, what it proves, and what it does not yet prove.",
+      "description": "Artifacts and execution runs show what supports the current readiness claims.",
       "href": "/evidence"
     },
     {
       "id": "components",
       "kind": "summary",
       "title": "Components",
-      "description": "The components that run the system, enforce execution boundaries, and make evidence visible.",
+      "description": "The components that produce and expose evidence.",
       "href": "/components"
     },
     {
       "id": "foundations",
       "kind": "summary",
-      "title": "How change moves through execution",
-      "description": "This model shows how change moves through the system, where it diverges, and how outcomes become visible.",
+      "title": "How change unfolds through execution",
+      "description": "This model shows how change, drift, and evidence unfold over time.",
       "href": "/foundations"
     },
     {
@@ -98,3 +96,4 @@
     }
   ]
 }
+

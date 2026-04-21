@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import styles from "./HomeComposition.module.css";
 import type { HomeComposition } from "../lib/content/compositions";
 
@@ -24,6 +24,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
   );
 
   const what = summaries.get("what");
+  const evidence = summaries.get("evidence");
   const components = summaries.get("components");
   const foundations = summaries.get("foundations");
   const readinessRows = [
@@ -31,7 +32,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
       href: "/current-readiness#proven-now",
       title: "Proven now",
       sentence: "Already working with real execution and supporting evidence.",
-      meta: "Intent-to-runtime continuity · bounded execution · drift visibility · proof",
+      meta: ["Intent-to-runtime continuity", "bounded execution", "drift visibility", "proof"].join(" \u00b7 "),
       accentClass: styles.readinessRowProven,
       emphasisClass: styles.readinessRowStrong,
     },
@@ -39,7 +40,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
       href: "/current-readiness#implemented-but-immature",
       title: "Implemented but immature",
       sentence: "Real capabilities, but still uneven in depth and coverage.",
-      meta: "Emerging authorities · broader drift handling · early change assessment",
+      meta: ["Emerging authorities", "broader drift handling", "early change assessment"].join(" \u00b7 "),
       accentClass: styles.readinessRowImmature,
       emphasisClass: styles.readinessRowMedium,
     },
@@ -47,7 +48,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
       href: "/current-readiness#future-but-grounded",
       title: "Future but grounded",
       sentence: "Valid direction, but not yet current capability.",
-      meta: "Lifecycle assessment · impact visibility · assurance development",
+      meta: ["Lifecycle assessment", "impact visibility", "assurance development"].join(" \u00b7 "),
       accentClass: styles.readinessRowFuture,
       emphasisClass: styles.readinessRowSoft,
     },
@@ -56,19 +57,19 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
     {
       href: "/components/unifyplane-core",
       title: "UnifyPlane Core",
-      meta: "Coordinates system-wide execution, evidence, control, and closure across the system.",
+      meta: "Coordinates system-wide execution and evidence.",
       accentClass: styles.componentTileCore,
     },
     {
       href: "/components/agent-runtime",
       title: "Agent Runtime",
-      meta: "Runs within runtime boundaries, keeping behavior observable.",
+      meta: "Executes agents within controlled runtime boundaries, keeping behavior observable.",
       accentClass: styles.componentTileAgent,
     },
     {
       href: "/components/inspect-repo",
       title: "Inspect Repo",
-      meta: "Inspects code and config to detect drift, intent gaps, and behavior changes.",
+      meta: "Inspects code and configuration to detect where behavior diverges from intent.",
       accentClass: styles.componentTileInspect,
     },
   ];
@@ -92,8 +93,8 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
     {
       href: "/foundations/drift",
       title: "Drift",
-      meta: "Behavior diverges",
-      more: "Where intended and actual behavior diverge",
+      meta: "Divergence from intent",
+      more: "Where behavior diverges from intent",
       accentClass: styles.foundationNodeDrift,
       areaClass: styles.foundationChainNode,
     },
@@ -203,12 +204,12 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                   <span className={styles.modelLabel}>Intended</span>
                   <span className={styles.modelDetail}>planned change</span>
                 </div>
-                <div className={styles.modelConnector} aria-hidden="true">→</div>
+                <div className={styles.modelConnector} aria-hidden="true">{"\u2192"}</div>
                 <div className={styles.modelNode}>
                   <span className={styles.modelLabel}>Built</span>
                   <span className={styles.modelDetail}>implemented reality</span>
                 </div>
-                <div className={styles.modelConnector} aria-hidden="true">→</div>
+                <div className={styles.modelConnector} aria-hidden="true">{"\u2192"}</div>
                 <div className={styles.modelNode}>
                   <span className={styles.modelLabel}>Running</span>
                   <span className={styles.modelDetail}>production behavior</span>
@@ -224,7 +225,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
         <div className={styles.bandInner}>
           <div className={styles.readinessContent}>
             <h2 className={styles.bandTitle}>Current readiness</h2>
-            <p className={styles.bandIntro}>What can be claimed now depends on maturity — choose a level to explore.</p>
+            <p className={styles.bandIntro}>What can be claimed today is bounded by current maturity.</p>
             <div className={styles.readinessList} aria-label="Readiness buckets">
               {readinessRows.map((row) => (
                 <Link
@@ -238,7 +239,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                     <span className={styles.readinessRowMeta}>{row.meta}</span>
                   </span>
                   <span className={styles.readinessRowArrow} aria-hidden="true">
-                    →
+                    {"\u2192"}
                   </span>
                 </Link>
               ))}
@@ -250,17 +251,31 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
         </div>
       </section>
 
+      {evidence && evidence.kind === "summary" ? (
+        <section className={styles.evidenceBand} data-home-band="evidence" aria-label="Evidence">
+          <div className={styles.bandInner}>
+            <div className={styles.evidenceContent}>
+              <h2 className={styles.bandTitle}>{evidence.title}</h2>
+              <p className={styles.bandIntro}>{evidence.description}</p>
+              <p className={styles.evidenceSignal} aria-label="Evidence signals">
+                {["Artifacts", "Execution runs", "Proof surfaces", "Drift visibility"].join(" \u00b7 ")}
+              </p>
+              <Link className={styles.cardLink} href={evidence.href}>
+                Review the evidence
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <section className={styles.routeBand} data-home-band="routes" aria-label="Onward routes">
         <div className={styles.bandInner}>
           <div className={styles.routeStack}>
             <section className={styles.routeSection} aria-label="Components">
-              <p className={styles.bandIntro}>
-                From proof to execution - where evidence is produced.
-              </p>
               {components && components.kind === "summary" ? (
                 <article className={styles.signalPanel}>
-                  <h3 className={styles.sectionTitle}>Components</h3>
-                  <p className={styles.signalText}>The components that run the system, enforce execution boundaries, and make evidence visible.</p>
+                  <h3 className={styles.sectionTitle}>{components.title}</h3>
+                  <p className={styles.signalText}>These components drive execution and make change, drift, and evidence directly observable.</p>
                   <div className={styles.componentGrid} aria-label="Operational components">
                     {componentLinks.map((component) => (
                       <Link
@@ -281,10 +296,10 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
             </section>
 
             {foundations && foundations.kind === "summary" ? (
-              <section className={styles.routeSection} aria-label="Foundations">
-                <p className={styles.bandIntro}>These components make change, drift, and evidence visible in the model below.</p>
-                <h3 className={styles.sectionTitle}>How change moves through execution</h3>
-                <p className={styles.signalText}>This model shows how change moves through the system, where it diverges, and how outcomes become visible.</p>
+            <section className={styles.routeSection} aria-label="Foundations">
+                <p className={styles.bandIntro}>The model below explains how that behavior unfolds over time.</p>
+                <h3 className={styles.sectionTitle}>{foundations.title}</h3>
+                <p className={styles.signalText}>{foundations.description}</p>
                 <div className={styles.foundationMap} aria-label="Foundation topics">
                   <div className={styles.foundationFrame}>
                     <div className={`${styles.foundationBand} ${styles.foundationContextBand}`} aria-label="Context">
@@ -316,7 +331,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                           <span className={styles.foundationNodeMore}>{foundationLinks[4].more}</span>
                         </Link>
                         <span className={styles.foundationNodeArrow} aria-hidden="true">
-                          {"→"}
+                          {"\u2192"}
                         </span>
                         <Link
                           href={foundationLinks[2].href}
@@ -327,7 +342,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                           <span className={styles.foundationNodeMore}>{foundationLinks[2].more}</span>
                         </Link>
                         <span className={styles.foundationNodeArrow} aria-hidden="true">
-                          {"→"}
+                          {"\u2192"}
                         </span>
                         <Link
                           href={foundationLinks[5].href}
@@ -357,7 +372,7 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                           <span className={styles.foundationNodeMore}>{foundationLinks[3].more}</span>
                         </Link>
                         <span className={styles.foundationNodeArrow} aria-hidden="true">
-                          {"→"}
+                          {"\u2192"}
                         </span>
                         <Link
                           href={foundationLinks[1].href}
@@ -382,5 +397,6 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
     </>
   );
 }
+
 
 

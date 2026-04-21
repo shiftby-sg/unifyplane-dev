@@ -171,12 +171,15 @@
 
 .definitionCopy {
   max-width: 40rem;
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
 }
 
 .definitionBlocks {
   display: grid;
   gap: 12px;
-  margin-bottom: var(--space-8);
+  margin-bottom: 0;
 }
 
 .definitionBlock {
@@ -190,6 +193,8 @@
   gap: var(--space-2);
   border-top: 1px solid var(--color-border);
   padding-top: var(--space-3);
+  max-width: 21rem;
+  justify-self: center;
 }
 
 .modelNode {
@@ -217,6 +222,7 @@
   margin: var(--space-2) 0 0;
   color: var(--color-fg);
   font-weight: 600;
+  text-align: center;
 }
 
 .bandTitle {
@@ -386,6 +392,27 @@
 
 .readinessFooterLink {
   margin-top: var(--space-4);
+}
+
+.evidenceBand {
+  margin: 0 0 var(--space-8);
+  padding: var(--space-2) 0 var(--space-6);
+}
+
+.evidenceContent {
+  display: grid;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 60rem;
+}
+
+.evidenceSignal {
+  margin: 0;
+  color: var(--color-fg);
+  font-size: 0.98rem;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  opacity: 0.85;
 }
 
 @media (max-width: 639px) {
@@ -613,7 +640,7 @@
 
 /* actual arrow glyph inside gap */
 .foundationNodeArrow::after {
-  content: "→";
+  content: "\2192";
   position: static;
   width: auto;
   height: auto;
@@ -1034,7 +1061,8 @@
     gap: var(--space-10);
   }
   .continuityModel {
-    margin-top: 2.25rem;
+    margin-top: 0;
+    width: 100%;
   }
   .proofGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1159,7 +1187,7 @@
   }
 
   .foundationNodeArrow::after {
-    content: "→";
+    content: "\2192";
     font-size: var(--foundation-arrow-size);
     line-height: 1;
   }

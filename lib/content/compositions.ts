@@ -90,7 +90,7 @@ const HomeDefinitionSummarySectionSchema = z.object({
   id: z.literal("what"),
   kind: z.literal("summary"),
   title: z.string().min(1),
-  blocks: z.array(z.string().min(1)).length(4),
+  blocks: z.array(z.string().min(1)).min(2).max(4),
   href: z.string().min(1).startsWith("/")
 });
 
@@ -194,7 +194,8 @@ async function loadJsonYaml<T>(relPath: string): Promise<T> {
   const abs = path.join(process.cwd(), relPath);
   const raw = await fs.readFile(abs, "utf8");
   // Policy: our .yml compositions are YAML-JSON subset; fail closed if not parseable as JSON.
-  return JSON.parse(raw) as T;
+  const normalized = raw.charCodeAt(0) === 0xfeff ? raw.slice(1) : raw;
+  return JSON.parse(normalized) as T;
 }
 
 export async function loadHomeComposition(): Promise<HomeComposition> {
