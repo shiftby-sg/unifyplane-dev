@@ -195,9 +195,6 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                     <div key={i}>{renderBlock(block, styles.definitionBlock)}</div>
                   ))}
                 </div>
-                <Link className={styles.cardLink} href={what.href}>
-                  Read definition
-                </Link>
               </div>
               <div className={styles.continuityModel} aria-label="Continuity model">
                 <div className={styles.modelNode}>
@@ -216,12 +213,21 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                 </div>
               </div>
               <p className={styles.modelEvidence}>Evidence keeps the connection visible.</p>
+              <div className={styles.definitionFooter}>
+                <Link className={styles.cardLink} href={what.href}>
+                  Read definition
+                </Link>
+              </div>
             </div>
           </div>
         </section>
       ) : null}
 
-      <section className={styles.readinessBand} data-home-band="readiness" aria-label="Current readiness">
+      <section
+        className={styles.readinessBand}
+        data-home-band="readiness"
+        aria-label="Current readiness"
+      >
         <div className={styles.bandInner}>
           <div className={styles.readinessContent}>
             <h2 className={styles.bandTitle}>Current readiness</h2>
