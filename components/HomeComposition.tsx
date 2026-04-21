@@ -214,8 +214,8 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                   <span className={styles.modelLabel}>Running</span>
                   <span className={styles.modelDetail}>production behavior</span>
                 </div>
-                <p className={styles.modelEvidence}>Evidence keeps the connection visible.</p>
               </div>
+              <p className={styles.modelEvidence}>Evidence keeps the connection visible.</p>
             </div>
           </div>
         </section>
@@ -268,14 +268,14 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
         </section>
       ) : null}
 
-      <section className={styles.routeBand} data-home-band="routes" aria-label="Onward routes">
+      <section className={styles.routeBand} data-home-band="components" aria-label="Components">
         <div className={styles.bandInner}>
           <div className={styles.routeStack}>
             <section className={styles.routeSection} aria-label="Components">
               {components && components.kind === "summary" ? (
                 <article className={styles.signalPanel}>
                   <h3 className={styles.sectionTitle}>{components.title}</h3>
-                  <p className={styles.signalText}>These components drive execution and make change, drift, and evidence directly observable.</p>
+                  <p className={styles.signalText}>These components drive execution and make change, drift, and evidence directly observable before the model below explains how that behavior unfolds.</p>
                   <div className={styles.componentGrid} aria-label="Operational components">
                     {componentLinks.map((component) => (
                       <Link
@@ -294,106 +294,109 @@ export function HomeCompositionView({ composition }: { composition: HomeComposit
                 </article>
               ) : null}
             </section>
-
-            {foundations && foundations.kind === "summary" ? (
-            <section className={styles.routeSection} aria-label="Foundations">
-                <p className={styles.bandIntro}>The model below explains how that behavior unfolds over time.</p>
-                <h3 className={styles.sectionTitle}>{foundations.title}</h3>
-                <p className={styles.signalText}>{foundations.description}</p>
-                <div className={styles.foundationMap} aria-label="Foundation topics">
-                  <div className={styles.foundationFrame}>
-                    <div className={`${styles.foundationBand} ${styles.foundationContextBand}`} aria-label="Context">
-                      <Link
-                        href={foundationLinks[0].href}
-                        className={`${styles.foundationNode} ${foundationLinks[0].accentClass} ${foundationLinks[0].areaClass}`}
-                      >
-                        <span className={styles.foundationContextLine}>
-                          <strong>{foundationLinks[0].title}</strong>
-                          {foundationLinks[0].meta ? <span> - {foundationLinks[0].meta}</span> : null}
-                        </span>
-                        <span className={styles.foundationNodeMore}>{foundationLinks[0].more}</span>
-                      </Link>
-                    </div>
-
-                    <span
-                      className={`${styles.foundationBandConnector} ${styles.foundationContextConnector}`}
-                      aria-hidden="true"
-                    />
-
-                    <div className={styles.foundationBand} aria-label="Process">
-                      <div className={styles.foundationChainRow} aria-label="Primary foundation chain">
-                        <Link
-                          href={foundationLinks[4].href}
-                          className={`${styles.foundationNode} ${foundationLinks[4].accentClass} ${foundationLinks[4].areaClass}`}
-                        >
-                          <span className={styles.foundationNodeTitle}>{foundationLinks[4].title}</span>
-                          <span className={styles.foundationNodeMeta}>{foundationLinks[4].meta}</span>
-                          <span className={styles.foundationNodeMore}>{foundationLinks[4].more}</span>
-                        </Link>
-                        <span className={styles.foundationNodeArrow} aria-hidden="true">
-                          {"\u2192"}
-                        </span>
-                        <Link
-                          href={foundationLinks[2].href}
-                          className={`${styles.foundationNode} ${foundationLinks[2].accentClass} ${foundationLinks[2].areaClass}`}
-                        >
-                          <span className={styles.foundationNodeTitle}>{foundationLinks[2].title}</span>
-                          <span className={styles.foundationNodeMeta}>{foundationLinks[2].meta}</span>
-                          <span className={styles.foundationNodeMore}>{foundationLinks[2].more}</span>
-                        </Link>
-                        <span className={styles.foundationNodeArrow} aria-hidden="true">
-                          {"\u2192"}
-                        </span>
-                        <Link
-                          href={foundationLinks[5].href}
-                          className={`${styles.foundationNode} ${foundationLinks[5].accentClass} ${foundationLinks[5].areaClass}`}
-                        >
-                          <span className={styles.foundationNodeTitle}>{foundationLinks[5].title}</span>
-                          <span className={styles.foundationNodeMeta}>{foundationLinks[5].meta}</span>
-                          <span className={styles.foundationNodeMore}>{foundationLinks[5].more}</span>
-                        </Link>
-                      </div>
-                    </div>
-
-                    <span
-                      className={`${styles.foundationBandConnector} ${styles.foundationValidationConnector}`}
-                      aria-hidden="true"
-                    />
-
-                    <div className={styles.foundationBand} aria-label="Validation">
-                      <div className={styles.foundationSupportRow} aria-label="Supporting foundations">
-                        <span className={styles.foundationSupportSpacer} aria-hidden="true" />
-                        <Link
-                          href={foundationLinks[3].href}
-                          className={`${styles.foundationNode} ${styles.foundationSupportNode} ${foundationLinks[3].accentClass} ${foundationLinks[3].areaClass}`}
-                        >
-                          <span className={styles.foundationNodeTitle}>{foundationLinks[3].title}</span>
-                          <span className={styles.foundationNodeMeta}>{foundationLinks[3].meta}</span>
-                          <span className={styles.foundationNodeMore}>{foundationLinks[3].more}</span>
-                        </Link>
-                        <span className={styles.foundationNodeArrow} aria-hidden="true">
-                          {"\u2192"}
-                        </span>
-                        <Link
-                          href={foundationLinks[1].href}
-                          className={`${styles.foundationNode} ${styles.foundationSupportNode} ${styles.foundationNodeProof} ${foundationLinks[1].areaClass}`}
-                        >
-                          <span className={styles.foundationNodeTitle}>{foundationLinks[1].title}</span>
-                          <span className={styles.foundationNodeMeta}>{foundationLinks[1].meta}</span>
-                          <span className={styles.foundationNodeMore}>{foundationLinks[1].more}</span>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <Link className={styles.cardLink} href={foundations.href}>
-                  See the full model
-                </Link>
-              </section>
-            ) : null}
           </div>
         </div>
       </section>
+
+      {foundations && foundations.kind === "summary" ? (
+        <section className={styles.foundationsBand} data-home-band="foundations" aria-label="Foundations">
+          <div className={styles.bandInner}>
+            <section className={styles.routeSection} aria-label="Foundations">
+              <h3 className={styles.sectionTitle}>{foundations.title}</h3>
+              <p className={styles.signalText}>{foundations.description}</p>
+              <div className={styles.foundationMap} aria-label="Foundation topics">
+                <div className={styles.foundationFrame}>
+                  <div className={`${styles.foundationBand} ${styles.foundationContextBand}`} aria-label="Context">
+                    <Link
+                      href={foundationLinks[0].href}
+                      className={`${styles.foundationNode} ${foundationLinks[0].accentClass} ${foundationLinks[0].areaClass}`}
+                    >
+                      <span className={styles.foundationContextLine}>
+                        <strong>{foundationLinks[0].title}</strong>
+                        {foundationLinks[0].meta ? <span> - {foundationLinks[0].meta}</span> : null}
+                      </span>
+                      <span className={styles.foundationNodeMore}>{foundationLinks[0].more}</span>
+                    </Link>
+                  </div>
+
+                  <span
+                    className={`${styles.foundationBandConnector} ${styles.foundationContextConnector}`}
+                    aria-hidden="true"
+                  />
+
+                  <div className={styles.foundationBand} aria-label="Process">
+                    <div className={styles.foundationChainRow} aria-label="Primary foundation chain">
+                      <Link
+                        href={foundationLinks[4].href}
+                        className={`${styles.foundationNode} ${foundationLinks[4].accentClass} ${foundationLinks[4].areaClass}`}
+                      >
+                        <span className={styles.foundationNodeTitle}>{foundationLinks[4].title}</span>
+                        <span className={styles.foundationNodeMeta}>{foundationLinks[4].meta}</span>
+                        <span className={styles.foundationNodeMore}>{foundationLinks[4].more}</span>
+                      </Link>
+                      <span className={styles.foundationNodeArrow} aria-hidden="true">
+                        {"\u2192"}
+                      </span>
+                      <Link
+                        href={foundationLinks[2].href}
+                        className={`${styles.foundationNode} ${foundationLinks[2].accentClass} ${foundationLinks[2].areaClass}`}
+                      >
+                        <span className={styles.foundationNodeTitle}>{foundationLinks[2].title}</span>
+                        <span className={styles.foundationNodeMeta}>{foundationLinks[2].meta}</span>
+                        <span className={styles.foundationNodeMore}>{foundationLinks[2].more}</span>
+                      </Link>
+                      <span className={styles.foundationNodeArrow} aria-hidden="true">
+                        {"\u2192"}
+                      </span>
+                      <Link
+                        href={foundationLinks[5].href}
+                        className={`${styles.foundationNode} ${foundationLinks[5].accentClass} ${foundationLinks[5].areaClass}`}
+                      >
+                        <span className={styles.foundationNodeTitle}>{foundationLinks[5].title}</span>
+                        <span className={styles.foundationNodeMeta}>{foundationLinks[5].meta}</span>
+                        <span className={styles.foundationNodeMore}>{foundationLinks[5].more}</span>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <span
+                    className={`${styles.foundationBandConnector} ${styles.foundationValidationConnector}`}
+                    aria-hidden="true"
+                  />
+
+                  <div className={styles.foundationBand} aria-label="Validation">
+                    <div className={styles.foundationSupportRow} aria-label="Supporting foundations">
+                      <span className={styles.foundationSupportSpacer} aria-hidden="true" />
+                      <Link
+                        href={foundationLinks[3].href}
+                        className={`${styles.foundationNode} ${styles.foundationSupportNode} ${foundationLinks[3].accentClass} ${foundationLinks[3].areaClass}`}
+                      >
+                        <span className={styles.foundationNodeTitle}>{foundationLinks[3].title}</span>
+                        <span className={styles.foundationNodeMeta}>{foundationLinks[3].meta}</span>
+                        <span className={styles.foundationNodeMore}>{foundationLinks[3].more}</span>
+                      </Link>
+                      <span className={styles.foundationNodeArrow} aria-hidden="true">
+                        {"\u2192"}
+                      </span>
+                      <Link
+                        href={foundationLinks[1].href}
+                        className={`${styles.foundationNode} ${styles.foundationSupportNode} ${styles.foundationNodeProof} ${foundationLinks[1].areaClass}`}
+                      >
+                        <span className={styles.foundationNodeTitle}>{foundationLinks[1].title}</span>
+                        <span className={styles.foundationNodeMeta}>{foundationLinks[1].meta}</span>
+                        <span className={styles.foundationNodeMore}>{foundationLinks[1].more}</span>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <Link className={styles.cardLink} href={foundations.href}>
+                See the full model
+              </Link>
+            </section>
+          </div>
+        </section>
+      ) : null}
     </>
   );
 }
